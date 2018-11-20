@@ -70,3 +70,4 @@ source $(glocate zsh-syntax-highlighting.zsh)
 autoload -Uz run-help
 alias help=run-help
 
+alias ll=gls -la --color=auto
