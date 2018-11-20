@@ -34,6 +34,7 @@ eval $(thefuck --alias)
 ## User Editor
 EDITOR=/usr/bin/vim
 VISUAL=$EDITOR
+set -o vi
 
 # general
 alias dt='date "+%F %T"'
@@ -61,3 +62,6 @@ export -f genpass
 
 ## ledger
 #alias led='ledger --init-file ~/gdrive/Config/ledger/ledgerrc -f ~/gdrive/Config/ledger/main.journal'
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
