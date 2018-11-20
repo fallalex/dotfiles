@@ -32,19 +32,22 @@ fi
 eval $(thefuck --alias)
 
 ## User Editor
-export EDITOR=/usr/bin/vim
+EDITOR=/usr/bin/vim
+VISUAL=$EDITOR
 
 # general
 alias dt='date "+%F %T"'
 alias c='clear'
+alias cc="clear && printf '\e[3J'"
 alias ll='ls -FlAh'
+alias lf="ls -l | egrep -v '^d'"
+alias ldir="ls -l | egrep '^d'"
 alias ~="cd ~"
 alias cd..='cd ../'
 alias ..='cd ../'
 alias vi='vim'
 alias echopath='echo -e ${PATH//:/\\n}'
-alias cc="clear && printf '\e[3J'"
-alias ip='curl -s http://checkip.amazonaws.com'
+alias ip='check_ip.py'
 
 ## Mac specific
 alias showhide='x=$(defaults read com.apple.finder AppleShowAllFiles); x=$(((x+1)%2)); defaults write com.apple.finder AppleShowAllFiles ${x}; killall Finder /System/Library/CoreServices/Finder.app'
@@ -52,9 +55,9 @@ alias macf='open -a Finder ./'
 alias bye='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
 
 ## password
-alias gen2fa='pass 2FA | gen2fa'
+alias otpass='pass otp.yaml | otpass.py'
 function genpass { local length="${1:-30}"; pwgen -1syN 625 | tr -d '[:space:]' | cut -c1-$length; }
 export -f genpass
 
 ## ledger
-alias led='ledger --init-file ~/gdrive/Config/ledger/ledgerrc -f ~/gdrive/Config/ledger/main.journal'
+#alias led='ledger --init-file ~/gdrive/Config/ledger/ledgerrc -f ~/gdrive/Config/ledger/main.journal'
