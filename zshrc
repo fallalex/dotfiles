@@ -1,6 +1,8 @@
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+PATH=$PATH:~/go/bin:~/scripts
+
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' expand prefix suffix
@@ -71,3 +73,4 @@ autoload -Uz run-help
 alias help=run-help
 
 alias ll=gls -la --color=auto
+
