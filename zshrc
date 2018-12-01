@@ -74,3 +74,5 @@ alias help=run-help
 alias ll="gls -la --color=auto"
 
 alias otpass="pass otp.yaml | otpass.py"
+
+eval $(thefuck --alias)
