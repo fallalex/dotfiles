@@ -29,6 +29,11 @@ noremap K :call TrimTail()<CR>
 let g:airline_theme='solarized'
 let g:airline_solarized_bg='dark'
 let g:VimuxUseNearest = 0
+let g:task_default_prompt  = ['due', 'description', 'tag']
+" reload when focus is gained or cursor inactive
+set autoread
+autocmd CursorHold,CursorHoldI * checktime
+autocmd FocusGained,BufEnter * checktime
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -39,5 +44,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'roxma/vim-tmux-clipboard'
 
 call plug#end()
