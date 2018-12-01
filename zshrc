@@ -65,7 +65,7 @@ TMOUT=15
 TRAPALRM() { zle reset-prompt }
 
 # Syntax Highlighting
-source $(glocate zsh-syntax-highlighting.zsh)
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # enable 'help' command for zsh
 autoload -Uz run-help

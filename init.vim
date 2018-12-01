@@ -18,9 +18,6 @@ set smarttab
 
 set number relativenumber
 
-let g:airline_theme='solarized'
-let g:airline_solarized_bg='dark'
-
 fun! TrimTail()
     let l:save = winsaveview()
     keeppatterns %s/\s\+$//e
@@ -28,13 +25,19 @@ fun! TrimTail()
 endfun
 noremap K :call TrimTail()<CR>
 
+" Plugin configuration
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:VimuxUseNearest = 0
+
+" Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
 Plug 'blindFS/vim-taskwarrior'
-
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'benmills/vimux'
 
 call plug#end()
