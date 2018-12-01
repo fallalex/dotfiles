@@ -15,7 +15,6 @@ zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' menu select
 zstyle ':completion:*' rehash true
 zstyle ':completion::complete:*' gain-privileges 1
 zstyle :compinstall filename '/home/fallalex/.zshrc'
@@ -72,5 +71,6 @@ source $(glocate zsh-syntax-highlighting.zsh)
 autoload -Uz run-help
 alias help=run-help
 
-alias ll=gls -la --color=auto
+alias ll="gls -la --color=auto"
 
+alias otpass="pass otp.yaml | otpass.py"

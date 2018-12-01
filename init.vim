@@ -18,8 +18,23 @@ set smarttab
 
 set number relativenumber
 
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+
+fun! TrimTail()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+noremap K :call TrimTail()<CR>
+
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+
+Plug 'blindFS/vim-taskwarrior'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 call plug#end()
