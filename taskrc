@@ -1,1 +1,8 @@
 confirmation=no
+search.case.sensitive=no
+color=off
+
+default.command=ready
+
+alias.dailystatus=status:completed end.after:today all
+

@@ -1,7 +1,27 @@
+source ~/.zplug/init.zsh
+zplug "mafredri/zsh-async", from:github
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+zplug "zsh-users/zsh-history-substring-search"
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-completions"
+# zplug load --verbose
+zplug load > /dev/null
+
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-PATH=$PATH:~/go/bin:~/scripts
+# Prompt
+autoload -Uz promptinit
+promptinit
+prompt pure > /dev/null
+
+PATH=$PATH:~/go/bin
+PATH=$PATH:~/scripts
+PATH=$PATH:~/Library/Python/3.7/bin
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+eval "$(thefuck --alias)"
 
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
@@ -35,44 +55,27 @@ setopt HIST_VERIFY
 setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 
-function precmd()  { echo; }
-function preexec() { echo; }
-RPS1="%(?.%F{green}.%F{red})%?%f"
-PS2="%_  > "
-# Update prompt when switching vi modes
-function zle-keymap-select {
-  VIMODE="${${KEYMAP/vicmd/CMD}/(main|viins)/INS}"
-  PS1="%B%D{%R} %4~%b
-${VIMODE} %B%#%b "
-  zle reset-prompt
-}
-zle -N zle-keymap-select
-
-# Set default vi mode to Command/Normal
+# Set default vi mode to Normal
 function zle-line-init { zle -K vicmd }
 zle -N zle-line-init
+KEYTIMEOUT=1
 
-# vi
+# NeoVim
 EDITOR=/usr/local/bin/nvim
 VISUAL=$EDITOR
+PAGER="$EDITOR -R"
+MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
+bindkey -M vicmd v edit-command-line
+autoload edit-command-line; zle -N edit-command-line
+MYVIMRC="$HOME/.config/nvim/init.vim"
+VIMINIT=$MYVIMRC
 alias vim=nvim
 alias vi=nvim
-bindkey -v
-KEYTIMEOUT=1                            # .1 seconds for reading vi mode switch
 
 # updates the prompt every 15 seconds for clock
 TMOUT=15
 TRAPALRM() { zle reset-prompt }
 
-# Syntax Highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# enable 'help' command for zsh
-autoload -Uz run-help
-alias help=run-help
-
 alias ll="gls -la --color=auto"
-
 alias otpass="pass otp.yaml | otpass.py"
-
-eval $(thefuck --alias)
+alias vtask="nvim -c 'TW'"
