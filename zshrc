@@ -65,6 +65,7 @@ EDITOR=/usr/local/bin/nvim
 VISUAL=$EDITOR
 PAGER="$EDITOR -R"
 MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
+bindkey -v
 bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
 MYVIMRC="$HOME/.config/nvim/init.vim"
