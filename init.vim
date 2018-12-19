@@ -44,8 +44,8 @@ autocmd FocusGained,BufEnter,WinEnter * checktime
 
 " Highlighting
 set hlsearch
-nmap <Esc> <Esc>:nohlsearch<CR>
-nnoremap <Leader>ch :call<SID>EightyLine()<cr>
+nmap <silent> <Esc> <Esc>:nohlsearch<CR>
+nnoremap <leader>ch :call<SID>EightyLine()<cr>
 fun! s:EightyLine()
     if !exists('w:eightyline')
         let w:eightyline = 1
