@@ -1,8 +1,60 @@
 confirmation=no
-search.case.sensitive=no
+search.case.sensitive=off
 color=off
+print.empty.columns=on
+default.command=next
 
-default.command=ready
+# Alias
+alias.lastdone=end.after:now-24hrs completed
 
-alias.dailystatus=status:completed end.after:today all
+# Reports
+report.due.description           = Due Report
+report.due.labels                = Due,Remain,Proj,Description
+report.due.columns               = due,due.remaining,project,description
+report.due.dateformat            = Y-M-D H:N
+report.due.filter                = limit:page (due.any: status:pending)
+report.due.sort                  = due+
 
+report.completed.description     = Completed Report
+report.completed.labels          = UUID,Completed,Proj,Description
+report.completed.columns         = uuid.short,end,project,description.desc
+report.completed.dateformat      = Y-M-D H:N:S
+report.completed.filter          = limit:page (status:completed)
+report.completed.sort            = end+
+
+report.orphaned.description      = Orphaned Report
+report.orphaned.labels           = Proj,Description
+report.orphaned.columns          = project,description.desc
+report.orphaned.filter           = limit:page (status:pending -waiting -next -maybe -capture)
+report.orphaned.sort             = project+/,entry+
+
+report.next.description          = Next Report
+report.next.labels               = ID,Age,Proj,Description
+report.next.columns              = id,entry.age,project,description
+report.next.filter               = limit:page (status:pending +next)
+report.next.sort                 = project+/,entry+
+
+report.waiting.description       = Waiting Report
+report.waiting.labels            = ID,Proj,Description
+report.waiting.columns           = id,project,description
+report.waiting.filter            = limit:page (status:waiting or +waiting)
+
+report.capture.description       = Capture Report
+report.capture.labels            = ID,Description
+report.capture.columns           = id,description.desc
+report.capture.filter            = limit:page (status:pending +capture)
+report.next.sort                 = entry+
+
+report.maybe.description         = Maybe Report
+report.maybe.labels              = ID,Proj,Description
+report.maybe.columns             = id,project,description
+report.maybe.filter              = limit:page (status:pending +maybe)
+report.maybe.sort                = project+/,entry+
+
+# Inthe.AM
+taskd.certificate=~/.task/intheam/private.certificate.pem
+taskd.key=~/.task/intheam/private.key.pem
+taskd.ca=~/.task/intheam/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/4alexfall/cd92fd86-2e73-4675-ab67-a760ef46b6e0
+taskd.trust=ignore hostname

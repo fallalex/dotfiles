@@ -4,10 +4,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" change from the defaul '\'
+" change from the default '\'
 let mapleader = ","
 
-" more useable help
+" more usable help
 autocmd filetype help nnoremap <buffer><cr> <c-]>
 autocmd filetype help nnoremap <buffer><bs> <c-T>
 autocmd filetype help nnoremap <buffer>q :q<CR>
@@ -57,7 +57,32 @@ fun! s:EightyLine()
     endif
 endfunction
 
+" Make VIM remember position in file after reopen
+ if has("autocmd")
+   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
+
+
+autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+let g:vimwiki_global_ext = 0
+let wiki_1 = {}
+let wiki_1.path = '~/vimwiki/'
+let wiki_1.syntax = 'markdown'
+let wiki_1.ext ='.md'
+let wiki_1.diary_rel_path = 'journal/'
+let wiki_1.diary_index = 'journal'
+let wiki_1.diary_header = 'Journal'
+" desc, asc
+let wiki_1.diary_sort = 'desc'
+let g:vimwiki_list = [wiki_1]
+
+set nocompatible
+syntax on
 filetype indent plugin on
+set spell
+set scrolloff=17
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -74,8 +99,12 @@ fun! TrimTail()
     call winrestview(l:save)
 endfun
 command! TrimTail call TrimTail()
-nmap <silent> <leader>k :call TrimTail()<CR>
+nmap <silent> <leader>ee :call TrimTail()<CR>
+nmap <silent> <leader>et :retab<CR>
 autocmd BufWritePre,FileWritePre *.py :call TrimTail()
+autocmd BufWritePre,FileWritePre *.md :call TrimTail()
+
+noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
 
 " Plugin configuration
 let g:airline_theme = 'solarized'
@@ -120,7 +149,6 @@ nmap <silent> <leader>rr :VtrReorientRunner<CR>
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'blindFS/vim-taskwarrior'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
@@ -139,4 +167,9 @@ Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user'
 Plug 'christoomey/vim-tmux-runner'
+Plug 'vimwiki/vimwiki'
+Plug 'tbabej/taskwiki'
+Plug 'blindFS/vim-taskwarrior'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'majutsushi/tagbar'
 call plug#end()

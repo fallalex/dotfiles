@@ -12,8 +12,16 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 
 # Prompt
 autoload -Uz promptinit
+RPROMPT=
 promptinit
 prompt pure > /dev/null
+precmd_tasks() {
+    RPROMPT='%f%F{red}$(task +capture +PENDING count)%f'
+    if [[ $(task +capture +PENDING count) = 0 ]]; then
+        RPROMPT=""
+    fi
+}
+add-zsh-hook precmd precmd_tasks
 
 PATH=$PATH:~/go/bin
 PATH=$PATH:~/scripts
@@ -79,4 +87,7 @@ TRAPALRM() { zle reset-prompt }
 
 alias ll="gls -la --color=auto"
 alias otpass="pass otp.yaml | otpass.py"
-alias vtask="nvim -c 'TW'"
+alias wiki="nvim -c 'VimwikiIndex'"
+alias cap="task add +capture --"
+alias journal="nvim -c 'VimwikiDiaryIndex'"
+alias jentry="nvim -c 'VimwikiMakeDiaryNote'"
