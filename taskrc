@@ -5,12 +5,12 @@ print.empty.columns=on
 default.command=next
 
 # Alias
-alias.lastdone=end.after:now-24hrs completed
+alias.last=end.after:now-24hrs completed
 
 # Reports
 report.due.description           = Due Report
-report.due.labels                = Due,Remain,Proj,Description
-report.due.columns               = due,due.remaining,project,description
+report.due.labels                = Due,Remain,Proj,ID,Description
+report.due.columns               = due,due.remaining,project,id,description
 report.due.dateformat            = Y-M-D H:N
 report.due.filter                = limit:page (due.any: status:pending)
 report.due.sort                  = due+
@@ -29,14 +29,14 @@ report.orphaned.filter           = limit:page (status:pending -waiting -next -ma
 report.orphaned.sort             = project+/,entry+
 
 report.next.description          = Next Report
-report.next.labels               = ID,Age,Proj,Description
-report.next.columns              = id,entry.age,project,description
+report.next.labels               = Age,Proj,ID,Description
+report.next.columns              = entry.age,project,id,description
 report.next.filter               = limit:page (status:pending +next)
 report.next.sort                 = project+/,entry+
 
 report.waiting.description       = Waiting Report
-report.waiting.labels            = ID,Proj,Description
-report.waiting.columns           = id,project,description
+report.waiting.labels            = Proj,ID,Description
+report.waiting.columns           = project,id,description
 report.waiting.filter            = limit:page (status:waiting or +waiting)
 
 report.capture.description       = Capture Report
@@ -46,8 +46,8 @@ report.capture.filter            = limit:page (status:pending +capture)
 report.next.sort                 = entry+
 
 report.maybe.description         = Maybe Report
-report.maybe.labels              = ID,Proj,Description
-report.maybe.columns             = id,project,description
+report.maybe.labels              = Proj,ID,Description
+report.maybe.columns             = id,project,id,description
 report.maybe.filter              = limit:page (status:pending +maybe)
 report.maybe.sort                = project+/,entry+
 
