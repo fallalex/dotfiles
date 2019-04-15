@@ -88,6 +88,5 @@ TRAPALRM() { zle reset-prompt }
 alias ll="gls -la --color=auto"
 alias otpass="pass otp.yaml | otpass.py"
 alias wiki="nvim -c 'VimwikiIndex'"
+alias journal="nvim -c 'VimwikiMakeDiaryNote'"
 alias cap="task add +capture --"
-alias journal="nvim -c 'VimwikiDiaryIndex'"
-alias jentry="nvim -c 'VimwikiMakeDiaryNote'"

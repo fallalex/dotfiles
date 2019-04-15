@@ -47,7 +47,7 @@ report.next.sort                 = entry+
 
 report.maybe.description         = Maybe Report
 report.maybe.labels              = Proj,ID,Description
-report.maybe.columns             = id,project,id,description
+report.maybe.columns             = project,id,description
 report.maybe.filter              = limit:page (status:pending +maybe)
 report.maybe.sort                = project+/,entry+
 
