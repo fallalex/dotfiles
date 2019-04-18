@@ -12,43 +12,50 @@ report.due.description           = Due Report
 report.due.labels                = Due,Remain,Proj,ID,Description
 report.due.columns               = due,due.remaining,project,id,description
 report.due.dateformat            = Y-M-D H:N
-report.due.filter                = limit:page (due.any: status:pending)
+report.due.filter                = limit:page due.after:eod status:pending
 report.due.sort                  = due+
+
+report.today.description         = Due Report
+report.today.labels              = Proj,ID,Description
+report.today.columns             = project,id,description
+report.today.dateformat          = Y-M-D H:N
+report.today.filter              = limit:page due.before:tomorrow status:pending
+report.today.sort                = project+/,entry+
 
 report.completed.description     = Completed Report
 report.completed.labels          = UUID,Completed,Proj,Description
 report.completed.columns         = uuid.short,end,project,description.desc
 report.completed.dateformat      = Y-M-D H:N:S
-report.completed.filter          = limit:page (status:completed)
+report.completed.filter          = limit:page status:completed
 report.completed.sort            = end+
 
 report.orphaned.description      = Orphaned Report
 report.orphaned.labels           = Proj,Description
 report.orphaned.columns          = project,description.desc
-report.orphaned.filter           = limit:page (status:pending -waiting -next -maybe -capture)
+report.orphaned.filter           = limit:page status:pending -waiting -next -maybe -capture
 report.orphaned.sort             = project+/,entry+
 
 report.next.description          = Next Report
 report.next.labels               = Age,Proj,ID,Description
 report.next.columns              = entry.age,project,id,description
-report.next.filter               = limit:page (status:pending +next)
+report.next.filter               = limit:page status:pending +next
 report.next.sort                 = project+/,entry+
 
 report.waiting.description       = Waiting Report
 report.waiting.labels            = Proj,ID,Description
 report.waiting.columns           = project,id,description
-report.waiting.filter            = limit:page (status:waiting or +waiting)
+report.waiting.filter            = limit:page status:waiting or +waiting
 
 report.capture.description       = Capture Report
 report.capture.labels            = ID,Description
 report.capture.columns           = id,description.desc
-report.capture.filter            = limit:page (status:pending +capture)
+report.capture.filter            = limit:page status:pending +capture
 report.next.sort                 = entry+
 
 report.maybe.description         = Maybe Report
 report.maybe.labels              = Proj,ID,Description
 report.maybe.columns             = project,id,description
-report.maybe.filter              = limit:page (status:pending +maybe)
+report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 # Inthe.AM
