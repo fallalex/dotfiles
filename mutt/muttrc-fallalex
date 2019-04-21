@@ -11,9 +11,16 @@ set signature        = ~/.mutt/accounts/fallalex/sig           # my signature fi
 # Account Settings -----------------------------------
 # Default inbox.
 set spoolfile = "+INBOX"
+set mbox      = "+INBOX"
+set postponed = "+Drafts"
+set trash     = "+Trash"
 
 # Mailboxes to show in the sidebar.
-mailboxes +INBOX
+mailboxes +INBOX\
+          +Drafts \
+          +Sent \
+          +Trash \
+          +Spam
 
 # Other special folders.
 #set mbox      = "+gmail/archive"

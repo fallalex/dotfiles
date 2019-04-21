@@ -19,7 +19,12 @@ mailboxes +drafts \
           +trash \
           +spam
 
-# messages sent will be added to the sent folder by google
+set from = "4alexfall@gmail.com"
+set smtp_url = "smtp://4alexfall@gmail.com@smtp.gmail.com:587"
+set smtp_pass = `~/.offlineimap/offlineimap.py app_pass`
+set smtp_authenticators = "gssapi:login"
+
+# messages sent will be added to the sent folder by Google
 unset record
 unset copy
 

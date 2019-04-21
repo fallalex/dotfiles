@@ -1,21 +1,26 @@
-
+source ~/.mutt/muttcolors
 # Paths ----------------------------------------------
 set mailcap_path     = ~/.mutt/mailcap       # entries for filetypes
 set tmpdir           = ~/.mutt/temp          # where to keep temp files
 
 # Basic Options --------------------------------------
-set wait_key = no        # shut up, mutt
-set mbox_type = Maildir  # mailbox type
-set timeout = 3          # idle time before scanning
-set mail_check = 0       # minimum time between scans
-unset move               # gmail does that
-set delete               # don't ask, just do
-unset confirmappend      # don't ask, just do!
-set quit                 # don't ask, just do!!
-unset mark_old           # read/new is good enough for me
-set beep_new             # bell on new mails
-set pipe_decode          # strip headers and eval mimes when piping
-set thorough_search      # strip headers and eval mimes before searching
+set wait_key = no              # shut up, mutt
+set mbox_type = Maildir        # mailbox type
+set timeout = 3                # idle time before scanning
+set mail_check = 0             # minimum time between scans
+unset move                     # gmail does that
+set delete                     # don't ask, just do
+unset confirmappend            # don't ask, just do!
+set quit                       # don't ask, just do!!
+unset mark_old                 # read/new is good enough for me
+set beep_new                   # bell on new mails
+set pipe_decode                # strip headers and eval mimes when piping
+set thorough_search            # strip headers and eval mimes before searching
+set wait_key = no              # mutt won't ask "press key to continue"
+set mark_old = no              # Unread mail stay unread until read
+set markers = no               # Disables the '+' displayed at line wraps
+set mime_forward = yes         # attachments are forwarded with mail
+set realname = 'Alex Fall'
 
 # Editor ---------------------------------------------
 set editor="vim -c 'set spell spelllang=en'"
@@ -31,7 +36,7 @@ unhdr_order *                           # some distros order things by default
 hdr_order from: to: cc: date: subject:  # and in this order
 
 # Sidebar --------------------------------------------
-#set sidebar_visible
+set sidebar_visible
 set sidebar_on_right
 set mail_check_stats
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
