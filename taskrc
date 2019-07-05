@@ -59,9 +59,9 @@ report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 # Inthe.AM
-taskd.certificate=~/.task/intheam/private.certificate.pem
-taskd.key=~/.task/intheam/private.key.pem
-taskd.ca=~/.task/intheam/ca.cert.pem
-taskd.server=taskwarrior.inthe.am:53589
-taskd.credentials=inthe_am/4alexfall/cd92fd86-2e73-4675-ab67-a760ef46b6e0
-taskd.trust=ignore hostname
+#taskd.certificate=~/.task/intheam/private.certificate.pem
+#taskd.key=~/.task/intheam/private.key.pem
+#taskd.ca=~/.task/intheam/ca.cert.pem
+#taskd.server=taskwarrior.inthe.am:53589
+#taskd.credentials=inthe_am/4alexfall/cd92fd86-2e73-4675-ab67-a760ef46b6e0
+#taskd.trust=ignore hostname
