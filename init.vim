@@ -1,5 +1,5 @@
-if empty(glob('~/.vim/autoload/plug.vim'))
-    silent! curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+    silent! curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
@@ -18,33 +18,27 @@ noremap <leader>th :tab help
 noremap <silent> <leader>ie :vsplit $MYVIMRC<CR>
 noremap <silent> <leader>is :source $MYVIMRC<CR>
 
-" Quick close (not sure about this yet)
-map <C-X> :clo!<CR>
-imap <C-X> <ESC>:clo!<CR>
-
 " Faster commands
 nnoremap ; :
 vnoremap ; :
 
-" Save undo info, auto read and write
+" Save undo info, auto read
+" use ':e' to reload the page
 call mkdir($HOME.'/.vim', 'p', 0770)
 call mkdir($HOME.'/.vim/undo', 'p', 0700)
 set undodir=~/.vim/undo
 set undofile
 set hidden
 set autoread
-set autowrite
-set autowriteall
-set nobackup
 set noswapfile
-set nowritebackup
-autocmd FocusLost,BufLeave,WinLeave * silent! wa
-autocmd FocusGained,BufEnter,WinEnter * checktime
+set writebackup
+
+" Make VIM remember position in file after reopen
+ if has("autocmd")
+   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 " Highlighting
-set hlsearch
-nmap <silent> <Esc> <Esc>:nohlsearch<CR>
-nnoremap <leader>ch :call<SID>EightyLine()<cr>
 fun! s:EightyLine()
     if !exists('w:eightyline')
         let w:eightyline = 1
@@ -56,14 +50,14 @@ fun! s:EightyLine()
         :highlight ColorColumn NONE
     endif
 endfunction
+nnoremap <leader>sh :call<SID>EightyLine()<cr>
+set hlsearch
+nmap <silent> <Esc> <Esc>:nohlsearch<CR>
+set nospell
+nnoremap <leader>ss :set spell!<CR>
 
-" Make VIM remember position in file after reopen
- if has("autocmd")
-   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
+" change how mutt mail is displayed in vim
 autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
-
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 let g:vimwiki_global_ext = 0
@@ -81,7 +75,6 @@ let g:vimwiki_list = [wiki_1]
 set nocompatible
 syntax on
 filetype indent plugin on
-set spell
 set scrolloff=17
 set tabstop=4
 set shiftwidth=4
@@ -90,8 +83,6 @@ set expandtab
 set smarttab
 set number relativenumber
 set background=dark
-" set splitright
-" set splitbelow
 
 fun! TrimTail()
     let l:save = winsaveview()
@@ -155,6 +146,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
 " Plug 'edkolev/tmuxline.vim'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
