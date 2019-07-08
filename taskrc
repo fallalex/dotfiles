@@ -44,24 +44,17 @@ report.next.sort                 = project+/,entry+
 report.waiting.description       = Waiting Report
 report.waiting.labels            = Proj,ID,Description
 report.waiting.columns           = project,id,description
-report.waiting.filter            = limit:page status:waiting or +waiting
+report.waiting.filter            = limit:page +waiting status.not:completed status.not:deleted
+report.waiting.sort              = project+/,entry+
 
 report.capture.description       = Capture Report
 report.capture.labels            = ID,Description
 report.capture.columns           = id,description.desc
 report.capture.filter            = limit:page status:pending +capture
-report.next.sort                 = entry+
+report.capture.sort              = entry+
 
 report.maybe.description         = Maybe Report
 report.maybe.labels              = Proj,ID,Description
 report.maybe.columns             = project,id,description
 report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
-
-# Inthe.AM
-#taskd.certificate=~/.task/intheam/private.certificate.pem
-#taskd.key=~/.task/intheam/private.key.pem
-#taskd.ca=~/.task/intheam/ca.cert.pem
-#taskd.server=taskwarrior.inthe.am:53589
-#taskd.credentials=inthe_am/4alexfall/cd92fd86-2e73-4675-ab67-a760ef46b6e0
-#taskd.trust=ignore hostname

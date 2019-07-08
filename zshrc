@@ -8,28 +8,21 @@ zplug "zsh-users/zsh-completions"
 zplug load > /dev/null
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Prompt
 autoload -Uz promptinit
 RPROMPT=
 promptinit
 prompt pure > /dev/null
-precmd_tasks() {
-    RPROMPT='%f%F{red}$(task +capture +PENDING count)%f'
-    if [[ $(task +capture +PENDING count) = 0 ]]; then
-        RPROMPT=""
-    fi
-}
-add-zsh-hook precmd precmd_tasks
 
-PATH=$PATH:~/go/bin
-PATH=$PATH:~/scripts
-PATH=$PATH:~/Library/Python/3.7/bin
-
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-eval "$(thefuck --alias)"
+#precmd_tasks() {
+#    RPROMPT='%f%F{red}$(task +capture +PENDING count)%f'
+#    if [[ $(task +capture +PENDING count) = 0 ]]; then
+#        RPROMPT=""
+#    fi
+#}
+#add-zsh-hook precmd precmd_tasks
 
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
@@ -45,7 +38,7 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' rehash true
 zstyle ':completion::complete:*' gain-privileges 1
-zstyle :compinstall filename '/home/fallalex/.zshrc'
+# zstyle :compinstall filename '/home/fallalex/.zshrc'
 
 setopt COMPLETE_ALIASES autocd beep extendedglob nomatch
 autoload -Uz compinit
@@ -57,6 +50,7 @@ HISTSIZE=3000                           # internal history
 SAVEHIST=$HISTSIZE                      # history file
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
+setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 setopt HIST_LEX_WORDS
 setopt HIST_VERIFY
@@ -80,13 +74,9 @@ MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
 alias vim=nvim
 alias vi=nvim
+alias ibmproxy='ssh -qND localhost:8088 ibmvpn'
+alias ibmproxy='ssh -qND localhost:8088 ibmvpn'
 
-# updates the prompt every 15 seconds for clock
+# updates the prompt every 15 seconds
 TMOUT=15
 TRAPALRM() { zle reset-prompt }
-
-alias ll="gls -la --color=auto"
-alias otpass="pass otp.yaml | otpass.py"
-alias wiki="nvim -c 'VimwikiIndex'"
-alias journal="nvim -c 'VimwikiMakeDiaryNote'"
-alias cap="task add +capture --"
