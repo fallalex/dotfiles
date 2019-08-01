@@ -5,7 +5,19 @@ print.empty.columns=on
 default.command=next
 
 # Alias
-alias.last=end.after:now-24hrs completed
+alias.last                       = end.after:now-24hrs completed
+alias.cap                        = add +cap
+alias.lll                        = add +cap +bm +lll
+alias.bm                         = add +cap +bm
+alias.lab                        = add +cap +lab
+alias.out                        = add +cap +out
+
+# Contexts
+context.bm                       = +bm
+context.lll                      = +bm +lll
+context.lab                      = +lab
+context.out                      = +out
+context.home                     = -bm -lab -out
 
 # Reports
 report.due.description           = Due Report
@@ -30,8 +42,8 @@ report.completed.filter          = limit:page status:completed
 report.completed.sort            = end+
 
 report.orphaned.description      = Orphaned Report
-report.orphaned.labels           = Proj,Description
-report.orphaned.columns          = project,description.desc
+report.orphaned.labels           = Proj,ID,Description
+report.orphaned.columns          = project,id,description.desc
 report.orphaned.filter           = limit:page status:pending -waiting -next -maybe -capture
 report.orphaned.sort             = project+/,entry+
 
@@ -40,6 +52,12 @@ report.next.labels               = Age,Proj,ID,Description
 report.next.columns              = entry.age,project,id,description
 report.next.filter               = limit:page status:pending +next
 report.next.sort                 = project+/,entry+
+
+report.inventory.description     = Inventory Report
+report.inventory.labels          = Age,Proj,ID,Description
+report.inventory.columns         = entry.age,project,id,description
+report.inventory.filter          = limit:page status.not:completed status.not:deleted
+report.inventory.sort            = project+/,entry+
 
 report.waiting.description       = Waiting Report
 report.waiting.labels            = Proj,ID,Description
@@ -58,3 +76,4 @@ report.maybe.labels              = Proj,ID,Description
 report.maybe.columns             = project,id,description
 report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
+

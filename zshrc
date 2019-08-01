@@ -1,3 +1,7 @@
+# this has helped me before with stuff like:
+# (eval):1: \_mv: function definition file not found
+locate zcompdump | xargs rm -f
+
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
@@ -16,13 +20,26 @@ RPROMPT=
 promptinit
 prompt pure > /dev/null
 
-#precmd_tasks() {
-#    RPROMPT='%f%F{red}$(task +capture +PENDING count)%f'
-#    if [[ $(task +capture +PENDING count) = 0 ]]; then
-#        RPROMPT=""
-#    fi
-#}
-#add-zsh-hook precmd precmd_tasks
+precmd_tasks() {
+    RPROMPT=""
+    TASKCOUNT=$(task +capture +PENDING count)
+    if [[ ${TASKCOUNT} -ne 0 ]]; then
+        RPROMPT='%f%F{red}${TASKCOUNT}%f'
+    fi
+}
+add-zsh-hook precmd precmd_tasks
+
+# I ended up not liking this
+# Set default vi mode to Normal
+#function zle-line-init { zle -K vicmd }
+function zle-line-init { }
+zle -N zle-line-init
+KEYTIMEOUT=1
+
+# updates the prompt every 15 seconds
+TMOUT=15
+TRAPALRM() { zle reset-prompt }
+
 
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
@@ -51,18 +68,13 @@ SAVEHIST=$HISTSIZE                      # history file
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
+setopt NO_SHARE_HISTORY
 setopt HIST_LEX_WORDS
 setopt HIST_VERIFY
 setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 
-# Set default vi mode to Normal
-function zle-line-init { zle -K vicmd }
-zle -N zle-line-init
-KEYTIMEOUT=1
-
-# NeoVim
+# NeoVim & ZSH vi mode
 EDITOR=/usr/local/bin/nvim
 VISUAL=$EDITOR
 PAGER="$EDITOR -R"
@@ -74,9 +86,6 @@ MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
 alias vim=nvim
 alias vi=nvim
-alias ibmproxy='ssh -qND localhost:8088 ibmvpn'
-alias ibmproxy='ssh -qND localhost:8088 ibmvpn'
+alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
 
-# updates the prompt every 15 seconds
-TMOUT=15
-TRAPALRM() { zle reset-prompt }
+export PATH="/usr/local/sbin:$PATH"

@@ -123,19 +123,21 @@ nmap <silent> <leader>rw :VtrFlushCommand<CR>
 nmap <silent> <leader>rs :VtrResizeRunner<CR>
 nmap <silent> <leader>rr :VtrReorientRunner<CR>
 
-    " Commented lines bellow generate tmuxline_snapshot
-    " :TmuxlineSnapshot ~/configuration/dotfiles/tmuxline_snapshot
-    " This file I then updated manually
-    " let g:tmuxline_powerline_separators = 0
-    " let g:tmuxline_preset = {
-    "      \'a'    : '#{=6:session_name}',
-    "      \'b'    : '#P:#{=6:pane_current_command}',
-    "      \'c'    : ' ',
-    "      \'win'  : '#I:#{=6:window_name}',
-    "      \'cwin' : '#I:#{=6:window_name}#F',
-    "      \'x'    : '%b-%a',
-    "      \'y'    : '%m-%d',
-    "      \'z'    : '%H:%M'}
+" Commented lines bellow generate tmuxline_snapshot
+" :Tmuxline vim_statusline_1
+" :TmuxlineSnapshot ~/dotfiles/tmuxline_snapshot_new
+" manually move the changes from the old file to the new
+" then overwrite the old file
+let g:tmuxline_powerline_separators = 0
+let g:tmuxline_preset = {
+     \'a'    : '#{=6:session_name}',
+     \'b'    : '#P:#{=6:pane_current_command}',
+     \'c'    : ' ',
+     \'win'  : '#I:#{=6:window_name}',
+     \'cwin' : '#I:#{=6:window_name}#F',
+     \'x'    : '%b-%a',
+     \'y'    : '%m-%d',
+     \'z'    : '%H:%M'}
 
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
@@ -145,7 +147,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
-" Plug 'edkolev/tmuxline.vim'
+Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
