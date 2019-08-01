@@ -22,7 +22,7 @@ prompt pure > /dev/null
 
 precmd_tasks() {
     RPROMPT=""
-    TASKCOUNT=$(task +capture +PENDING count)
+    TASKCOUNT=$(task +cap +PENDING count)
     if [[ ${TASKCOUNT} -ne 0 ]]; then
         RPROMPT='%f%F{red}${TASKCOUNT}%f'
     fi
