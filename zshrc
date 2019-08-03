@@ -2,6 +2,9 @@
 # (eval):1: \_mv: function definition file not found
 locate zcompdump | xargs rm -f
 
+# You can use this to "reload" a shell
+# exec zsh -l
+
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
@@ -88,6 +91,16 @@ alias vim=nvim
 alias vi=nvim
 alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
 alias otpass='pass otp.yaml | otpass.py'
+
+# cd () {
+#     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]
+#     then
+#         builtin cd "/ecurep/sf/${1:0:5}/${1:5:3}/${1}"
+#     else
+#         builtin cd "$@"
+#     fi
+# }
+#
 
 export PATH="/usr/local/sbin:$PATH"
 source $HOME/scripts/link_scripts/link_scripts.sh
