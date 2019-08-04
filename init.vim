@@ -125,7 +125,7 @@ nmap <silent> <leader>rr :VtrReorientRunner<CR>
 
 " Commented lines bellow generate tmuxline_snapshot
 " :Tmuxline vim_statusline_1
-" :TmuxlineSnapshot ~/dotfiles/tmuxline_snapshot_new
+" :TmuxlineSnapshot ~/dotfiles/tmuxline_snapshot
 " manually move the changes from the old file to the new
 " then overwrite the old file
 let g:tmuxline_powerline_separators = 0
