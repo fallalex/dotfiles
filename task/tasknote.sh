@@ -19,10 +19,9 @@
 #     task config uda.note.indicator N
 
 
-TASKNOTEDIR=$HOME
+TASKNOTEDIR=$HOME/vimwiki/tasknotes
 TASKNOTEEXT=""
 # TASKNOTEEXT=".md"
-
 
 # Ensure input is as expected
 if [[ $# -eq 0 ]]
@@ -44,7 +43,8 @@ TASKUUID=`task $1 _uuid`
 
 # Open editor, if empty file delete and unset uda.note
 if [[ $# -eq 1 ]]; then
-    $EDITOR $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
+    mkdir -p $TASKNOTEDIR
+    $EDITOR "$TASKNOTEDIR/$TASKUUID$TASKNOTEEXT"
     if [[ -s $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT ]]; then
         task $TASKUUID mod note:yes > /dev/null 2>&1
     else

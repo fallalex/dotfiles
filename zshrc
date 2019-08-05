@@ -43,7 +43,6 @@ KEYTIMEOUT=1
 TMOUT=15
 TRAPALRM() { zle reset-prompt }
 
-
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' expand prefix suffix
@@ -78,10 +77,10 @@ setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 
 # NeoVim & ZSH vi mode
-EDITOR=/usr/local/bin/nvim
-VISUAL=$EDITOR
-PAGER="$EDITOR -R"
-MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
+export EDITOR=/usr/local/bin/nvim
+export VISUAL=$EDITOR
+export PAGER="$EDITOR -R"
+export MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
 bindkey -v
 bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
