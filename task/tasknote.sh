@@ -26,16 +26,16 @@ TASKNOTEEXT=""
 # Ensure input is as expected
 if [[ $# -eq 0 ]]
 then
-    echo "task id is needed"
+    echo "id or uuid needed"
     exit
 fi
 TASKCOUNT=`task $1 count`
 if [[ $TASKCOUNT -eq 0 ]]; then
-    echo "'$1' is not a task id"
+    echo "$1 -- does not match any tasks"
     exit
 fi
 if [[ $TASKCOUNT != 1 ]]; then
-    echo "'$1' matches too many tasks"
+    echo "$1 -- matches too many tasks"
     exit
 fi
 
