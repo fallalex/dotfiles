@@ -18,10 +18,6 @@ noremap <leader>th :tab help
 noremap <silent> <leader>ie :vsplit $MYVIMRC<CR>
 noremap <silent> <leader>is :source $MYVIMRC<CR>
 
-" Faster commands
-nnoremap ; :
-vnoremap ; :
-
 " Save undo info, auto read
 " use ':e' to reload the page
 call mkdir($HOME.'/.vim', 'p', 0770)

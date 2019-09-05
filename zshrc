@@ -90,6 +90,7 @@ alias vim=nvim
 alias vi=nvim
 alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
 alias otpass='pass otp.yaml | otpass.py'
+alias ecu=' sshpass -p `pass ibm | head -1` ssh ecurep'
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]
