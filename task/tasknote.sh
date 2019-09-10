@@ -38,37 +38,18 @@ TASKPROJECT=`task _get $TASKUUID.project`
 if [[ -z $TASKPROJECT ]]; then
     NOTEPATH=$TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
 else
-    NOTEPATH=$TASKNOTEDIR/$TASKPROJECT/$TASKUUID$TASKNOTEEXT
+    NOTEPATH=$TASKNOTEDIR/$TASKPROJECT/$TASKPROJECT$TASKNOTEEXT
 fi
+mkdir -p `dirname $NOTEPATH`
 
 # Open editor, if empty file delete
 if [[ $# -eq 1 ]]; then
-    mkdir -p `dirname $NOTEPATH`
     $EDITOR "$NOTEPATH"
     if [[ ! -s $NOTEPATH ]]; then
         rm -f $NOTEPATH
     fi
 else
-    # Open project notes
-    elif [[ ${@:2} == 'project' ]]; then
-        if [[ -z $TASKPROJECT ]]; then
-            echo "task '$TASKUUID' does not have a project set"
-            exit
-        fi
-        NOTEPATH=$TASKNOTEDIR/$TASKPROJECT/$TASKPROJECT$TASKNOTEEXT
-        mkdir -p `dirname $NOTEPATH`
-        $EDITOR "$NOTEPATH"
-        if [[ ! -s $NOTEPATH ]]; then
-            rm -f $NOTEPATH
-        fi
- 
-    # add other options if needed
-    # elif [[ ${@:2} == 'path' ]]; then
-
-    # Append extra newline and note to task notes file
-    else
-        echo "" >> $NOTEPATH
-        echo "${@:2}" >> $NOTEPATH
-    fi
+    echo "" >> $NOTEPATH
+    echo "${@:2}" >> $NOTEPATH
 fi
 
