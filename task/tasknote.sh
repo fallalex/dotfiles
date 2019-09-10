@@ -11,12 +11,6 @@
 #
 # Deletes the task notes file
 #     task note <task_id> delete
-#
-# Expects 'uda.note' to be configured in '.taskrc'
-#     task config uda.note.type string
-#     task config uda.note.values yes
-#     task config uda.note.label Note
-#     task config uda.note.indicator N
 
 
 TASKNOTEDIR=$HOME/vimwiki/tasknotes
@@ -40,32 +34,41 @@ if [[ $TASKCOUNT != 1 ]]; then
 fi
 
 TASKUUID=`task $1 _uuid`
+TASKPROJECT=`task _get $TASKUUID.project`
+if [[ -z $TASKPROJECT ]]; then
+    NOTEPATH=$TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
+else
+    NOTEPATH=$TASKNOTEDIR/$TASKPROJECT/$TASKUUID$TASKNOTEEXT
+fi
 
-# Open editor, if empty file delete and unset uda.note
+# Open editor, if empty file delete
 if [[ $# -eq 1 ]]; then
-    mkdir -p $TASKNOTEDIR
-    $EDITOR "$TASKNOTEDIR/$TASKUUID$TASKNOTEEXT"
-    if [[ -s $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT ]]; then
-        task $TASKUUID mod note:yes > /dev/null 2>&1
-    else
-        rm -f $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
-        task $TASKUUID mod note: > /dev/null 2>&1
+    mkdir -p `dirname $NOTEPATH`
+    $EDITOR "$NOTEPATH"
+    if [[ ! -s $NOTEPATH ]]; then
+        rm -f $NOTEPATH
     fi
 else
-    # Delete file and unset uda.note
-    if [[ ${@:2} == 'delete' ]]; then
-        task $TASKUUID mod note: > /dev/null 2>&1
-        rm -f $TASKNOTEDIR/$TASKUUID
-        echo "deleted '$TASKNOTEDIR/$TASKUUID$TASKNOTEEXT'"
-
+    # Open project notes
+    elif [[ ${@:2} == 'project' ]]; then
+        if [[ -z $TASKPROJECT ]]; then
+            echo "task '$TASKUUID' does not have a project set"
+            exit
+        fi
+        NOTEPATH=$TASKNOTEDIR/$TASKPROJECT/$TASKPROJECT$TASKNOTEEXT
+        mkdir -p `dirname $NOTEPATH`
+        $EDITOR "$NOTEPATH"
+        if [[ ! -s $NOTEPATH ]]; then
+            rm -f $NOTEPATH
+        fi
+ 
     # add other options if needed
-#    elif [[ ${@:2} == 'path' ]]; then
+    # elif [[ ${@:2} == 'path' ]]; then
 
     # Append extra newline and note to task notes file
     else
-        task $TASKUUID mod note:yes > /dev/null 2>&1
-        echo "" >> $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
-        echo "${@:2}" >> $TASKNOTEDIR/$TASKUUID$TASKNOTEEXT
+        echo "" >> $NOTEPATH
+        echo "${@:2}" >> $NOTEPATH
     fi
 fi
 

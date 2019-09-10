@@ -18,13 +18,6 @@ context.lab                      = +lab
 context.out                      = +out
 context.home                     = -bm -lab -out
 
-# User Defined Attributes
-uda.note.label=Note
-uda.note.type=string
-uda.note.values=yes
-uda.note.indicator=N
-#uda.note.default=
-
 # Reports
 report.due.description           = Due Report
 report.due.labels                = Due,Remain,Proj,ID,Description
