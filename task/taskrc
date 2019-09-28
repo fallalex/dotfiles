@@ -9,6 +9,7 @@ alias.note                       = execute "$HOME/dotfiles/task/tasknote.sh"
 alias.last                       = end.after:now-24hrs completed
 alias.cap                        = add +cap
 alias.bmlll                      = +bm +lll
+alias.eod                        = +next due:eod
 
 # Contexts
 context.bm                       = +bm -lll
@@ -16,13 +17,6 @@ context.lll                      = +bm +lll
 context.lab                      = +lab
 context.out                      = +out
 context.home                     = -bm -lab -out
-
-# User Defined Attributes
-uda.note.label=Note
-uda.note.type=string
-uda.note.values=yes
-uda.note.indicator=N
-#uda.note.default=
 
 # Reports
 report.due.description           = Due Report
