@@ -5,6 +5,9 @@ locate zcompdump | xargs rm -f
 # You can use this to "reload" a shell
 # exec zsh -l
 
+sudo launchctl limit maxfiles 50000 200000
+ulimit 50000
+
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
