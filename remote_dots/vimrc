@@ -70,8 +70,6 @@ endfun
 command! TrimTail call TrimTail()
 nmap <silent> <leader>ee :call TrimTail()<CR>
 nmap <silent> <leader>et :retab<CR>
-autocmd BufWritePre,FileWritePre *.py :call TrimTail()
-autocmd BufWritePre,FileWritePre *.md :call TrimTail()
 
 "delete the open file
 noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
