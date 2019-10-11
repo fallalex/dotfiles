@@ -93,6 +93,7 @@ alias vim=nvim
 alias vi=nvim
 alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
 alias otpass='pass otp.yaml | otpass.py'
+alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
 alias ecu=' sshpass -p `pass ibm | head -1` ssh ecurep'
 
 # cd () {
