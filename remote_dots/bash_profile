@@ -26,3 +26,5 @@ alias cd..='cd ../'
 alias ..='cd ../'
 alias echopath='echo -e ${PATH//:/\\n}'
 
+touch ~/.bash_local_profile
+source ~/.bash_local_profile

@@ -89,8 +89,8 @@ bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
+alias vimr='nvim -R'
 alias vim=nvim
-alias vi=nvim
 alias dt='date "+%F %T"'
 alias c='clear'
 alias ~="cd ~"

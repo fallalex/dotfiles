@@ -73,3 +73,6 @@ nmap <silent> <leader>et :retab<CR>
 
 "delete the open file
 noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
+
+" leave insert mode after 15s of no input
+autocmd CursorHoldI * stopinsert au InsertEnter * let updaterestore=&updatetime | set updatetime=15000 au InsertLeave * let &updatetime=updaterestore
