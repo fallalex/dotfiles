@@ -93,6 +93,10 @@ autocmd BufWritePre,FileWritePre *.md :call TrimTail()
 
 noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
 
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_code_completion_enabled = 1
+
 " Plugin configuration
 let g:airline_theme = 'solarized'
 let g:airline_solarized_bg = 'dark'
