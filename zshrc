@@ -89,8 +89,8 @@ bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
+alias vimr='nvim -R'
 alias vim=nvim
-alias vi=nvim
 alias dt='date "+%F %T"'
 alias c='clear'
 alias ~="cd ~"
@@ -114,3 +114,6 @@ alias ecu=' sshpass -p `pass ibm | head -1` ssh ecurep'
 
 export PATH="/usr/local/sbin:$PATH"
 source $HOME/scripts/link_scripts/link_scripts.sh
+
+export VAULT_ADDR=https://vault.bluemedora.localnet:8200
+export VAULT_GITHUB_TOKEN=`pass bm_hashi_vault`
