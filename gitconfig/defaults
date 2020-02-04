@@ -1,0 +1,22 @@
+[filter "lfs"]
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+[push]
+  default = tracking
+
+# https://github.com/tpope/vim-fugitive
+[merge]
+  tool = vimdiff
+[mergetool]
+  prompt = true
+  trustExitCode = false
+[mergetool "vimdiff"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
+[difftool]
+  prompt = false
+  trustExitCode = false
+[diff]
+  tool = vimdiff
+

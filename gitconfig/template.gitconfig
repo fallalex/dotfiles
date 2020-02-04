@@ -1,0 +1,8 @@
+[user]
+  name = 
+  email = 
+
+# git config --list --show-origin
+[include]
+  path = ~/dotfiles/gitconfig/aliases
+  path = ~/dotfiles/gitconfig/defaults
