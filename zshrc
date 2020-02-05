@@ -110,7 +110,9 @@ alias otpass='pass otp.yaml | otpass.py'
 #alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
 alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
 alias ls='gls -h --time-style=long-iso --color=auto'
-alias ll='ls -Fal'
+alias ll='ls -Fl'
+alias lt='ll -tr --time-style=full-iso'
+alias l.='ll -d .*'
 alias g='git'
 
 # cd () {
