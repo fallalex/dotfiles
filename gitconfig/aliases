@@ -31,8 +31,9 @@
   up = push -u origin HEAD
   p = push
   ll = pull
-  c = commit -a
-  ca = !git add -A && git commit
+  c = commit
+  ca = commit -a
+  cA = !git add -A && git commit
   wip = commit -am "WIP"
   wipa = !git add -A && git commit -m "WIP"
   b = branch

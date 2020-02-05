@@ -17,8 +17,15 @@ zplug "zsh-users/zsh-completions"
 # zplug load --verbose
 zplug load > /dev/null
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Setup color
+# git@github.com:mbadolato/iTerm2-Color-Schemes.git
+# solarized dark
+export TERM=xterm-256color
+# git clone git@github.com:seebi/dircolors-solarized.git
+eval `gdircolors ~/dircolors-solarized/dircolors.ansi-dark`
 
 # Prompt
 autoload -Uz promptinit
@@ -102,6 +109,8 @@ alias otpass='pass otp.yaml | otpass.py'
 alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
 alias ecu=' sshpass -p `pass ibm | head -1` ssh ecurep'
 alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
+alias ls='gls -h --time-style=long-iso --color=auto'
+alias ll='ls -Fal'
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]
