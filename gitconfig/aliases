@@ -1,7 +1,7 @@
 [alias]
   freebase = pull --rebase
   ld = log --decorate
-  lg = log -p --decorate
+#  lg = log -p --decorate
   lw = log --graph --pretty=tformat:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(yellow)<%an>%Creset%n' --abbrev-commit --date=relative
   lwa = log --graph --pretty=tformat:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr) %C(yellow)<%an>%Creset%n' --abbrev-commit --date=relative --all
   lwat = log --graph --pretty=tformat:'%C(yellow)%h%Creset -%C(red)%d%Creset %s %Cgreen(%cr -> %cd) %C(yellow)<%an>%Creset%n' --abbrev-commit --all
@@ -21,7 +21,7 @@
   deletebranch = !sh -c 'BRANCH_NAME=$0 && git checkout master && git branch -d $BRANCH_NAME && git push origin --delete $BRANCH_NAME'
   ls = ls-files
 
-#  lg = log --graph --pretty=format:'%Cred%h%C(yellow)%d %Cgreen%cr %Cblue%an%Creset %s' --date=relative --all
+  lg = log --graph --pretty=format:'%Cred%h%C(yellow)%d %Cgreen%cr %Cblue%an%Creset %s' --date=relative --all
   last = log --format=medium --date=iso -3 HEAD
   st = status -sb --ahead-behind --renames
   di = diff --minimal -U0 -p --no-prefix --color-words
