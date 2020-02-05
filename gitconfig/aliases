@@ -27,7 +27,8 @@
   di = diff --minimal -U0 -p --no-prefix --color-words
   clear = !git checkout master && git reset --hard origin/master && git clean -fdi
   a = add
-  aa = add -A
+  aa = add .
+  aA = add -A
   up = push -u origin HEAD
   p = push
   ll = pull
