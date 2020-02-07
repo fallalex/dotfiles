@@ -1,9 +1,6 @@
 # this has helped me before with stuff like:
 # (eval):1: \_mv: function definition file not found
-locate zcompdump | xargs rm -f
-
-# You can use this to "reload" a shell
-# exec zsh -l
+glocate zcompdump | xargs rm -f
 
 sudo launchctl limit maxfiles 50000 200000
 ulimit 50000
@@ -60,16 +57,16 @@ zstyle ':completion:*' file-sort modification
 zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd ..
-zstyle ':completion:*' matcher-list '' 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' rehash true
 zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' squeeze-slashes true
-zstyle ':completion:*' use-compctl false
-zstyle ':completion:*' rehash true
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zstyle ':completion::complete:*' gain-privileges 1
+# zstyle ':completion:*' squeeze-slashes true
+# zstyle ':completion:*' use-compctl false
 # zstyle :compinstall filename '/home/fallalex/.zshrc'
 
-setopt COMPLETE_ALIASES autocd beep extendedglob nomatch
+setopt COMPLETE_ALIASES MENU_COMPLETE autocd beep extendedglob nomatch
 autoload -Uz compinit
 compinit
 
@@ -96,6 +93,10 @@ bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
+# brew install findutils
+alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
+alias glocate='glocate --database=$HOME/tmp/locatedb'
+alias reload='exec zsh -l'
 alias vim=nvim
 alias vimr='vim -R'
 alias dt='date "+%F %T"'
