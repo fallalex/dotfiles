@@ -33,9 +33,11 @@ prompt pure > /dev/null
 precmd_tasks() {
     RPROMPT=""
     TASKCOUNT=$(task +cap +PENDING count)
-    if [[ ${TASKCOUNT} -ne 0 ]]; then
-        RPROMPT='%f%F{red}${TASKCOUNT}%f'
-    fi
+    # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
+    # Think this was causing weird behavior
+    # if [[ ${TASKCOUNT} -ne 0 ]]; then
+    #     RPROMPT='%f%F{red}${TASKCOUNT}%f'
+    # fi
 }
 add-zsh-hook precmd precmd_tasks
 
@@ -86,7 +88,7 @@ setopt HIST_FCNTL_LOCK
 # NeoVim & ZSH vi mode
 export EDITOR=/usr/local/bin/nvim
 #export VISUAL=$EDITOR
-#export PAGER="$EDITOR -R"
+export PAGER="$EDITOR -Rc AnsiEsc"
 #export MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
 bindkey -v
 bindkey -M vicmd v edit-command-line
@@ -97,8 +99,10 @@ VIMINIT=$MYVIMRC
 alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
 alias glocate='glocate --database=$HOME/tmp/locatedb'
 alias reload='exec zsh -l'
+alias vi=nvim
 alias vim=nvim
 alias vimr='vim -R'
+alias viles='vim -Rc AnsiEsc'
 alias dt='date "+%F %T"'
 alias c='clear'
 alias ~="cd ~"
@@ -131,3 +135,5 @@ source $HOME/scripts/link_scripts/link_scripts.sh
 
 export VAULT_ADDR=https://vault.bluemedora.localnet:8200
 export VAULT_GITHUB_TOKEN=`pass bm_hashi_vault`
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
