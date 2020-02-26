@@ -88,6 +88,8 @@ endfun
 command! TrimTail call TrimTail()
 nmap <silent> <leader>ee :call TrimTail()<CR>
 nmap <silent> <leader>et :retab<CR>
+nmap <silent> <leader>vl :set number! <bar> set relativenumber!<CR>
+nmap Q :q!<CR>
 autocmd BufWritePre,FileWritePre *.py :call TrimTail()
 autocmd BufWritePre,FileWritePre *.md :call TrimTail()
 
@@ -167,4 +169,5 @@ Plug 'blindFS/vim-taskwarrior'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'sheerun/vim-polyglot'
 call plug#end()

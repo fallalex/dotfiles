@@ -88,8 +88,8 @@ setopt HIST_FCNTL_LOCK
 # NeoVim & ZSH vi mode
 export EDITOR=/usr/local/bin/nvim
 #export VISUAL=$EDITOR
-export PAGER="$EDITOR -Rc AnsiEsc"
-#export MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
+export PAGER="$EDITOR -Rc AnsiEsc -c 'set number!' -c 'set relativenumber!'"
+export MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
 bindkey -v
 bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
@@ -102,7 +102,7 @@ alias reload='exec zsh -l'
 alias vi=nvim
 alias vim=nvim
 alias vimr='vim -R'
-alias viles='vim -Rc AnsiEsc'
+alias viles="$PAGER"
 alias dt='date "+%F %T"'
 alias c='clear'
 alias ~="cd ~"
