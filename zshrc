@@ -11,6 +11,7 @@ zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
+zplug "rupa/z", use:z.sh
 # zplug load --verbose
 zplug load > /dev/null
 
@@ -91,6 +92,7 @@ export EDITOR=/usr/local/bin/nvim
 export PAGER="$EDITOR -Rc AnsiEsc -c 'set number!' -c 'set relativenumber!'"
 export MANPAGER="$EDITOR -u NORC -c 'set ft=man' -"
 bindkey -v
+bindkey '^[[Z' reverse-menu-complete
 bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
 MYVIMRC="$HOME/.config/nvim/init.vim"
@@ -104,6 +106,7 @@ alias vim=nvim
 alias vimr='vim -R'
 alias viles="$PAGER"
 alias dt='date "+%F %T"'
+alias journal='vim ~/vimwiki/journal/`date "+%F"`.md'
 alias c='clear'
 alias ~="cd ~"
 alias cd..='cd ../'
@@ -119,6 +122,12 @@ alias ll='ls -Fl'
 alias lt='ll -tr --time-style=full-iso'
 alias l.='ll -d .*'
 alias g='git'
+alias rb='rbenv'
+alias rbg='rbenv shell $(rbenv global)'
+alias tw='timew'
+alias ex='exuno'
+alias vr='vrops'
+alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]
@@ -137,3 +146,4 @@ export VAULT_ADDR=https://vault.bluemedora.localnet:8200
 export VAULT_GITHUB_TOKEN=`pass bm_hashi_vault`
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
+eval "$(rbenv init -)"

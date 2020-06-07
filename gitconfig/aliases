@@ -21,24 +21,36 @@
   deletebranch = !sh -c 'BRANCH_NAME=$0 && git checkout master && git branch -d $BRANCH_NAME && git push origin --delete $BRANCH_NAME'
   ls = ls-files
 
+
+
   lg = log --graph --pretty=format:'%Cred%h%C(yellow)%d %Cgreen%cr %Cblue%an%Creset %s' --date=relative --all
   last = log --format=medium --date=iso -3 HEAD
   st = status -sb --ahead-behind --renames
   di = diff --minimal -U0 -p --no-prefix --color-words
+  root = rev-parse --show-toplevel
+  rela = rev-parse --show-prefix
   clear = !git checkout master && git reset --hard origin/master && git clean -fdi
-  a = add
-  aa = add .
-  aA = add -A
-  up = push -u origin HEAD
+
+  up = push --set-upstream origin HEAD
   p = push
   ll = pull
+
+  a = add
+  aa = add --all
+  au = add --update
+
+  # Note: "git add --all" and "git commit --all" are different commit does not care about working dir and commit does not add files so is closer to update
   c = commit
-  ca = commit -a
-  cA = !git add -A && git commit
-  wip = commit -am "WIP"
-  wipa = !git add -A && git commit -m "WIP"
+  cu = commit --all
+  ca = !git add --al && git commit
+  wu = commit --all --message "WIP"
+  wa = !git add --all && git commit --message "WIP"
+
   b = branch
-  bd = branch -D
+  bd = branch --delete
   co = checkout
-  cob = checkout -b
+  cob = checkout --branch
   cloner = clone --recursive
+
+
+
