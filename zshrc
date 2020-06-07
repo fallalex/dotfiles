@@ -128,6 +128,8 @@ alias tw='timew'
 alias ex='exuno'
 alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
+# Find git repos
+#glocate -r /.git$ | xargs gdirname
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]
