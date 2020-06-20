@@ -124,10 +124,18 @@ alias l.='ll -d .*'
 alias g='git'
 alias rb='rbenv'
 alias rbg='rbenv shell $(rbenv global)'
+alias rbl='rbenv shell $(rbenv local)'
 alias tw='timew'
 alias ex='exuno'
 alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
+alias bmftp='ftp ftp.bluemedora.com'
+alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
+alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git_scripts/github_repos_paginator.py'
+alias listrepos='~/scripts/git_scripts/gitrepos.py'
+alias otp='otpass'
+alias wr='curl -s wttr.in | ghead -n -2'
+alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 # Find git repos
 #glocate -r /.git$ | xargs gdirname
 

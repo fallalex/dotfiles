@@ -30,6 +30,8 @@
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
   clear = !git checkout master && git reset --hard origin/master && git clean -fdi
+  # 'git n ...' to disable pager
+  n = !git --no-pager
 
   up = push --set-upstream origin HEAD
   p = push
@@ -42,14 +44,15 @@
   # Note: "git add --all" and "git commit --all" are different commit does not care about working dir and commit does not add files so is closer to update
   c = commit
   cu = commit --all
-  ca = !git add --al && git commit
+  ca = !git add --all && git commit
   wu = commit --all --message "WIP"
   wa = !git add --all && git commit --message "WIP"
 
   b = branch
+  ba = !git --no-pager branch --all
   bd = branch --delete
   co = checkout
-  cob = checkout --branch
+  cob = checkout -b
   cloner = clone --recursive
 
 
