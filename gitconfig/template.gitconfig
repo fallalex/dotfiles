@@ -1,8 +1,8 @@
-[user]
-  name = 
-  email = 
-
+# main config in $HOME/.gitconfig
+# repo specific in .git/config
 # git config --list --show-origin
+
 [include]
   path = ~/dotfiles/gitconfig/aliases
   path = ~/dotfiles/gitconfig/defaults
+

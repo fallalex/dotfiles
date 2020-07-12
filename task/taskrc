@@ -10,6 +10,7 @@ alias.last                       = end.after:now-24hrs completed
 alias.cap                        = add +cap
 alias.bmlll                      = +bm +lll
 alias.eod                        = +next due:eod
+alias.nx                         = +next
 
 # Contexts
 context.bm                       = +bm -lll
@@ -17,6 +18,7 @@ context.lll                      = +bm +lll
 context.lab                      = +lab
 context.out                      = +out
 context.home                     = -bm -lab -out
+
 
 # Reports
 report.due.description           = Due Report
@@ -77,3 +79,4 @@ report.maybe.filter              = status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 include ~/.task/cert.conf
+context=lll

@@ -35,10 +35,9 @@ precmd_tasks() {
     RPROMPT=""
     TASKCOUNT=$(task +cap +PENDING count)
     # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
-    # Think this was causing weird behavior
-    # if [[ ${TASKCOUNT} -ne 0 ]]; then
-    #     RPROMPT='%f%F{red}${TASKCOUNT}%f'
-    # fi
+    if [[ ${TASKCOUNT} -ne 0 ]]; then
+        RPROMPT='%f%F{red}${TASKCOUNT}%f'
+    fi
 }
 add-zsh-hook precmd precmd_tasks
 
@@ -122,9 +121,14 @@ alias ll='ls -Fl'
 alias lt='ll -tr --time-style=full-iso'
 alias l.='ll -d .*'
 alias g='git'
-alias rb='rbenv'
-alias rbg='rbenv shell $(rbenv global)'
-alias rbl='rbenv shell $(rbenv local)'
+alias jv='jenv'
+alias jvg='jenv shell $(jenv global)'
+alias jvl='jenv shell $(jenv local)'
+alias jvpaths='ll $HOME/.jenv/versions'
+alias jvpath='ll `jenv prefix`'
+alias rv='rbenv'
+alias rvg='rbenv shell $(rbenv global)'
+alias rvl='rbenv shell $(rbenv local)'
 alias tw='timew'
 alias ex='exuno'
 alias vr='vrops'
@@ -136,6 +140,8 @@ alias listrepos='~/scripts/git_scripts/gitrepos.py'
 alias otp='otpass'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
+alias tk='task'
+alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
 # Find git repos
 #glocate -r /.git$ | xargs gdirname
 
@@ -150,6 +156,7 @@ alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gi
 #
 
 export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 source $HOME/scripts/link_scripts/link_scripts.sh
 
 export VAULT_ADDR=https://vault.bluemedora.localnet:8200
