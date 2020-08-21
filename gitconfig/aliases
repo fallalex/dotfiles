@@ -35,7 +35,7 @@
 
   up = push --set-upstream origin HEAD
   p = push
-  ll = pull
+  ll = !git pull && git sup
 
   a = add
   aa = add --all

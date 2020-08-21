@@ -22,6 +22,7 @@ noremap <silent> <leader>is :source $MYVIMRC<CR>
 " use ':e' to reload the page
 call mkdir($HOME.'/.vim', 'p', 0770)
 call mkdir($HOME.'/.vim/undo', 'p', 0700)
+set mouse=a
 set undodir=~/.vim/undo
 set undofile
 set hidden
@@ -145,6 +146,7 @@ let g:tmuxline_preset = {
 " Plugins
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'

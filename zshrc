@@ -41,6 +41,11 @@ precmd_tasks() {
 }
 add-zsh-hook precmd precmd_tasks
 
+# https://github.com/sindresorhus/pure/issues/300
+# this is to fix weird prompt collisions from completion
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # I ended up not liking this
 # Set default vi mode to Normal
 #function zle-line-init { zle -K vicmd }
@@ -68,6 +73,9 @@ zstyle ':completion::complete:*' gain-privileges 1
 # zstyle ':completion:*' use-compctl false
 # zstyle :compinstall filename '/home/fallalex/.zshrc'
 
+eval "$(bw completion --shell zsh); compdef _bw bw;"
+fpath=(/Users/afall/scripts/bw-scripts $fpath)
+
 setopt COMPLETE_ALIASES MENU_COMPLETE autocd beep extendedglob nomatch
 autoload -Uz compinit
 compinit
@@ -85,6 +93,11 @@ setopt HIST_VERIFY
 setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 
+function clear-scrollback-buffer {
+  clear && printf '\e[3J'
+  zle && zle .reset-prompt && zle -R
+}
+
 # NeoVim & ZSH vi mode
 export EDITOR=/usr/local/bin/nvim
 #export VISUAL=$EDITOR
@@ -94,21 +107,23 @@ bindkey -v
 bindkey '^[[Z' reverse-menu-complete
 bindkey -M vicmd v edit-command-line
 autoload edit-command-line; zle -N edit-command-line
+bindkey '^L' clear-scrollback-buffer
+autoload clear-scrollback-buffer; zle -N clear-scrollback-buffer
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
 # brew install findutils
 alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
 alias glocate='glocate --database=$HOME/tmp/locatedb'
 alias reload='exec zsh -l'
-alias vi=nvim
 alias vim=nvim
-alias vimr='vim -R'
+alias vimr='vim --noplugin -R -c "syn off"'
+alias ff='fzf'
 alias viles="$PAGER"
 alias dt='date "+%F %T"'
+alias dat='date "+%Y%m%d"'
 alias journal='vim ~/vimwiki/journal/`date "+%F"`.md'
-alias c='clear'
-alias ~="cd ~"
-alias cd..='cd ../'
+alias c='clear-scrollback-buffer'
+alias ~='cd ~'
 alias ..='cd ../'
 alias echopath='echo -e ${PATH//:/\\n}'
 alias otpass='pass otp.yaml | otpass.py'
@@ -118,8 +133,10 @@ alias otpass='pass otp.yaml | otpass.py'
 alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
 alias ls='gls -h --time-style=long-iso --color=auto'
 alias ll='ls -Fl'
+alias lg='ll --group-directories-first'
 alias lt='ll -tr --time-style=full-iso'
 alias l.='ll -d .*'
+alias files='find -f $(pwd)'
 alias g='git'
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'
@@ -142,6 +159,7 @@ alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias tk='task'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
+alias bw='bw --session `den -sn`'
 # Find git repos
 #glocate -r /.git$ | xargs gdirname
 
@@ -157,6 +175,7 @@ alias deploylogs="log show --info --debug --last 30m --style compact --predicate
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/scripts/bw-scripts:$PATH"
 source $HOME/scripts/link_scripts/link_scripts.sh
 
 export VAULT_ADDR=https://vault.bluemedora.localnet:8200
