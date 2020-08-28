@@ -1,3 +1,8 @@
+# Way to profile zsh
+# https://htr3n.github.io/2018/07/faster-zsh/
+# and use this command /usr/bin/time zsh -i -c exit
+# zmodload zsh/zprof
+
 # this has helped me before with stuff like:
 # (eval):1: \_mv: function definition file not found
 glocate zcompdump | xargs rm -f
@@ -18,10 +23,8 @@ zplug load > /dev/null
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Setup color
-# git@github.com:mbadolato/iTerm2-Color-Schemes.git
-# solarized dark
 export TERM=xterm-256color
+# git@github.com:mbadolato/iTerm2-Color-Schemes.git
 # git clone git@github.com:seebi/dircolors-solarized.git
 eval `gdircolors ~/dircolors-solarized/dircolors.ansi-dark`
 
@@ -59,6 +62,8 @@ TRAPALRM() { zle reset-prompt }
 
 # Completion Settings
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
 zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort modification
 zstyle ':completion:*' format 'Completing %d'
@@ -73,8 +78,7 @@ zstyle ':completion::complete:*' gain-privileges 1
 # zstyle ':completion:*' use-compctl false
 # zstyle :compinstall filename '/home/fallalex/.zshrc'
 
-eval "$(bw completion --shell zsh); compdef _bw bw;"
-fpath=(/Users/afall/scripts/bw-scripts $fpath)
+fpath=(/Users/afall/scripts/.scripts $fpath)
 
 setopt COMPLETE_ALIASES MENU_COMPLETE autocd beep extendedglob nomatch
 autoload -Uz compinit
@@ -82,7 +86,7 @@ compinit
 
 # History Settings
 HISTFILE=~/.history
-HISTSIZE=3000                           # internal history
+HISTSIZE=10000                          # internal history
 SAVEHIST=$HISTSIZE                      # history file
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
@@ -93,9 +97,23 @@ setopt HIST_VERIFY
 setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 
+# actually clear the screen
 function clear-scrollback-buffer {
   clear && printf '\e[3J'
   zle && zle .reset-prompt && zle -R
+}
+
+# https://github.com/jenv/jenv/issues/148
+# eval "$(rbenv init --no-rehash -)"
+rbenv() {
+  eval "$(command rbenv init -)"
+  rbenv "$@"
+}
+
+# eval "$(jenv init --no-rehash -)"
+jenv() {
+  eval "$(command jenv init -)"
+  jenv "$@"
 }
 
 # NeoVim & ZSH vi mode
@@ -111,6 +129,7 @@ bindkey '^L' clear-scrollback-buffer
 autoload clear-scrollback-buffer; zle -N clear-scrollback-buffer
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
+
 # brew install findutils
 alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
 alias glocate='glocate --database=$HOME/tmp/locatedb'
@@ -160,6 +179,8 @@ alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gi
 alias tk='task'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
 alias bw='bw --session `den -sn`'
+
+
 # Find git repos
 #glocate -r /.git$ | xargs gdirname
 
@@ -175,11 +196,4 @@ alias bw='bw --session `den -sn`'
 
 export PATH="/usr/local/sbin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/scripts/bw-scripts:$PATH"
-source $HOME/scripts/link_scripts/link_scripts.sh
-
-export VAULT_ADDR=https://vault.bluemedora.localnet:8200
-export VAULT_GITHUB_TOKEN=`pass bm_hashi_vault`
 export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-eval "$(rbenv init -)"

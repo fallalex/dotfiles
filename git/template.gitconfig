@@ -3,6 +3,6 @@
 # git config --list --show-origin
 
 [include]
-  path = ~/dotfiles/gitconfig/aliases
-  path = ~/dotfiles/gitconfig/defaults
+  path = ~/dotfiles/git/aliases
+  path = ~/dotfiles/git/defaults
 

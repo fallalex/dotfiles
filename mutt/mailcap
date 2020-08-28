@@ -1,2 +1,0 @@
-text/plain; nvim %s ;
-text/html; lynx -stdin -dump -force_html ; copiousoutput
