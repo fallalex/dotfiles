@@ -1,0 +1,8 @@
+# main config in $HOME/.gitconfig
+# repo specific in .git/config
+# git config --list --show-origin
+
+[include]
+  path = ~/dotfiles/git/aliases
+  path = ~/dotfiles/git/defaults
+

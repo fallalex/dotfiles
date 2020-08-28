@@ -1,0 +1,78 @@
+" change from the default '\'
+let mapleader = ","
+
+" more usable help
+autocmd filetype help nnoremap <buffer><cr> <c-]>
+autocmd filetype help nnoremap <buffer><bs> <c-T>
+autocmd filetype help nnoremap <buffer>q :q<CR>
+autocmd filetype help set nonumber
+noremap <leader>th :tab help
+
+" Quick edit/source init.vim
+noremap <silent> <leader>ie :vsplit $MYVIMRC<CR>
+noremap <silent> <leader>is :source $MYVIMRC<CR>
+
+" Save undo info, auto read
+" use ':e' to reload the page
+if !isdirectory($HOME.'/.vim')
+    call mkdir($HOME.'/.vim', 'p', 0770)
+endif
+if !isdirectory($HOME.'/.vim/undo')
+    call mkdir($HOME.'/.vim/undo', 'p', 0700)
+endif
+set undodir=~/.vim/undo
+set undofile
+set hidden
+set autoread
+set noswapfile
+set writebackup
+
+" Make VIM remember position in file after reopen
+ if has("autocmd")
+   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Highlighting
+fun! s:EightyLine()
+    if !exists('w:eightyline')
+        let w:eightyline = 1
+        :set colorcolumn=80
+        :highlight ColorColumn ctermbg=red
+    else
+        unl w:eightyline
+        :set colorcolumn=80
+        :highlight ColorColumn NONE
+    endif
+endfunction
+nnoremap <leader>sh :call<SID>EightyLine()<cr>
+set hlsearch
+nmap <silent> <Esc> <Esc>:nohlsearch<CR>
+set nospell
+nnoremap <leader>ss :set spell!<CR>
+
+set nocompatible
+syntax on
+filetype indent plugin on
+set scrolloff=17
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
+set number relativenumber
+set background=dark
+
+fun! TrimTail()
+    let l:save = winsaveview()
+    keeppatterns %s/\s\+$//e
+    call winrestview(l:save)
+endfun
+command! TrimTail call TrimTail()
+nmap <silent> <leader>ee :call TrimTail()<CR>
+nmap <silent> <leader>et :retab<CR>
+
+"delete the open file
+noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
+
+" leave insert mode after 15s of no input
+autocmd CursorHoldI * stopinsert au InsertEnter * let updaterestore=&updatetime | set updatetime=15000 au InsertLeave * let &updatetime=updaterestore

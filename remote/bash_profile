@@ -1,0 +1,30 @@
+# .bash_profile used for remote systems
+# setup/managed by Alex Fall
+
+# PATH=$PATH:/usr/local/sbin
+
+## HISTORY Setup
+export HISTCONTROL=ignorespace:erasedups # duplicate entries avoided
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+export HISTTIMEFORMAT='%F %T '           # add datetime to history
+shopt -s histappend                      # append to history, don't overwrite it
+
+# export CLICOLOR=1
+# export LSCOLORS=GxFxCxDxBxegedabagaced
+export PS1='\[`[ $? = 0 ] && X=2 || X=1; tput setaf $X`\]\D{%F %T}\[`tput sgr0`\] \u@\h:$PWD\n> '
+
+## User Editor
+EDITOR=/usr/bin/vim
+set -o vi
+
+# general
+alias dt='date "+%F %T"'
+alias c='clear'
+alias ~="cd ~"
+alias cd..='cd ../'
+alias ..='cd ../'
+alias echopath='echo -e ${PATH//:/\\n}'
+
+touch ~/.bash_local_profile
+source ~/.bash_local_profile
