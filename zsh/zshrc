@@ -61,22 +61,18 @@ TMOUT=15
 TRAPALRM() { zle reset-prompt }
 
 # Completion Settings
-zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort modification
-zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' format '--- Completing %d ---'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion::complete:*' gain-privileges 1
-# zstyle ':completion:*' squeeze-slashes true
-# zstyle ':completion:*' use-compctl false
-# zstyle :compinstall filename '/home/fallalex/.zshrc'
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' squeeze-slashes true
+zstyle :compinstall filename '/home/fallalex/.zshrc'
 
 fpath=(/Users/afall/scripts/.scripts $fpath)
 
