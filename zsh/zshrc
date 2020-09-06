@@ -61,22 +61,18 @@ TMOUT=15
 TRAPALRM() { zle reset-prompt }
 
 # Completion Settings
-zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-zstyle ':completion:*' expand prefix suffix
 zstyle ':completion:*' file-sort modification
-zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' format '--- Completing %d ---'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' ignore-parents parent pwd ..
+zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' rehash true
-zstyle ':completion:*' max-errors 2
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-zstyle ':completion::complete:*' gain-privileges 1
-# zstyle ':completion:*' squeeze-slashes true
-# zstyle ':completion:*' use-compctl false
-# zstyle :compinstall filename '/home/fallalex/.zshrc'
+zstyle ':completion:*' use-compctl false
+zstyle ':completion:*' squeeze-slashes true
+zstyle :compinstall filename '/home/fallalex/.zshrc'
 
 fpath=(/Users/afall/scripts/.scripts $fpath)
 
@@ -104,17 +100,11 @@ function clear-scrollback-buffer {
 }
 
 # https://github.com/jenv/jenv/issues/148
-# eval "$(rbenv init --no-rehash -)"
-rbenv() {
-  eval "$(command rbenv init -)"
-  rbenv "$@"
-}
+eval "$(rbenv init --no-rehash -)"
+(rbenv rehash &) 2> /dev/null
 
-# eval "$(jenv init --no-rehash -)"
-jenv() {
-  eval "$(command jenv init -)"
-  jenv "$@"
-}
+eval "$(jenv init --no-rehash -)"
+(jenv rehash &) 2> /dev/null
 
 # NeoVim & ZSH vi mode
 export EDITOR=/usr/local/bin/nvim
@@ -171,8 +161,8 @@ alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias bmftp='ftp ftp.bluemedora.com'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
-alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git_scripts/github_repos_paginator.py'
-alias listrepos='~/scripts/git_scripts/gitrepos.py'
+alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git-scripts/github_repos_paginator.py'
+alias listrepos='~/scripts/git-scripts/gitrepos.py'
 alias otp='otpass'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'

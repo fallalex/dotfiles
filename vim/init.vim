@@ -167,8 +167,6 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user'
 Plug 'christoomey/vim-tmux-runner'
 Plug 'vimwiki/vimwiki'
-Plug 'tbabej/taskwiki'
-Plug 'blindFS/vim-taskwarrior'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
