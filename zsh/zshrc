@@ -100,17 +100,11 @@ function clear-scrollback-buffer {
 }
 
 # https://github.com/jenv/jenv/issues/148
-# eval "$(rbenv init --no-rehash -)"
-rbenv() {
-  eval "$(command rbenv init -)"
-  rbenv "$@"
-}
+eval "$(rbenv init --no-rehash -)"
+(rbenv rehash &) 2> /dev/null
 
-# eval "$(jenv init --no-rehash -)"
-jenv() {
-  eval "$(command jenv init -)"
-  jenv "$@"
-}
+eval "$(jenv init --no-rehash -)"
+(jenv rehash &) 2> /dev/null
 
 # NeoVim & ZSH vi mode
 export EDITOR=/usr/local/bin/nvim
@@ -167,8 +161,8 @@ alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias bmftp='ftp ftp.bluemedora.com'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
-alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git_scripts/github_repos_paginator.py'
-alias listrepos='~/scripts/git_scripts/gitrepos.py'
+alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git-scripts/github_repos_paginator.py'
+alias listrepos='~/scripts/git-scripts/gitrepos.py'
 alias otp='otpass'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
