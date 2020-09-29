@@ -51,7 +51,7 @@
   b = branch
   ba = !git --no-pager branch --all --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
   bd = branch --delete
-  co = checkout
+  co = checkout --track
   cob = checkout -b
   cloner = clone --recursive
 
