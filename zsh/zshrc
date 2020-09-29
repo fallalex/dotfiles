@@ -74,7 +74,7 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' squeeze-slashes true
 zstyle :compinstall filename '/home/fallalex/.zshrc'
 
-fpath=(/Users/afall/scripts/.scripts $fpath)
+fpath=($HOME/scripts/.scripts $fpath)
 
 setopt COMPLETE_ALIASES MENU_COMPLETE autocd beep extendedglob nomatch
 autoload -Uz compinit
@@ -156,6 +156,7 @@ alias rv='rbenv'
 alias rvg='rbenv shell $(rbenv global)'
 alias rvl='rbenv shell $(rbenv local)'
 alias tw='timew'
+alias ta='task'
 alias ex='exuno'
 alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
@@ -166,7 +167,6 @@ alias listrepos='~/scripts/git-scripts/gitrepos.py'
 alias otp='otpass'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
-alias tk='task'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
 alias bw='bw --session `den -sn`'
 
