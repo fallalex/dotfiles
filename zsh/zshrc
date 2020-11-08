@@ -169,6 +169,10 @@ alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
 alias bw='bw --session `den -sn`'
+alias ppjson='python -m json.tool'
+alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+
 
 
 # Find git repos
