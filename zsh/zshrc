@@ -120,6 +120,10 @@ autoload clear-scrollback-buffer; zle -N clear-scrollback-buffer
 MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
 
+function openapp() {
+    open "$(fd -d1 "$1" /Applications)"
+}
+
 # brew install findutils
 alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
 alias glocate='glocate --database=$HOME/tmp/locatedb'
@@ -136,6 +140,7 @@ alias c='clear-scrollback-buffer'
 alias -- -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
+alias app='openapp'
 alias echopath='echo -e ${PATH//:/\\n}'
 alias otpass='pass otp.yaml | otpass.py'
 #alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
