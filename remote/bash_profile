@@ -41,8 +41,9 @@ up() {
 alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
 alias c='clear'
+# you can pass -- as an argument, and all subsequent arguments are treated as operands and not options, even if they begin with a dash
+alias -- -='cd -'
 alias ~="cd ~"
-alias -="cd -"
 alias ..='cd ../'
 alias ls='ls -h --time-style=long-iso --color=auto'
 alias ll='ls -Fl'
