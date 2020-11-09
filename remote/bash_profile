@@ -5,26 +5,53 @@
 
 ## HISTORY Setup
 export HISTCONTROL=ignorespace:erasedups # duplicate entries avoided
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
+export HISTSIZE=5000
+export HISTFILESIZE=
+export HISTFILE=~/.bash_eternal_history
 export HISTTIMEFORMAT='%F %T '           # add datetime to history
+export HISTCONTROL=ignoreboth
+HISTIGNORE='ls *:ll *:lg *:lt *:l. *:history *'
 shopt -s histappend                      # append to history, don't overwrite it
+PROMPT_COMMAND="history -a; settitle; setprompt"
 
 # export CLICOLOR=1
 # export LSCOLORS=GxFxCxDxBxegedabagaced
 export PS1='\[`[ $? = 0 ] && X=2 || X=1; tput setaf $X`\]\D{%F %T}\[`tput sgr0`\] \u@\h:$PWD\n> '
 
 ## User Editor
-EDITOR=/usr/bin/vim
+if command -v vim &> /dev/null; then
+    EDITOR=`command -v vim`
+elif command -v vi &> /dev/null; then
+    EDITOR=`command -v vi`
+fi
+
 set -o vi
+
+# Provide 'up', so instead of 'cd ../../../' you type 'up 3'
+up() {
+  case "${1}" in
+    (*[!0-9]*)  : ;;
+    ("")        cd || return ;;
+    (1)         cd .. || return ;;
+    (*)         cd "$(eval "printf -- '../'%.0s {1..$1}")" || return ;;
+  esac
+}
 
 # general
 alias dt='date "+%F %T"'
+alias dat='date "+%Y%m%d"'
 alias c='clear'
 alias ~="cd ~"
-alias cd..='cd ../'
+alias -="cd -"
 alias ..='cd ../'
+alias ls='ls -h --time-style=long-iso --color=auto'
+alias ll='ls -Fl'
+alias lg='ll --group-directories-first'
+alias lt='ll -tr --time-style=full-iso'
+alias l.='ll -d .*'
+alias files='find -f $(pwd)'
 alias echopath='echo -e ${PATH//:/\\n}'
+alias loadhist='history -c; history -r'
 
 touch ~/.bash_local_profile
 source ~/.bash_local_profile

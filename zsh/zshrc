@@ -82,8 +82,8 @@ compinit
 
 # History Settings
 HISTFILE=~/.history
-HISTSIZE=10000                          # internal history
-SAVEHIST=$HISTSIZE                      # history file
+HISTSIZE=5000                           # internal history
+SAVEHIST=9223372036854775807            # history file - set to max value possible in zsh
 setopt HIST_IGNORE_SPACE
 setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
@@ -132,6 +132,7 @@ alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
 alias journal='vim ~/vimwiki/journal/`date "+%F"`.md'
 alias c='clear-scrollback-buffer'
+alias -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
 alias echopath='echo -e ${PATH//:/\\n}'
