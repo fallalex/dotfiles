@@ -12,6 +12,7 @@ alias.vmlll                      = +vm +lll
 alias.eod                        = +next due:eod
 alias.nx                         = +next
 alias.mb                         = +maybe
+alias.ya                         = add eod vmlll
 
 # Contexts
 context.vm                       = +vm -lll

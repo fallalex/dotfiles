@@ -10,13 +10,17 @@ glocate zcompdump | xargs rm -f
 sudo launchctl limit maxfiles 50000 200000
 ulimit 50000
 
+export PATH="/usr/local/sbin:$PATH"
+export PATH="$HOME/scripts/.scripts:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.jenv/bin:$PATH"
+
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 zplug "zsh-users/zsh-history-substring-search"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
-zplug "rupa/z", use:z.sh
 # zplug load --verbose
 zplug load > /dev/null
 
@@ -43,6 +47,7 @@ precmd_tasks() {
     fi
 }
 add-zsh-hook precmd precmd_tasks
+
 
 # https://github.com/sindresorhus/pure/issues/300
 # this is to fix weird prompt collisions from completion
@@ -85,6 +90,7 @@ HISTFILE=~/.history
 HISTSIZE=5000                           # internal history
 SAVEHIST=9223372036854775807            # history file - set to max value possible in zsh
 setopt HIST_IGNORE_SPACE
+setopt HIST_NO_FUNCTIONS
 setopt HIST_IGNORE_ALL_DUPS
 setopt INC_APPEND_HISTORY
 setopt NO_SHARE_HISTORY
@@ -92,6 +98,29 @@ setopt HIST_LEX_WORDS
 setopt HIST_VERIFY
 setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
+# https://stackoverflow.com/questions/11670935/comments-in-command-line-zsh
+setopt interactivecomments
+export HISTORY_IGNORE="(ls|ls *|pwd)"
+
+# https://stackoverflow.com/questions/6934565/how-can-i-have-zsh-exclude-certain-commands-from-history
+# HISTORY_IGNORE does not help outside of history files
+# i.e. up-arrow will show things that should be ignored if you just ran them
+# after some thought I think this is for the best
+function zshaddhistory() {
+    emulate -L zsh
+    # uncomment if HISTORY_IGNORE
+    # should use EXTENDED_GLOB syntax
+    setopt extendedglob
+
+    # add working directory to history and ignore commands in HISTORY_IGNORE
+    if [[ $1  != ${~HISTORY_IGNORE} ]]; then
+        # print -sr -- "${1%%$'\n'} ### ${PWD}"
+        print -sr -- "${1%%$'\n'}"
+        fc -p
+    else
+        return 1
+    fi
+}
 
 # actually clear the screen
 function clear-scrollback-buffer {
@@ -121,7 +150,8 @@ MYVIMRC="$HOME/.config/nvim/init.vim"
 VIMINIT=$MYVIMRC
 
 function openapp() {
-    open "$(fd -d1 "$1" /Applications)"
+    locate .app | rg -N ".*\.app$" | fzf | gxargs -i open {}
+    # open "$(fd -t d ".app" /Applications | rg -Ni "$@")"
 }
 
 # brew install findutils
@@ -179,6 +209,10 @@ alias bw='bw --session `den -sn`'
 alias ppjson='python -m json.tool'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+alias xargs='gxargs'
+alias readlink='greadlink'
+alias realpath='grealpath'
+alias loadhist='fc -R'
 
 
 
@@ -195,7 +229,5 @@ alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAut
 # }
 #
 
-export PATH="/usr/local/sbin:$PATH"
-export PATH="$HOME/scripts/.scripts:$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.jenv/bin:$PATH"
+
+eval "$(zoxide init zsh)"
