@@ -15,6 +15,8 @@ export PATH="$HOME/scripts/.scripts:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.jenv/bin:$PATH"
 
+eval "$(zoxide init zsh)"
+
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github
 zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
@@ -25,7 +27,15 @@ zplug "zsh-users/zsh-completions"
 zplug load > /dev/null
 
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+if [[ -f ~/.fzf.zsh ]]; then 
+    source ~/.fzf.zsh
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    # https://github.com/junegunn/fzf/wiki/Configuring-fuzzy-completion
+    export FZF_COMPLETION_TRIGGER=''
+    bindkey '^T' fzf-completion
+    bindkey '^I' $fzf_default_completion
+fi
 
 export TERM=xterm-256color
 # git@github.com:mbadolato/iTerm2-Color-Schemes.git
@@ -61,9 +71,10 @@ function zle-line-init { }
 zle -N zle-line-init
 KEYTIMEOUT=1
 
-# updates the prompt every 15 seconds
-TMOUT=15
-TRAPALRM() { zle reset-prompt }
+# # This broke fzf and other completion menus
+# # updates the prompt every 15 seconds
+# TMOUT=15
+# TRAPALRM() { zle reset-prompt }
 
 # Completion Settings
 zstyle ':completion:*' use-cache on
@@ -104,6 +115,7 @@ function precmd() {
     local -i rc=$?
     emulate -L zsh
     setopt extendedglob
+    # Only enter command in history with return 0 and not ignored
     if (( $rc == 0 && $+_HISTLINE && $#_HISTLINE )); then
         builtin print -rs -- $_HISTLINE
         unset _HISTLINE
@@ -168,7 +180,6 @@ alias viles="$PAGER"
 alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
 alias journal='vim ~/vimwiki/journal/`date "+%F"`.md'
-alias c='clear-scrollback-buffer'
 # you can pass -- as an argument, and all subsequent arguments are treated as operands and not options, even if they begin with a dash
 alias -- -='cd -'
 alias ~='cd ~'
@@ -202,8 +213,6 @@ alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias bmftp='ftp ftp.bluemedora.com'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
-alias gitrepos='hub api --paginate /orgs/BlueMedora/repos | ~/scripts/git-scripts/github_repos_paginator.py'
-alias listrepos='~/scripts/git-scripts/gitrepos.py'
 alias otp='otpass'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
@@ -234,4 +243,3 @@ alias hist='fc -li -30'
 #
 
 
-eval "$(zoxide init zsh)"
