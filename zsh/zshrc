@@ -215,7 +215,8 @@ alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAut
 alias xargs='gxargs'
 alias readlink='greadlink'
 alias realpath='grealpath'
-alias loadhist='fc -R'
+alias loadhist='fc -RI'
+alias hist='fc -li -30'
 
 
 
