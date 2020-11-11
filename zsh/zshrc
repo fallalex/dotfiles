@@ -38,7 +38,7 @@ RPROMPT=
 promptinit
 prompt pure > /dev/null
 
-precmd_tasks() {
+function precmd_tasks() {
     RPROMPT=""
     TASKCOUNT=$(task +cap +PENDING count)
     # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
@@ -89,10 +89,8 @@ compinit
 HISTFILE=~/.history
 HISTSIZE=5000                           # internal history
 SAVEHIST=9223372036854775807            # history file - set to max value possible in zsh
-setopt HIST_IGNORE_SPACE
 setopt HIST_NO_FUNCTIONS
-setopt HIST_IGNORE_ALL_DUPS
-setopt INC_APPEND_HISTORY
+setopt HIST_FIND_NO_DUPS
 setopt NO_SHARE_HISTORY
 setopt HIST_LEX_WORDS
 setopt HIST_VERIFY
@@ -100,26 +98,31 @@ setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 # https://stackoverflow.com/questions/11670935/comments-in-command-line-zsh
 setopt interactivecomments
-export HISTORY_IGNORE="(ls|ls *|pwd)"
+export HISTORY_IGNORE="( *|ls|ls *|pwd)"
 
-# https://stackoverflow.com/questions/6934565/how-can-i-have-zsh-exclude-certain-commands-from-history
-# HISTORY_IGNORE does not help outside of history files
-# i.e. up-arrow will show things that should be ignored if you just ran them
-# after some thought I think this is for the best
+function precmd() {
+    local -i rc=$?
+    emulate -L zsh
+    setopt extendedglob
+    if (( $rc == 0 && $+_HISTLINE && $#_HISTLINE )); then
+        builtin print -rs -- $_HISTLINE
+        unset _HISTLINE
+        # incremental append history
+        fc -AI
+    fi
+}
+
 function zshaddhistory() {
     emulate -L zsh
-    # uncomment if HISTORY_IGNORE
-    # should use EXTENDED_GLOB syntax
     setopt extendedglob
-
-    # add working directory to history and ignore commands in HISTORY_IGNORE
-    if [[ $1  != ${~HISTORY_IGNORE} ]]; then
-        # print -sr -- "${1%%$'\n'} ### ${PWD}"
-        print -sr -- "${1%%$'\n'}"
-        fc -p
-    else
-        return 1
+    # trim trailing whitespace for comparison
+    _HISTLINE=$(echo $1 | perl -pe 's/ +$//')
+    if [[ $_HISTLINE = ${~HISTORY_IGNORE} ]]; then
+        unset _HISTLINE
     fi
+    # we never want to succeed here as we manually set
+    # history in precmd if this returns double entry occurs
+    return 1
 }
 
 # actually clear the screen
