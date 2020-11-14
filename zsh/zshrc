@@ -308,6 +308,8 @@ alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
 alias u='aunpack'
 alias pt='ptpython3'
+# need to make this a function
+# alias gs="locate .git | rg \"(.*)/\.git$\" -or \'\$1\' | rg -v \"(/Homebrew/|/go/|/vmware/|/\.|/bluemedora/|/cases/|/iTerm|/dircolors)\" | gxargs -i git -C {} status"
 
 function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
 
