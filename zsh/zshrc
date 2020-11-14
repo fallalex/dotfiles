@@ -46,7 +46,13 @@ if [[ -f ~/.fzf.zsh ]]; then
         if [ "$#" -eq 0 ]; then
             zi
         else
-            z "$@"
+            # gets last argument into "$1"
+            shift $(($# - 1))
+            if [ -f "$1" ]; then
+                z $(dirname "$1")
+            else
+                z "$1"
+            fi
         fi
     }
 
@@ -134,7 +140,45 @@ setopt EXTENDED_HISTORY
 setopt HIST_FCNTL_LOCK
 # https://stackoverflow.com/questions/11670935/comments-in-command-line-zsh
 setopt interactivecomments
-export HISTORY_IGNORE="( *|ls|ls *|ll|ll *|l.|l. *|pwd|j|j *|z|z *|cd|cd *|..|~|vz|hr|hl|ht|man *|ta|ta *|ss|date|date *|dt|dat|o|reset)"
+
+history_ignore=(
+    ' *'
+    'ls'
+    'ls *'
+    'll'
+    'll *'
+    'l.'
+    'l. *'
+    'pwd'
+    'j'
+    'j *'
+    'z'
+    'z *'
+    'cd'
+    'cd *'
+    '..'
+    '~'
+    'vz'
+    'hr'
+    'hl'
+    'ht'
+    'man *'
+    'ta'
+    'ta *'
+    'ss'
+    'date'
+    'date *'
+    'dt'
+    'dat'
+    'o'
+    'reset'
+    'zoxide'
+    'zoxide *'
+    '* --help'
+    'pt'
+    'open'
+)
+export HISTORY_IGNORE="(${(j.|.)history_ignore})"
 
 function precmd() {
     local -i rc=$?
@@ -199,6 +243,8 @@ function openapp() {
     # open "$(fd -t d ".app" /Applications | rg -Ni "$@")"
 }
 
+mk() { mkdir -p "$1" && cd "$1"; }
+
 # TODO: alias p='den'
 # brew install findutils
 alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
@@ -260,6 +306,8 @@ alias realpath='grealpath'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
+alias u='aunpack'
+alias pt='ptpython3'
 
 function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
 
