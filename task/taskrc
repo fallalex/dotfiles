@@ -8,16 +8,18 @@ default.command=next
 alias.note                       = execute "$HOME/dotfiles/task/tasknote.sh"
 alias.last                       = end.after:now-24hrs completed
 alias.cap                        = add +cap
-alias.vmlll                      = +vm +lll
-alias.eod                        = +next due:eod
 alias.nx                         = +next
 alias.mb                         = +maybe
-alias.ya                         = add eod vmlll
+alias.ya                         = add eod lll
+alias.nil                        = context none
 
 # Contexts
 context.vm                       = +vm -lll
+alias.vm                         = add +vm -lll
 context.lll                      = +vm +lll
+alias.lll                        = add +vm +lll
 context.lab                      = +lab
+alias.lab                        = add +lab
 context.out                      = +out
 context.home                     = -vm -lab -out
 
@@ -81,4 +83,3 @@ report.maybe.filter              = status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 include ~/.task/cert.conf
-context=lll
