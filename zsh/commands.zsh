@@ -6,44 +6,59 @@ function swap() {
     mv $TMPFILE "$2"
 }
 
-function openapp() {
-    locate .app | rg -N ".*\.app$" | fzf | gxargs -i open {}
-    # open "$(fd -t d ".app" /Applications | rg -Ni "$@")"
-}
 
 function mk() { mkdir -p "$1" && cd "$1"; }
 
 # TODO: alias p='den'
-# brew install findutils
-alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
-alias glocate='glocate --database=$HOME/tmp/locatedb'
+#
+case "$OSTYPE" in
+    darwin*)
+        function openapp() {
+            locate .app | rg -N ".*\.app$" | fzf | gxargs -i open {}
+            # open "$(fd -t d ".app" /Applications | rg -Ni "$@")"
+        }
+        alias o='openapp'
+        alias xargs='gxargs'
+        alias readlink='greadlink'
+        alias realpath='grealpath'
+        alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
+        alias glocate='glocate --database=$HOME/tmp/locatedb'
+        alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
+        function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
+    ;;
+    # linux*)
+    # ;;
+    # dragonfly*|freebsd*|netbsd*|openbsd*)
+    # ;;
+esac
+
 alias ss='exec zsh -l'
 alias v="$EDITOR"
-alias vz="$EDITOR $HOME/.zshrc"
 alias vim="$EDITOR"
 alias vimr="$EDITOR --noplugin -R -c 'syn off'"
+alias vz="$EDITOR $HOME/.zshrc"
 alias ff='fzf'
 alias viles="$PAGER"
 alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
 alias journal="$EDITOR ~/vimwiki/journal/$(date '+%F').md"
+alias wiki="$EDITOR -c VimwikiIndex"
 # you can pass -- as an argument, and all subsequent arguments are treated as operands and not options, even if they begin with a dash
 alias -- -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
-alias o='openapp'
 alias echopath='echo -e ${PATH//:/\\n}'
 alias otpass='pass otp.yaml | otpass.py'
 alias otp='otpass'
 #alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
 #alias ecu=' sshpass -p `pass ibm | head -1` ssh ecurep'
 #alias ibmproxy='autossh -M 0 -qND localhost:8088 ibmvpn'
-alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
 alias ls='gls -h --time-style=long-iso --color=auto'
-alias ll='ls -Fl'
-alias lg='ll --group-directories-first'
-alias lt='ll -tr --time-style=full-iso'
-alias l.='ll -d .*'
+alias ll='ls -Fl --group-directories-first'
+alias lt='ls -Fltr --time-style=full-iso'
+alias l.='ls -Fld'
+alias mv='mv -iv'
+alias cp='cp -iv'
 alias files='fd -t f $(pwd)'
 alias g='git'
 alias jv='jenv'
@@ -68,9 +83,6 @@ alias bw='bw --session `den -sn`'
 alias ppjson='python -m json.tool'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
-alias xargs='gxargs'
-alias readlink='greadlink'
-alias realpath='grealpath'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
@@ -79,7 +91,6 @@ alias pt='ptpython3'
 # need to make this a function
 #glocate -r /.git$ | xargs gdirname
 # locate .git|rg "(.*)/\.git$" -or '$1' | rg -v "(/Homebrew/|/go/|/vmware/|/\..*|/bluemedora/|/cases/|/iTerm/|/dircolors)" | gxargs -i git -C {} st
-function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]

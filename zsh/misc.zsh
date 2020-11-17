@@ -3,12 +3,16 @@
 # and use this command /usr/bin/time zsh -i -c exit
 # zmodload zsh/zprof
 
-# this has helped me before with stuff like:
-# (eval):1: \_mv: function definition file not found
-glocate zcompdump | xargs rm -f
+case "$OSTYPE" in
+    darwin*)
+        sudo launchctl limit maxfiles 50000 200000
+    ;;
+    # linux*)
+    # ;;
+    # dragonfly*|freebsd*|netbsd*|openbsd*)
+    # ;;
+esac
 
-sudo launchctl limit maxfiles 50000 200000
-ulimit 50000
 
 # https://github.com/jenv/jenv/issues/148
 eval "$(rbenv init --no-rehash -)"

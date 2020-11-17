@@ -1,10 +1,6 @@
-# get the directory of this script even if symlinked
-# works on linux and mac
-zshrc_dir=$(dirname "$(realpath -- '$0')")
-# this only works if not symlinked
-# zshrc_dir=${0:a:h}
+# get the directory of this script when symlinked works on linux and mac
+zshrc_dir=$(dirname "$(realpath $ZDOTDIR/.zshrc)")
 
-# could auto source files in a dir but I care about load order
 zshrc_files=(
     path
     editor-pager
@@ -21,9 +17,15 @@ unset zshrc_files
 
 # source files for error if does not exist
 for f in $zshrc_paths; do
-    . $f
+    if [[ -r $f ]]; then
+        . $f
+    else
+        echo "'$f' does not exist."
+    fi
 done
 unset zshrc_paths
 
-# TODO: check and source .zshrc.local
+if [[ -r ~/.zshrc.local ]]; then
+    . ~/.zshrc.local
+fi
 

@@ -12,16 +12,17 @@ alias.nx                         = +next
 alias.mb                         = +maybe
 alias.ya                         = add eod lll
 alias.nil                        = context none
+alias.cx                         = context
 
 # Contexts
-context.vm                       = +vm -lll
-alias.vm                         = add +vm -lll
-context.lll                      = +vm +lll
-alias.lll                        = add +vm +lll
-context.lab                      = +lab
-alias.lab                        = add +lab
-context.out                      = +out
-context.home                     = -vm -lab -out
+context.cvm                      = +vm -lll
+alias.vm                         = add +vm -lll +next
+context.clll                     = +vm +lll
+alias.lll                        = add +vm +lll +next
+context.clab                     = +lab
+alias.lab                        = add +lab +next
+context.cout                     = +out
+context.chome                    = -vm -lab -out
 
 
 # Reports
@@ -29,8 +30,15 @@ report.due.description           = Due Report
 report.due.labels                = Due,Remain,Proj,ID,Description
 report.due.columns               = due,due.remaining,project,id,description
 report.due.dateformat            = Y-M-D H:N
-report.due.filter                = due.after:eod status:pending
+report.due.filter                = limit:page due.after:eod status:pending
 report.due.sort                  = due+
+
+report.late.description          = Late Report
+report.late.labels               = Due,Remain,Proj,ID,Description
+report.late.columns              = due,due.remaining,project,id,description
+report.late.dateformat           = Y-M-D H:N
+report.late.filter               = limit:page due.before:now status:pending
+report.late.sort                 = due+
 
 report.today.description         = Due Report
 report.today.labels              = Proj,ID,Description
@@ -49,7 +57,7 @@ report.completed.sort            = end+
 report.orphaned.description      = Orphaned Report
 report.orphaned.labels           = Proj,ID,Description
 report.orphaned.columns          = project,id,description.desc
-report.orphaned.filter           = status:pending -waiting -next -maybe -cap
+report.orphaned.filter           = limit:page status:pending -waiting -next -maybe -cap
 report.orphaned.sort             = project+/,entry+
 
 report.next.description          = Next Report
@@ -61,13 +69,13 @@ report.next.sort                 = project+/,entry+
 report.inventory.description     = Inventory Report
 report.inventory.labels          = Age,Proj,ID,Description
 report.inventory.columns         = entry.age,project,id,description
-report.inventory.filter          = status.not:completed status.not:deleted
+report.inventory.filter          = limit:page status.not:completed status.not:deleted
 report.inventory.sort            = project+/,entry+
 
 report.waiting.description       = Waiting Report
 report.waiting.labels            = Proj,ID,Description
 report.waiting.columns           = project,id,description
-report.waiting.filter            = +waiting status.not:completed status.not:deleted
+report.waiting.filter            = limit:page +waiting status.not:completed status.not:deleted
 report.waiting.sort              = project+/,entry+
 
 report.capture.description       = Capture Report
@@ -79,7 +87,8 @@ report.capture.sort              = entry+
 report.maybe.description         = Maybe Report
 report.maybe.labels              = Proj,ID,Description
 report.maybe.columns             = project,id,description
-report.maybe.filter              = status:pending +maybe
+report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 include ~/.task/cert.conf
+context=clab

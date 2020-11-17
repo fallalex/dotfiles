@@ -1,3 +1,7 @@
-want to break into a clearer structure similar to these examples
-https://github.com/phyber/zsh.d
-https://github.com/mafredri/zeet
+write script to link zshenv
+make parent dir if needed
+check for file
+check for env variable in file
+replace/maake env variable
+
+force link zshrc to ZDOTDIR

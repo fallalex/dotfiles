@@ -1,4 +1,4 @@
-if [[ -f ~/.fzf.zsh ]]; then 
+if [[ -r ~/.fzf.zsh ]]; then 
     source ~/.fzf.zsh
     export FD_DEFAULT_OPTIONS="-I --hidden --follow --exclude .git"
     export FZF_DEFAULT_COMMAND="fd $FD_DEFAULT_OPTIONS"

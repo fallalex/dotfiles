@@ -9,7 +9,6 @@ zplug "zsh-users/zsh-completions"
 # zplug load --verbose
 zplug load > /dev/null
 
-
 # git@github.com:mbadolato/iTerm2-Color-Schemes.git
 # git clone git@github.com:seebi/dircolors-solarized.git
 eval `gdircolors ~/dircolors-solarized/dircolors.ansi-dark`
