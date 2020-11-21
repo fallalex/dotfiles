@@ -34,8 +34,10 @@ case "$OSTYPE" in
 esac
 
 # https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
-alias ta=task
+alias ta='task'
 compdef ta=task
+# force this report to show dispite current context
+alias tacap='ta rc.context=none capture'
 alias ss='rm -f ~/.config/zsh/.zcompdump; exec zsh -l'
 alias v="$EDITOR"
 alias vim="$EDITOR"

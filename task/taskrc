@@ -95,3 +95,4 @@ report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 include ~/.task/cert.conf
+context=clab
