@@ -1,6 +1,19 @@
 # Auto attach to or start a session
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/tmux/tmux.plugin.zsh
 
+function preexec_tmux() {
+    CURRENT_CMD=$(echo -n - "$CURRENT_CMD" | perl -pe 's/ +$//')
+    if [[ $CURRENT_CMD = ${~HISTORY_IGNORE} ]]; then
+        return 0
+    fi
+    cmd="$(echo $CURRENT_CMD | python -c 'import sys,shlex; print(shlex.split(sys.stdin.readlines()[0])[0])' 2> /dev/null)"
+    if [[ -z "$cmd" ]]; then
+        return 0
+    fi
+    tmux rename-window -t${TMUX_PANE} "$cmd"
+}
+
+add-zsh-hook preexec preexec_tmux
 function _zsh_tmux_cmd() {
     if [[ -n "$@" ]]; then
         command tmux "$@"

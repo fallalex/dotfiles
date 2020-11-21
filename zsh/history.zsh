@@ -26,10 +26,11 @@ function precmd_history() {
 add-zsh-hook precmd precmd_history
 
 function zshaddhistory() {
+    _ORGINAL_CMD=$1
     emulate -L zsh
     setopt extendedglob
     # trim trailing whitespace for comparison
-    _HISTLINE=$(echo -n - "$1" | perl -pe 's/ +$//')
+    _HISTLINE=$(echo -n - "$_ORIGINAL_CMD" | perl -pe 's/ +$//')
     if [[ $_HISTLINE = ${~HISTORY_IGNORE} ]]; then
         unset _HISTLINE
         return 1

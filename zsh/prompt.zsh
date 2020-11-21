@@ -6,6 +6,10 @@ RPROMPT=
 promptinit
 prompt pure > /dev/null
 
+function preexec () {
+    CURRENT_CMD=$1
+}
+
 function precmd_tasks() {
     RPROMPT=""
     TASKCOUNT=$(task +cap +PENDING count)
