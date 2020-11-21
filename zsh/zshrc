@@ -11,6 +11,7 @@ zshrc_files=(
     commands
     fzf
     misc
+    tmux
 )
 zshrc_paths=($zshrc_dir'/'${^zshrc_files}'.zsh')
 unset zshrc_files

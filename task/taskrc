@@ -1,16 +1,20 @@
+include /usr/local/Cellar/task/2.5.1/share/doc/task/rc/solarized-dark-256.theme
+
 confirmation=no
 search.case.sensitive=off
-color=off
+color=on
 print.empty.columns=on
 default.command=next
 
 # Alias
 alias.note                       = execute "$HOME/dotfiles/task/tasknote.sh"
-alias.last                       = end.after:now-24hrs completed
+alias.didl                       = end.after:now-24hrs completed
+alias.didt                       = end.after:today completed
+alias.didy                       = end.after:yesterday end.before:today completed
 alias.cap                        = add +cap
 alias.nx                         = +next
 alias.mb                         = +maybe
-alias.ya                         = add eod lll
+alias.ya                         = add due:eod +vm +lll +next
 alias.nil                        = context none
 alias.cx                         = context
 

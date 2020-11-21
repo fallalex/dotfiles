@@ -9,6 +9,7 @@ function swap() {
 
 function mk() { mkdir -p "$1" && cd "$1"; }
 
+function xsion() { fd -t f | rg ".*/.*(\..+$)" -or '$1' | sort | uniq -c | sort -rn | head; }
 # TODO: alias p='den'
 #
 case "$OSTYPE" in
@@ -32,7 +33,10 @@ case "$OSTYPE" in
     # ;;
 esac
 
-alias ss='exec zsh -l'
+# https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
+alias ta=task
+compdef ta=task
+alias ss='rm -f ~/.config/zsh/.zcompdump; exec zsh -l'
 alias v="$EDITOR"
 alias vim="$EDITOR"
 alias vimr="$EDITOR --noplugin -R -c 'syn off'"
@@ -47,7 +51,8 @@ alias wiki="$EDITOR -c VimwikiIndex"
 alias -- -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
-alias echopath='echo -e ${PATH//:/\\n}'
+alias ppath='print -l $path'
+alias pfpath='print -l $fpath | xargs -i fd . -t f -t l {}'
 alias otpass='pass otp.yaml | otpass.py'
 alias otp='otpass'
 #alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
@@ -61,6 +66,7 @@ alias mv='mv -iv'
 alias cp='cp -iv'
 alias files='fd -t f $(pwd)'
 alias g='git'
+compdef g=git
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'
 alias jvl='jenv shell $(jenv local)'
@@ -70,11 +76,11 @@ alias rv='rbenv'
 alias rvg='rbenv shell $(rbenv global)'
 alias rvl='rbenv shell $(rbenv local)'
 alias tw='timew'
-alias ta='task'
 alias ex='exuno'
 alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
-alias bmftp='ftp ftp.bluemedora.com'
+alias bmftp='lftp ftp.bluemedora.com -e "cd bmftpuser; cls -lh --sort=date"'
+alias vmftp='lftp ftpsite.vmware.com'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'

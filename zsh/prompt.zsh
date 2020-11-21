@@ -47,9 +47,8 @@ zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' squeeze-slashes true
 zstyle :compinstall filename '/home/fallalex/.zshrc'
 
-fpath=($HOME/scripts/.scripts $fpath)
+setopt menucomplete autocd extendedglob nomatch
 
-setopt COMPLETE_ALIASES MENU_COMPLETE autocd beep extendedglob nomatch
 autoload -Uz compinit
 compinit
 
