@@ -34,10 +34,11 @@ case "$OSTYPE" in
 esac
 
 # https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
-alias ta='task'
-compdef ta=task
+alias t='task'
+compdef t=task
 # force this report to show dispite current context
-alias tacap='ta rc.context=none capture'
+alias caps='task rc.context=none rc.verbose=nothing capture'
+alias cap='task rc.verbose=nothing cap --'
 alias ss='rm -f ~/.config/zsh/.zcompdump; exec zsh -l'
 alias v="$EDITOR"
 alias vim="$EDITOR"
@@ -83,7 +84,6 @@ alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias bmftp='lftp ftp.bluemedora.com -e "cd bmftpuser; cls -lh --sort=date"'
 alias vmftp='lftp ftpsite.vmware.com'
-alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
@@ -96,6 +96,7 @@ alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
 alias u='aunpack'
 alias pt='ptpython3'
+alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 # need to make this a function
 #glocate -r /.git$ | xargs gdirname
 # locate .git|rg "(.*)/\.git$" -or '$1' | rg -v "(/Homebrew/|/go/|/vmware/|/\..*|/bluemedora/|/cases/|/iTerm/|/dircolors)" | gxargs -i git -C {} st

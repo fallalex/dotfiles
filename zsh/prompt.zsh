@@ -12,7 +12,7 @@ function preexec () {
 
 function precmd_tasks() {
     RPROMPT=""
-    TASKCOUNT=$(task rc.context=none +cap +PENDING count 2>/dev/null) 
+    TASKCOUNT=$(task rc.verbose=nothing rc.context=none +cap +PENDING count) 
     # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
     if [[ ${TASKCOUNT} -ne 0 ]]; then
         RPROMPT='%f%F{red}${TASKCOUNT}%f'

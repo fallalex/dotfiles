@@ -17,6 +17,7 @@ alias.mb                         = +maybe
 alias.ya                         = add due:eod +vm +lll +next
 alias.nil                        = context none
 alias.cx                         = context
+alias.l                          = +LATEST
 
 # Contexts
 context.cvm                      = +vm -lll
@@ -95,4 +96,4 @@ report.maybe.filter              = limit:page status:pending +maybe
 report.maybe.sort                = project+/,entry+
 
 include ~/.task/cert.conf
-context=clab
+context=clll
