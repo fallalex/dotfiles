@@ -91,6 +91,7 @@ alias bw='bw --session `den -sn`'
 alias ppjson='python -m json.tool'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
+alias gss='sshpass -p `den -np intranet-user` ssh gss'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
