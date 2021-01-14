@@ -98,6 +98,7 @@ alias ht="tail $HISTFILE"
 alias u='aunpack'
 alias pt='ptpython3'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
+alias yoda='sudo oda install; oda test'
 # need to make this a function
 #glocate -r /.git$ | xargs gdirname
 # locate .git|rg "(.*)/\.git$" -or '$1' | rg -v "(/Homebrew/|/go/|/vmware/|/\..*|/bluemedora/|/cases/|/iTerm/|/dircolors)" | gxargs -i git -C {} st

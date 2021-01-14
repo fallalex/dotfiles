@@ -57,6 +57,10 @@ nnoremap <leader>ss :set spell!<CR>
 autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+
+" open other files as zip
+autocmd BufReadCmd *.pak,*.jar call zip#Browse(expand("<amatch>"))
+
 let g:vimwiki_global_ext = 0
 let wiki_1 = {}
 let wiki_1.path = '~/vimwiki/'
