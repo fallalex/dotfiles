@@ -31,5 +31,6 @@
   tool = vimdiff
 
 [pull]
-    ff = only
+  rebase = false
+  #ff = only
 

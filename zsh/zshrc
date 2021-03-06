@@ -30,3 +30,5 @@ if [[ -r ~/.zshrc.local ]]; then
     . ~/.zshrc.local
 fi
 
+
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

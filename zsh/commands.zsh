@@ -75,6 +75,7 @@ alias jvg='jenv shell $(jenv global)'
 alias jvl='jenv shell $(jenv local)'
 alias jvpaths='ll $HOME/.jenv/versions'
 alias jvpath='ll `jenv prefix`'
+alias jhomes='/usr/libexec/java_home -V'
 alias rv='rbenv'
 alias rvg='rbenv shell $(rbenv global)'
 alias rvl='rbenv shell $(rbenv local)'
@@ -92,6 +93,7 @@ alias ppjson='python -m json.tool'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias gss='sshpass -p `den -np intranet-user` ssh gss'
+alias fed='sshpass -p `den -np vm-federal` ssh fed'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
@@ -99,6 +101,9 @@ alias u='aunpack'
 alias pt='ptpython3'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 alias yoda='sudo oda install; oda test'
+alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -pt f "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
+alias gr='./gradlew'
+
 # need to make this a function
 #glocate -r /.git$ | xargs gdirname
 # locate .git|rg "(.*)/\.git$" -or '$1' | rg -v "(/Homebrew/|/go/|/vmware/|/\..*|/bluemedora/|/cases/|/iTerm/|/dircolors)" | gxargs -i git -C {} st

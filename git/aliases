@@ -55,5 +55,7 @@
   cob = checkout -b
   cloner = clone --recursive
 
+  f = fetch
+
 
 

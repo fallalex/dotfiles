@@ -52,6 +52,7 @@ set hlsearch
 nmap <silent> <Esc> <Esc>:nohlsearch<CR>
 set nospell
 nnoremap <leader>ss :set spell!<CR>
+nnoremap <leader>sy :syntax!<CR>
 
 " change how mutt mail is displayed in vim
 autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
