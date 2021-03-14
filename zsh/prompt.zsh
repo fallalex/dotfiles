@@ -1,10 +1,10 @@
 export TERM=xterm-256color
 
 # Prompt
-autoload -Uz promptinit
+# autoload -Uz promptinit
 RPROMPT=
-promptinit
-prompt pure > /dev/null
+# promptinit
+# prompt pure > /dev/null
 
 function preexec () {
     CURRENT_CMD=$1
@@ -12,11 +12,11 @@ function preexec () {
 
 function precmd_tasks() {
     RPROMPT=""
-    TASKCOUNT=$(task rc.verbose=nothing rc.context=none +cap +PENDING count) 
+    # TASKCOUNT=$(task rc.verbose=nothing rc.context=none +cap +PENDING count) 
     # https://www.reddit.com/r/zsh/comments/cgbm24/multiline_prompt_the_missing_ingredient/
-    if [[ ${TASKCOUNT} -ne 0 ]]; then
-        RPROMPT='%f%F{red}${TASKCOUNT}%f'
-    fi
+    # if [[ ${TASKCOUNT} -ne 0 ]]; then
+    #     RPROMPT='%f%F{red}${TASKCOUNT}%f'
+    # fi
 }
 add-zsh-hook precmd precmd_tasks
 

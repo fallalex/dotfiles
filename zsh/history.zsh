@@ -29,7 +29,7 @@ function zshaddhistory() {
     emulate -L zsh
     setopt extendedglob
     # trim trailing whitespace for comparison
-    _HISTLINE=$(echo -n - "$1" | perl -pe 's/ +$//')
+    _HISTLINE=$(echo -n "$1" | sd '\s+$' '')
     if [[ $_HISTLINE = ${~HISTORY_IGNORE} ]]; then
         unset _HISTLINE
         return 1

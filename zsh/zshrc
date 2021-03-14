@@ -1,3 +1,6 @@
+# profile zsh startup, comment out unless debugging loading times
+zmodload zsh/zprof
+
 # get the directory of this script when symlinked works on linux and mac
 zshrc_dir=$(dirname "$(realpath $ZDOTDIR/.zshrc)")
 
@@ -16,7 +19,6 @@ zshrc_files=(
 zshrc_paths=($zshrc_dir'/'${^zshrc_files}'.zsh')
 unset zshrc_files
 
-# source files for error if does not exist
 for f in $zshrc_paths; do
     if [[ -r $f ]]; then
         . $f
@@ -30,5 +32,3 @@ if [[ -r ~/.zshrc.local ]]; then
     . ~/.zshrc.local
 fi
 
-
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

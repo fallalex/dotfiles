@@ -18,6 +18,9 @@ esac
 eval "$(rbenv init --no-rehash -)"
 (rbenv rehash &) 2> /dev/null
 
+eval "$(pyenv init --no-rehash -)"
+(pyenv rehash &) 2> /dev/null
+
 eval "$(jenv init --no-rehash -)"
 (jenv rehash &) 2> /dev/null
 

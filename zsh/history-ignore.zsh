@@ -15,7 +15,6 @@ history_ignore=(
     'cd *'
     '..'
     '~'
-    'vz'
     'hr'
     'hl'
     'ht'

@@ -2,11 +2,11 @@
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/tmux/tmux.plugin.zsh
 
 function preexec_tmux() {
-    CURRENT_CMD=$(echo -n - "$CURRENT_CMD" | perl -pe 's/ +$//')
+    CURRENT_CMD=$(echo -n "$CURRENT_CMD" | sd '\s+$' '')
     if [[ $CURRENT_CMD = ${~HISTORY_IGNORE} ]]; then
         return 0
     fi
-    cmd="$(echo $CURRENT_CMD | python -c 'import sys,shlex; print(shlex.split(sys.stdin.readlines()[0])[0])' 2> /dev/null)"
+    cmd="$(echo $CURRENT_CMD | sd -f m '^\s*(\S+)\s*.*' '$1')"
     if [[ -z "$cmd" ]]; then
         return 0
     fi

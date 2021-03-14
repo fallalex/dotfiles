@@ -25,6 +25,7 @@ case "$OSTYPE" in
         alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
         alias glocate='glocate --database=$HOME/tmp/locatedb'
         alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
+        alias echo='gecho'
         function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
     ;;
     # linux*)
@@ -36,6 +37,7 @@ esac
 # https://unix.stackexchange.com/questions/335145/using-zsh-autocompletion-for-alias
 alias t='task'
 compdef t=task
+alias tt="taskwarrior-tui"
 # force this report to show dispite current context
 alias caps='task rc.context=none rc.verbose=nothing capture'
 alias cap='task rc.verbose=nothing cap --'
@@ -43,7 +45,6 @@ alias ss='rm -f ~/.config/zsh/.zcompdump; exec zsh -l'
 alias v="$EDITOR"
 alias vim="$EDITOR"
 alias vimr="$EDITOR --noplugin -R -c 'syn off'"
-alias vz="$EDITOR $HOME/.zshrc"
 alias ff='fzf'
 alias viles="$PAGER"
 alias dt='date "+%F %T"'
@@ -79,6 +80,9 @@ alias jhomes='/usr/libexec/java_home -V'
 alias rv='rbenv'
 alias rvg='rbenv shell $(rbenv global)'
 alias rvl='rbenv shell $(rbenv local)'
+alias pv='pyenv'
+alias pvg='pyenv shell $(pyenv global)'
+alias pvl='pyenv shell $(pyenv local)'
 alias tw='timew'
 alias ex='exuno'
 alias vr='vrops'
