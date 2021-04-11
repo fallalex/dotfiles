@@ -26,7 +26,7 @@
   lg = log --graph --pretty=format:'%Cred%h%C(yellow)%d %Cgreen%cr %Cblue%an%Creset %s' --date=relative --all
   last = log --format=medium --date=iso -3 HEAD
   st = status -sb --ahead-behind --renames
-  di = diff --minimal -U0 -p --no-prefix --color-words
+  di = diff --minimal -U0 -p --no-prefix --word-diff=color --color=always
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
   clear = !git checkout master && git reset --hard origin/master && git clean -fdi

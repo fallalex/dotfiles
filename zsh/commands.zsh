@@ -88,7 +88,8 @@ alias ex='exuno'
 alias vr='vrops'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias bmftp='lftp ftp.bluemedora.com -e "cd bmftpuser; cls -lh --sort=date"'
-alias vmftp='lftp ftpsite.vmware.com'
+alias vmftpd='lftp --norc -u downloadv,`den -np vmftp-downloadv` ftpsite.vmware.com'
+alias vmftpi='lftp --norc -u inboundv,`den -np vmftp-inboundv` ftpsite.vmware.com'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias deploylogs="log show --info --debug --last 30m --style compact --predicate 'subsystem == \"com.bluemedora.vrops-deploy.daemon\"'"
@@ -96,7 +97,8 @@ alias bw='bw --session `den -sn`'
 alias ppjson='python -m json.tool'
 alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
-alias gss='sshpass -p `den -np intranet-user` ssh gss'
+# alias gss='sshpass -p `den -np intranet-user` ssh gss'
+function gss() {sshpass -p `den -np intranet-user` ssh gss$1}
 alias fed='sshpass -p `den -np vm-federal` ssh fed'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
@@ -107,6 +109,13 @@ alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s 
 alias yoda='sudo oda install; oda test'
 alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -pt f "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias gr='./gradlew'
+funciton timelogged() {
+    file=${1}
+    rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1' "${file}"
+    tac "${file}" | rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1'
+}
+function todo() {rg 'TODO:(.*)' -or '$1'}
+
 
 # need to make this a function
 #glocate -r /.git$ | xargs gdirname

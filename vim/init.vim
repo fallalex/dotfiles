@@ -4,6 +4,8 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+autocmd vimenter * ++nested colorscheme gruvbox
+
 " change from the default '\'
 let mapleader = ","
 
@@ -107,8 +109,10 @@ let g:go_info_mode='gopls'
 let g:go_code_completion_enabled = 1
 
 " Plugin configuration
-let g:airline_theme = 'solarized'
-let g:airline_solarized_bg = 'dark'
+let g:airline_theme='gruvbox'
+let g:airline_gruvbox_bg = 'dark'
+" let g:airline_theme = 'solarized'
+" let g:airline_solarized_bg = 'dark'
 let g:VimuxUseNearest = 0
 let g:task_default_prompt  = ['due', 'scheduled', 'tag', 'description']
 let g:indent_guides_enable_on_vim_startup = 1
@@ -177,4 +181,5 @@ Plug 'majutsushi/tagbar'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'lbrayner/vim-rzip'
+Plug 'morhetz/gruvbox'
 call plug#end()
