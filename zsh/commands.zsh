@@ -107,12 +107,20 @@ alias u='aunpack'
 alias pt='ptpython3'
 alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 alias yoda='sudo oda install; oda test'
-alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -pt f "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
+alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias gr='./gradlew'
+alias sharevpn='ssh -qND localhost:8088 share'
 funciton timelogged() {
-    file=${1}
-    rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1' "${file}"
-    tac "${file}" | rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1'
+    for file in "$@"
+    do
+        echo $file
+        starttime=$(rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1' "${file}")
+        endtime=$(tac "${file}" | rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1')
+        echo -n '  Start : '; echo $starttime
+        echo -n '  End   : '; echo $endtime
+        echo -n '  Delta : '; python -c "from datetime import datetime;f='%Y-%m-%dT%H:%M:%S';print(datetime.strptime('${endtime}',f)-datetime.strptime('${starttime}',f))"
+        echo '--'
+    done
 }
 function todo() {rg 'TODO:(.*)' -or '$1'}
 
