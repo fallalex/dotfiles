@@ -153,7 +153,7 @@ let g:tmuxline_preset = {
      \'z'    : '%H:%M'}
 
 " Plugins
-call plug#begin('~/.local/share/nvim/plugged')
+call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
