@@ -24,3 +24,12 @@ eval "$(pyenv init --no-rehash -)"
 eval "$(jenv init --no-rehash -)"
 (jenv rehash &) 2> /dev/null
 
+# SSH agent
+SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.sock
+SSH_AGENT_PID=$(pgrep -U $UID ssh-agent)
+if [[ ! -n "$SSH_AGENT_PID" ]]; then
+    eval `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null
+else
+    export SSH_AGENT_PID
+    export SSH_AUTH_SOCK
+fi

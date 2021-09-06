@@ -6,6 +6,7 @@ zshrc_dir=$(dirname "$(realpath $ZDOTDIR/.zshrc)")
 
 zshrc_files=(
     path
+    variables
     editor-pager
     plugins
     prompt
@@ -31,4 +32,7 @@ unset zshrc_paths
 if [[ -r ~/.zshrc.local ]]; then
     . ~/.zshrc.local
 fi
+
+
+test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"
 
