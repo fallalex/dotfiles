@@ -115,6 +115,9 @@ alias zzy='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 1; sudo pmset -a 
 alias zzz='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 0; sudo pmset -a tcpkeepalive 0; sudo pmset -a hibernatemode 25; sudo pmset -a disablesleep 0;'
 alias night='sudo pmset sleepnow'
 alias idea='open -na "IntelliJ IDEA.app" --args "$@"'
+alias info='info --vi-keys'
+alias py='python3'
+funciton interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
 funciton timelogged() {
     for file in "$@"
     do

@@ -11,6 +11,10 @@ ln -sf `realpath zsh/zshenv` ~/.zshenv
 ln -sf `realpath zsh/zshrc` ~/.config/zsh/.zshrc
 git clone git@github.com:seebi/dircolors-solarized.git ~/dircolors-solarized
 
+mkdir -p ~/.config/ptpython/
+ln -sf `realpath python/ptpython-config.py` ~/.config/ptpython/config.py
+touch ~/.config/ptpython/__init__.py
+
 ln -sf `realpath tmux/tmux.conf` ~/.tmux.conf
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 # (prefix + I) to install plugins
