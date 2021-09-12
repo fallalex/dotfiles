@@ -28,6 +28,7 @@ eval "$(jenv init --no-rehash -)"
 SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.sock
 SSH_AGENT_PID=$(pgrep -U $UID ssh-agent)
 if [[ ! -n "$SSH_AGENT_PID" ]]; then
+    rm -f $SSH_AUTH_SOCK
     eval `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null
 else
     export SSH_AGENT_PID
