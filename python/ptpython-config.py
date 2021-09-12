@@ -191,11 +191,11 @@ def configure(repl):
 
 # Custom colorscheme for the UI. See `ptpython/layout.py` and
 # `ptpython/style.py` for all possible tokens.
-'''
+"""
 _custom_ui_colorscheme = {
     # Blue prompt.
     "prompt": "bg:#eeeeff #000000 bold",
     # Make the status toolbar red.
     "status-toolbar": "bg:#ff0000 #000000",
 }
-'''
+"""
