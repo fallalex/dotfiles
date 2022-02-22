@@ -34,3 +34,7 @@ else
     export SSH_AGENT_PID
     export SSH_AUTH_SOCK
 fi
+
+# GPG agent load passphrase if not loaded.
+# TODO: add check rather than executing on ever shell
+pass otp.yaml 2>&1 > /dev/null

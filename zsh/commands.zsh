@@ -117,7 +117,10 @@ alias night='sudo pmset sleepnow'
 alias idea='open -na "IntelliJ IDEA.app" --args "$@"'
 alias info='info --vi-keys'
 alias py='python3'
-alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py'
+alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
+alias rclone='rclone -P --password-command "den -pn rclone"'
+function searchproject() { glab api "groups/28764/search?scope=projects&search=$@" }
+alias isproject='searchproject $(basename $(git config --get remote.origin.url) .git)'
 funciton interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
 funciton timelogged() {
     for file in "$@"
