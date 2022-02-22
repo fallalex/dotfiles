@@ -57,7 +57,7 @@ nnoremap <leader>ss :set spell!<CR>
 nnoremap <leader>sy :syntax!<CR>
 
 " change how mutt mail is displayed in vim
-autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
+" autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 
@@ -67,8 +67,9 @@ autocmd BufReadCmd *.pak,*.jar call zip#Browse(expand("<amatch>"))
 let g:vimwiki_global_ext = 0
 let wiki_1 = {}
 let wiki_1.path = '~/vimwiki/'
-let wiki_1.syntax = 'markdown'
-let wiki_1.ext ='.md'
+" let wiki_1.syntax = 'markdown'
+let wiki_1.automatic_nested_syntaxes  = 1
+let wiki_1.ext ='.wik'
 let wiki_1.diary_rel_path = 'journal/'
 let wiki_1.diary_index = 'journal'
 let wiki_1.diary_header = 'Journal'
