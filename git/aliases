@@ -29,7 +29,7 @@
   di = diff --minimal -U0 -p --no-prefix --word-diff=color --color=always
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
-  clear = !git checkout master && git reset --hard origin/master && git clean -fdi
+  clear = !git checkout main && git reset --hard origin/main && git clean -xfdf
   # 'git n ...' to disable pager
   n = !git --no-pager
 

@@ -1,3 +1,5 @@
+[core]
+	excludesfile = ~/dotfiles/git/gitignore-global
 
 [user]
   name = Alex Fall
@@ -34,3 +36,5 @@
   rebase = false
   #ff = only
 
+[push]
+	default = current
