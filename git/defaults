@@ -1,5 +1,6 @@
 [core]
-	excludesfile = ~/dotfiles/git/gitignore-global
+  excludesfile = ~/dotfiles/git/gitignore-global
+  pager = delta
 
 [user]
   name = Alex Fall
@@ -14,27 +15,22 @@
 [push]
   default = tracking
 
-# https://github.com/tpope/vim-fugitive
 [merge]
-  tool = vimdiff
-
-[mergetool]
-  prompt = true
-  trustExitCode = false
-
-[mergetool "vimdiff"]
-  cmd = nvim -d $LOCAL $REMOTE $MERGED -c 'wincmd w' -c 'wincmd J'
-
-[difftool]
-  prompt = false
-  trustExitCode = false
-
-[diff]
-  tool = vimdiff
+  conflictstyle = diff3
 
 [pull]
   rebase = false
   #ff = only
 
 [push]
-	default = current
+  default = current
+
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+
+[delta]
+  features = side-by-side line-numbers decorations
+  navigate = true  # use n and N to move between diff sections
+
+[diff]
+  colorMoved = default
