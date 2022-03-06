@@ -33,5 +33,3 @@ if [[ -r ~/.zshrc.local ]]; then
     . ~/.zshrc.local
 fi
 
-
-test -e "${ZDOTDIR}/.iterm2_shell_integration.zsh" && source "${ZDOTDIR}/.iterm2_shell_integration.zsh"

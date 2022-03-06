@@ -5,6 +5,9 @@ import sys
 from os import environ
 from pathlib import Path
 from importlib import import_module
+import readline
+
+# This disables history
 
 
 def path_from_env(path):
@@ -16,6 +19,10 @@ try:
     config = import_module("config")
 except ImportError:
     print("ptpython is not available: falling back to standard prompt")
+    try:
+        readline.write_history_file = lambda *args: None
+    except:
+        print("Disabling writing history not available for python version")
 else:
     sys.exit(
         embed(

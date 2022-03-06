@@ -5,8 +5,6 @@ case "$OSTYPE" in
         alias xargs='gxargs'
         alias readlink='greadlink'
         alias realpath='grealpath'
-        alias gupdatedb='gupdatedb --localpaths=$HOME --output=$HOME/tmp/locatedb --prunepaths=$HOME/Library'
-        alias glocate='glocate --database=$HOME/tmp/locatedb'
         alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
         alias echo='gecho'
         function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
@@ -58,6 +56,7 @@ alias ..='cd ../'
 alias fd='fd -uu'
 alias la='fd -ad1' # list with absolute path, exa cant really do this 
 alias ls='exa -ga --git --time-style iso -s modified --group-directories-first'
+alias wget="wget --hsts-file /dev/null" # disable history
 compdef ls=exa
 alias ll='ls -l'
 alias mv='mv -iv'
@@ -71,6 +70,7 @@ alias u='aunpack'
 alias info='info --vi-keys'
 alias cat=bat
 compdef cat=bat
+# TODO: make a function to handle .bak files
 function swap() {
     local TMPFILE=tmp.$$
     /bin/mv "$1" $TMPFILE
@@ -116,7 +116,7 @@ alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non
 alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
 function searchproject() { glab api "groups/28764/search?scope=projects&search=$@" }
 alias isproject='searchproject $(basename $(git config --get remote.origin.url) .git)'
-funciton timelogged() {
+function timelogged() {
     for file in "$@"
     do
         echo $file
@@ -134,7 +134,7 @@ alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a t
 alias zzy='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 3; sudo pmset -a disablesleep 0;'
 alias zzz='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 0; sudo pmset -a tcpkeepalive 0; sudo pmset -a hibernatemode 25; sudo pmset -a disablesleep 0;'
 alias night='sudo pmset sleepnow'
-funciton interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
+function interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
 
 
 # need to make this a function

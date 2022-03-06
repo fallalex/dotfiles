@@ -1,11 +1,5 @@
 export TERM=xterm-256color
 
-# Prompt
-# autoload -Uz promptinit
-RPROMPT=
-# promptinit
-# prompt pure > /dev/null
-
 function preexec () {
     CURRENT_CMD=$1
 }
@@ -31,11 +25,6 @@ export LC_ALL=en_US.UTF-8
 function zle-line-init { }
 zle -N zle-line-init
 KEYTIMEOUT=1
-
-# # This broke fzf and other completion menus
-# # updates the prompt every 15 seconds
-# TMOUT=15
-# TRAPALRM() { zle reset-prompt }
 
 # Completion Settings
 zstyle ':completion:*' use-cache on

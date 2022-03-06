@@ -1,3 +1,4 @@
-export ZDOTDIR=$HOME/.config/zsh
+ZDOTDIR=$HOME/.config/zsh
+# https://apple.stackexchange.com/questions/427561/macos-zsh-sessions-zsh-history-and-setopt-append-history
+SHELL_SESSIONS_DISABLE=1
 
-source "$HOME/.cargo/env"

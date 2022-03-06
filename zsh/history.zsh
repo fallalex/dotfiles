@@ -1,4 +1,4 @@
-HISTFILE=~/.history
+HISTFILE=$XDG_STATE_HOME/zsh-history
 HISTSIZE=5000                           # internal history
 SAVEHIST=9223372036854775807            # history file - set to max value possible in zsh
 

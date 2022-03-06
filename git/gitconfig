@@ -5,4 +5,5 @@
 [include]
   path = ~/dotfiles/git/aliases
   path = ~/dotfiles/git/defaults
+  path = ~/dotfiles/git/delta-themes
 
