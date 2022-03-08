@@ -1,0 +1,35 @@
+# https://starship.rs/config/#openstack
+
+scan_timeout = 10
+
+format = """
+$username\
+$hostname\
+$localip\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
+$hg_branch\
+$java\
+$python\
+$ruby\
+$env_var\
+$custom\
+$sudo\
+$cmd_duration\
+$line_break\
+$status\
+$character"""
+
+[java]
+symbol = "J"
+format = "| [$symbol ($version)]($style) "
+[python]
+symbol = "P"
+format = "| [$symbol $pyenv_prefix($version) ($virtualenv)]($style) "
+[ruby]
+symbol = "R"
+format = "| [$symbol ($version)]($style) "

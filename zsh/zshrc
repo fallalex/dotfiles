@@ -1,21 +1,27 @@
 # profile zsh startup, comment out unless debugging loading times
-zmodload zsh/zprof
+# for i in $(seq 1 10); do /usr/bin/time zsh -i -c exit; done
+# see end of file
+######
+# zmodload zsh/zprof
 
 # get the directory of this script when symlinked works on linux and mac
 zshrc_dir=$(dirname "$(realpath $ZDOTDIR/.zshrc)")
+export DOTS_DIR=$(dirname $zshrc_dir)
+
+autoload -Uz compinit
+compinit -d
 
 zshrc_files=(
-    path
     variables
+    path
     editor-pager
-    plugins
     prompt
     history-ignore
     history
-    commands
-    fzf
     misc
+    fzf
     tmux
+    commands
 )
 zshrc_paths=($zshrc_dir'/'${^zshrc_files}'.zsh')
 unset zshrc_files
@@ -33,3 +39,7 @@ if [[ -r ~/.zshrc.local ]]; then
     . ~/.zshrc.local
 fi
 
+# profile zsh startup, comment out unless debugging loading times
+# see start of file
+#####
+# zprof

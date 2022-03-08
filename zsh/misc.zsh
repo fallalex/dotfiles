@@ -1,29 +1,23 @@
-# Way to profile zsh
-# https://htr3n.github.io/2018/07/faster-zsh/
-# and use this command /usr/bin/time zsh -i -c exit
-# zmodload zsh/zprof
 
-case "$OSTYPE" in
-    darwin*)
-        sudo launchctl limit maxfiles 50000 200000
-    ;;
-    # linux*)
-    # ;;
-    # dragonfly*|freebsd*|netbsd*|openbsd*)
-    # ;;
-esac
+# case "$OSTYPE" in
+#     darwin*)
+#         sudo launchctl limit maxfiles 50000 200000
+#     ;;
+#     # linux*)
+#     # ;;
+#     # dragonfly*|freebsd*|netbsd*|openbsd*)
+#     # ;;
+# esac
 
+eval "$(zoxide init zsh)"
 
 # https://github.com/jenv/jenv/issues/148
-eval "$(rbenv init --no-rehash -)"
-(rbenv rehash &) 2> /dev/null
-
 eval "$(pyenv init --path)"
 eval "$(pyenv init --no-rehash -)"
-(pyenv rehash &) 2> /dev/null
-
+eval "$(pyenv virtualenv-init -)"
+eval "$(rbenv init --no-rehash -)"
 eval "$(jenv init --no-rehash -)"
-(jenv rehash &) 2> /dev/null
+(pyenv rehash & rbenv rehash & jenv rehash &) 2> /dev/null
 
 # SSH agent
 SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.sock
@@ -36,6 +30,6 @@ else
     export SSH_AUTH_SOCK
 fi
 
-# GPG agent load passphrase if not loaded.
-# TODO: add check rather than executing on ever shell
-pass otp.yaml 2>&1 > /dev/null
+# GPG agent - load key into cache if needed
+# https://demu.red/blog/2016/06/how-to-check-if-your-gpg-key-is-in-cache/
+$(gpg-connect-agent 'keyinfo --list' /bye | rg -F " 1 " -c >/dev/null) || pass otp.yaml 2>&1 > /dev/null

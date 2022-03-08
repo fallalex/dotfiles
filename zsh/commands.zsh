@@ -36,7 +36,7 @@ alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias bw='bw --session `den -sn`'
 alias rclone='rclone -P --password-command "den -pn rclone"'
-alias clipq='$HOME/dotfiles/python/clipq.py'
+alias clipq='$DOTS_DIR/python/clipq.py'
 alias cb='clipq | fzf --read0 --delimiter ";:;:;" --with-nth 2 | clipq select'
 
 # Shell
@@ -44,7 +44,7 @@ alias ppath='print -l $path'
 alias ppathl='print -l $path | xargs -i fd --base-directory {} -t x'
 alias pfpath='print -l $fpath'
 alias pfpathl='print -l $fpath | xargs -i fd --base-directory {} -t f -t l'
-alias ss='rm -f ~/.config/zsh/.zcompdump; exec zsh -l'
+alias ss='rm -f $XDG_CONFIG_HOME/zsh/.zcompdump; exec zsh -l'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
 alias ht="tail $HISTFILE"
@@ -55,10 +55,10 @@ alias ~='cd ~'
 alias ..='cd ../'
 alias fd='fd -uu'
 alias la='fd -ad1' # list with absolute path, exa cant really do this 
-alias ls='exa -ga --git --time-style iso -s modified --group-directories-first'
-alias wget="wget --hsts-file /dev/null" # disable history
+alias ls='exa -ga -I ".git|.DS_Store" --git --time-style iso -s modified --group-directories-first'
 compdef ls=exa
 alias ll='ls -l'
+alias tree='ls --tree'
 alias mv='mv -iv'
 alias cp='cp -iv'
 alias ff='fzf'
@@ -70,6 +70,7 @@ alias u='aunpack'
 alias info='info --vi-keys'
 alias cat=bat
 compdef cat=bat
+alias wget="wget --hsts-file /dev/null" # disable history
 # TODO: make a function to handle .bak files
 function swap() {
     local TMPFILE=tmp.$$

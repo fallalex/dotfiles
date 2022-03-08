@@ -1,5 +1,7 @@
 export TERM=xterm-256color
 
+eval "$(starship init zsh)"
+
 function preexec () {
     CURRENT_CMD=$1
 }
@@ -41,9 +43,6 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle :compinstall filename '/home/fallalex/.zshrc'
 
 setopt menucomplete autocd extendedglob nomatch
-
-autoload -Uz compinit
-compinit
 
 # actually clear the screen
 function clear-scrollback-buffer {
