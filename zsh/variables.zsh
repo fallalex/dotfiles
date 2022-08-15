@@ -19,3 +19,4 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/python-startup.py"
 export LESSHISTFILE=/dev/null
 
 export GITLAB_HOST=gitlab.eng.vmware.com
+

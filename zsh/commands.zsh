@@ -79,10 +79,15 @@ function swap() {
     /bin/mv $TMPFILE "$2"
 }
 function mk() { mkdir -p "$1" && cd "$1"; }
+function trim() { awk '{$1=$1};1' }
 
 # Dev
 alias g='git'
 compdef g=git
+function update-remote() {
+    $DOTS_DIR/bin/update-remote $@
+    cd -P .
+}
 
 alias py='python'
 alias pv='pyenv'
@@ -117,6 +122,8 @@ alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non
 alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
 function searchproject() { glab api "groups/28764/search?scope=projects&search=$@" }
 alias isproject='searchproject $(basename $(git config --get remote.origin.url) .git)'
+alias dp='cd $(fd -d1 -td ".*-dp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
+alias mp='cd $(fd -d1 -td ".*-mp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
 function timelogged() {
     for file in "$@"
     do
@@ -130,12 +137,22 @@ function timelogged() {
     done
 }
 
+function cleangit() {
+    cd $(git rev-parse --show-toplevel)
+    defaultBranch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD))
+    git fetch --recurse-submodules -Ppt origin
+    git switch --recurse-submodules -fC $defaultBranch --track origin/$defaultBranch
+    git reset --recurse-submodules --hard origin/$defaultBranch
+    git clean -ffdx
+}
+
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'
 alias zzy='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 3; sudo pmset -a disablesleep 0;'
 alias zzz='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 0; sudo pmset -a tcpkeepalive 0; sudo pmset -a hibernatemode 25; sudo pmset -a disablesleep 0;'
 alias night='sudo pmset sleepnow'
 function interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
+alias wan='ssh router /home/fallalex/toggle-wan'
 
 
 # need to make this a function

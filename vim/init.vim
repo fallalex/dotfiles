@@ -14,10 +14,10 @@ autocmd filetype help nnoremap <buffer><cr> <c-]>
 autocmd filetype help nnoremap <buffer><bs> <c-T>
 autocmd filetype help nnoremap <buffer>q :q<CR>
 autocmd filetype help set nonumber
-noremap <leader>th :tab help
+noremap <leader>th :tab help 
 
 " Quick edit/source init.vim
-noremap <silent> <leader>ie :vsplit $MYVIMRC<CR>
+noremap <silent> <leader>ie :tabe $MYVIMRC<CR>
 noremap <silent> <leader>is :source $MYVIMRC<CR>
 
 " Save undo info, auto read
@@ -54,7 +54,12 @@ set hlsearch
 nmap <silent> <Esc> <Esc>:nohlsearch<CR>
 set nospell
 nnoremap <leader>ss :set spell!<CR>
-nnoremap <leader>sy :syntax!<CR>
+nnoremap <silent> <leader>sy
+             \ : if exists("syntax_on") <BAR>
+             \    syntax off <BAR>
+             \ else <BAR>  
+             \    syntax enable <BAR>
+             \ endif<CR>   
 
 " change how mutt mail is displayed in vim
 " autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
@@ -101,7 +106,7 @@ nmap <silent> <leader>vl :set number! <bar> set relativenumber!<CR>
 nmap <silent> <leader>vw :set wrap!<CR>
 nmap Q :q!<CR>
 autocmd BufWritePre,FileWritePre *.py :call TrimTail()
-autocmd BufWritePre,FileWritePre *.md :call TrimTail()
+set nofixeol
 
 noremap <silent> <leader>rm :call delete(expand('%')) <bar> bdelete! <bar> q!<CR>
 
@@ -109,31 +114,50 @@ let g:go_def_mode='gopls'
 let g:go_info_mode='gopls'
 let g:go_code_completion_enabled = 1
 
+" ============================================================================
+" FZF
+" ============================================================================
+if exists('$TMUX')
+  let g:fzf_layout = { 'tmux': '-p90%,60%' }
+else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
+
+" All files
+command! -nargs=? -complete=dir AF
+  \ call fzf#run(fzf#wrap(fzf#vim#with_preview({
+  \   'source': 'fd --type f --hidden --follow --exclude .git --no-ignore . '.expand(<q-args>)
+  \ })))
+
+command! -bar MoveBack if &buftype == 'nofile' && (winwidth(0) < &columns / 3 || winheight(0) < &lines / 3) | execute "normal! \<c-w>\<c-p>" | endif
+nnoremap <silent> <leader><leader> :MoveBack<BAR>Files<CR>
+nnoremap <silent> <leader><Enter>  :MoveBack<BAR>Buffers<CR>
+nnoremap <silent> <leader>l        :Lines<CR>
+xnoremap <silent> <leader>rg       y:Rg <C-R>"<CR>
+nnoremap <silent> <leader>rg       :Rg <C-R><C-W><CR>
+nnoremap <silent> <leader>RG       :Rg <C-R><C-A><CR>
+nnoremap <silent> <leader>`        :Marks<CR>
+
+" Rerun rg interactive
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let options = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  let options = fzf#vim#with_preview(options, 'right', 'ctrl-/')
+  call fzf#vim#grep(initial_command, 1, options, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" ============================================================================
 " Plugin configuration
+" ============================================================================
 let g:airline_theme='gruvbox'
 let g:airline_gruvbox_bg = 'dark'
 let g:VimuxUseNearest = 0
 let g:task_default_prompt  = ['due', 'scheduled', 'tag', 'description']
 let g:indent_guides_enable_on_vim_startup = 1
-let g:VtrStripLeadingWhitespace = 0
-let g:VtrClearEmptyLines = 0
-let g:VtrAppendNewline = 1
-let g:VtrOrientation = "h"
-let g:VtrPercentage = 45
-let g:VtrClearOnReattach = 0
-let g:VtrClearOnReorient = 0
-nmap <silent> <leader>ro :VtrOpenRunner<CR>
-nmap <silent> <leader>rk :VtrKillRunner<CR>
-
-nmap <silent> <leader>rd :VtrDetachRunner<CR>
-nmap <silent> <leader>ra :VtrReattachRunner<CR>
-nmap <silent> <leader>rf :VtrFocusRunner<CR>
-
-nmap <silent> <leader>rc :VtrSendCommandToRunner<CR>
-nmap <silent> <leader>rw :VtrFlushCommand<CR>
-
-nmap <silent> <leader>rs :VtrResizeRunner<CR>
-nmap <silent> <leader>rr :VtrReorientRunner<CR>
 
 " Commented lines bellow generate tmuxline_snapshot
 " :Tmuxline vim_statusline_1
@@ -151,7 +175,9 @@ let g:tmuxline_preset = {
      \'y'    : '%m-%d',
      \'z'    : '%H:%M'}
 
+" ============================================================================
 " Plugins
+" ============================================================================
 call plug#begin(stdpath('data') . '/plugged')
 Plug '~/.local/share/fzf'
 Plug 'junegunn/fzf.vim'
@@ -173,7 +199,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user'
-Plug 'christoomey/vim-tmux-runner'
 Plug 'vimwiki/vimwiki'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
@@ -181,4 +206,12 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'lbrayner/vim-rzip'
 Plug 'morhetz/gruvbox'
+Plug 'junegunn/vim-peekaboo'
+Plug 'junegunn/vim-easy-align'
 call plug#end()
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)

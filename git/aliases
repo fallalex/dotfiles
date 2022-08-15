@@ -29,7 +29,6 @@
   di = diff --word-diff=color --color=always
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
-  clear = !git checkout main && git reset --hard origin/main && git clean -xfdf
   # 'git n ...' to disable pager
   n = !git --no-pager
 
@@ -50,12 +49,12 @@
 
   b = branch
   ba = !git --no-pager branch --all --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-  bd = branch --delete
-  co = checkout --track
-  cob = checkout -b
+  bd = branch --delete --force
+  bs = switch --recurse-submodules -fC 
+
   cloner = clone --recursive
 
-  f = fetch
+  f = fetch --recurse-submodules -Ppt
 
 
 

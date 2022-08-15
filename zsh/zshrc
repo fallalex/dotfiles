@@ -9,7 +9,7 @@ zshrc_dir=$(dirname "$(realpath $ZDOTDIR/.zshrc)")
 export DOTS_DIR=$(dirname $zshrc_dir)
 
 autoload -Uz compinit
-compinit -d
+compinit
 
 zshrc_files=(
     variables

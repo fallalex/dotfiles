@@ -12,9 +12,6 @@
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
 
-[push]
-  default = tracking
-
 [merge]
   conflictstyle = diff3
 
@@ -23,6 +20,7 @@
   #ff = only
 
 [push]
+  default = tracking
   default = current
 
 [interactive]
