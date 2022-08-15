@@ -1,0 +1,33 @@
+#!/bin/sh
+
+tempfoo=`basename $0`
+TMPFILE=`mktemp -q /tmp/${tempfoo}.XXXXXX`
+if [ $? -ne 0 ]; then
+   echo "$0: Can't create temp file, exiting..."
+   exit 1
+fi
+echo $TMPFILE
+
+glab api "groups/28764/search?scope=projects&search=$@" > $TMPFILE
+# TODO: check for valid output
+
+path=`gojq -r ".[].path" $TMPFILE | fzf`
+# TODO: check fzf was finished
+
+echo Current remote urls for origin are:
+git remote get-url --all origin
+
+ssh_url_to_repo=`gojq -r ".[] | select(.path==\"${path}\").ssh_url_to_repo" $TMPFILE`
+echo Setting remote origin to $ssh_url_to_repo
+git remote set-url origin $ssh_url_to_repo
+
+current_path=`basename $(pwd)`
+if [[ "$current_path" != "$path" ]]
+then
+   echo Rename local repo directory from $current_path to $path
+   cd ..
+   mv $current_path $path
+   cd $path
+fi
+
+rm $TMPFILE
