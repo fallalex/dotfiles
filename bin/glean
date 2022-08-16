@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Cleaning a local clone of a git repository is non-trivial
+# The shotgun approach is starting over by removing then cloning again
+# This should cover most things including submodules
+# It does leave local branches
+
+cd $(git rev-parse --show-toplevel)
+
+remote=origin
+branch=$(basename $(git symbolic-ref refs/remotes/origin/HEAD))
+
+git fetch --recurse-submodules -Ppt $remote
+git switch --recurse-submodules -fC $branch --track $remote/$branch
+git reset --recurse-submodules --hard $remote/$branch
+git clean -ffdx
+

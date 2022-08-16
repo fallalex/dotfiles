@@ -3,6 +3,7 @@
 export PATH=""
 typeset -U PATH
 path+=("$HOME/bin")
+path+=("$DOTS_DIR/bin")
 path+=("$HOME/.cargo/bin")
 path+=("/usr/local/sbin")
 path+=("/usr/local/bin")
@@ -30,7 +31,6 @@ while IFS=$'\n' read -r line; do
     manpath+=($line)
 done <<< $(/usr/local/bin/fd -t f --base-directory /etc/manpaths.d -x /bin/cat)
 export MANPATH
-
 
 FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 FPATH=$HOME/bin/completion:$FPATH
