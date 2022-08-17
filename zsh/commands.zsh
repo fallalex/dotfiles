@@ -36,14 +36,12 @@ alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
 alias bw='bw --session `den -sn`'
 alias rclone='rclone -P --password-command "den -pn rclone"'
-alias clipq='$DOTS_DIR/python/clipq.py'
-alias cb='clipq | fzf --read0 --delimiter ";:;:;" --with-nth 2 | clipq select'
 
 # Shell
 alias ppath='print -l $path'
-alias ppathl='print -l $path | xargs -i fd --base-directory {} -t x'
+alias px='whence -pm "*"'
 alias pfpath='print -l $fpath'
-alias pfpathl='print -l $fpath | xargs -i fd --base-directory {} -t f -t l'
+alias pfpathl='print -l $fpath | xargs -i fd --base-directory {} -a -t f -t l'
 alias ss='rm -f $XDG_CONFIG_HOME/zsh/.zcompdump; exec zsh -l'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
@@ -124,6 +122,9 @@ function searchproject() { glab api "groups/28764/search?scope=projects&search=$
 alias isproject='searchproject $(basename $(git config --get remote.origin.url) .git)'
 alias dp='cd $(fd -d1 -td ".*-dp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
 alias mp='cd $(fd -d1 -td ".*-mp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
+alias describe='vrops dump-describe $(fd -e pak) > describe.xml'
+# TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
+alias check='./gradlew clean && exuno check'
 function timelogged() {
     for file in "$@"
     do
@@ -144,11 +145,6 @@ alias zzz='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 0; sudo pmset -a 
 alias night='sudo pmset sleepnow'
 function interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
 alias wan='ssh router /home/fallalex/toggle-wan'
-
-
-# need to make this a function
-#glocate -r /.git$ | xargs gdirname
-# locate .git|rg "(.*)/\.git$" -or '$1' | rg -v "(/Homebrew/|/go/|/vmware/|/\..*|/bluemedora/|/cases/|/iTerm/|/dircolors)" | gxargs -i git -C {} st
 
 # cd () {
 #     if [ `echo $1 | grep -cE "^TS00[0-9]{7}$"` -eq 1 ]

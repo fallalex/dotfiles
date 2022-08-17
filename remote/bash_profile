@@ -27,16 +27,6 @@ fi
 
 set -o vi
 
-# Provide 'up', so instead of 'cd ../../../' you type 'up 3'
-up() {
-  case "${1}" in
-    (*[!0-9]*)  : ;;
-    ("")        cd || return ;;
-    (1)         cd .. || return ;;
-    (*)         cd "$(eval "printf -- '../'%.0s {1..$1}")" || return ;;
-  esac
-}
-
 # general
 alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
@@ -53,6 +43,7 @@ alias l.='ll -d .*'
 alias files='find -f $(pwd)'
 alias echopath='echo -e ${PATH//:/\\n}'
 alias loadhist='history -c; history -r'
+alias px='compgen -A function -abck'
 
 touch ~/.bash_local_profile
 source ~/.bash_local_profile

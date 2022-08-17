@@ -1,0 +1,15 @@
+#!/bin/sh
+for file in "$@"
+do
+        echo $file
+        starttime=$(rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1' "${file}")
+        endtime=$(tac "${file}" | rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1')
+        echo -n '  Start : '
+        echo $starttime
+        echo -n '  End   : '
+        echo $endtime
+        echo -n '  Delta : '
+        python -c "from datetime import datetime;f='%Y-%m-%dT%H:%M:%S';print(datetime.strptime('${endtime}',f)-datetime.strptime('${starttime}',f))"
+        echo '--'
+done
+
