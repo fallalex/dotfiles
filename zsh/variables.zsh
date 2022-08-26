@@ -6,7 +6,6 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # Application data that survives restart i.e. logs and history
 export XDG_STATE_HOME="$HOME/.local/state"
 
-
 export VIM_PLUG_VIM="$XDG_DATA_HOME/nvim/site/autoload"
 export FZF_ROOT="$XDG_DATA_HOME/fzf"
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
@@ -19,4 +18,5 @@ export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/python-startup.py"
 export LESSHISTFILE=/dev/null
 
 export GITLAB_HOST=gitlab.eng.vmware.com
+export COLLECTIONS_DIR="$HOME/collections"
 

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+REPO=`basename $(git config --get remote.origin.url) .git`
+COLLECTION=`fd -tf -e log --base-directory "$COLLECTIONS_DIR/$(basename $(git config --get remote.origin.url) .git)" | fzf`
+
+$EDITOR $COLLECTIONS_DIR/$REPO/$COLLECTION

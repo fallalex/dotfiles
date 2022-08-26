@@ -3,7 +3,6 @@
 # Ensure tags match origin
 git fetch -Ppt
 
-COLLECTIONS_DIR=$HOME/collections
 REPO=`basename $(git config --get remote.origin.url) .git`
 TIME=`date "+%FT%T"`
 GITDESCRIBE=`git describe --tags`
@@ -21,5 +20,5 @@ fi
 COLLECTION_DIR=$COLLECTIONS_DIR/$REPO/"$TIME"_"$GITDESCRIBE"_"$GITSTATUS$DESCRIPTION"
 echo Writing debug log and collection result to $COLLECTION_DIR
 mkdir -p "$COLLECTION_DIR"
-exuno -l debug collect -c torii -t protobuf > "$COLLECTION_DIR"/pb 2>"$COLLECTION_DIR"/log
+exuno -l debug collect -c torii -t protobuf > "$COLLECTION_DIR"/result.pb 2>"$COLLECTION_DIR"/debug.log
 
