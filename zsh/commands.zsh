@@ -78,6 +78,7 @@ function swap() {
 }
 function mk() { mkdir -p "$1" && cd "$1"; }
 function trim() { awk '{$1=$1};1' }
+alias cdr='cd -P .' #reload current directory
 
 # Dev
 alias g='git'
@@ -105,6 +106,7 @@ alias rvg='rbenv shell $(rbenv global)'
 alias rvl='rbenv shell $(rbenv local)'
 
 alias gr='./gradlew'
+alias depends='./gradlew dependencies > dependencies.txt'
 alias idea='open -na "IntelliJ IDEA.app" --args "$@"'
 alias ppjson='python -m json.tool'
 function todo() {rg 'TODO[:\s]+' -C 5}
@@ -125,18 +127,7 @@ alias mp='cd $(fd -d1 -td ".*-mp$" --base-directory "$HOME/repos/gitlab.eng.vmwa
 alias describe='vrops dump-describe $(fd -e pak) > describe.xml'
 # TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
 alias check='./gradlew clean && exuno check'
-function timelogged() {
-    for file in "$@"
-    do
-        echo $file
-        starttime=$(rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1' "${file}")
-        endtime=$(tac "${file}" | rg -m1 '^(\d{4}-\d{2}-\d{2}.*?),' -Nor '$1')
-        echo -n '  Start : '; echo $starttime
-        echo -n '  End   : '; echo $endtime
-        echo -n '  Delta : '; python -c "from datetime import datetime;f='%Y-%m-%dT%H:%M:%S';print(datetime.strptime('${endtime}',f)-datetime.strptime('${starttime}',f))"
-        echo '--'
-    done
-}
+alias dpjar='fd -e  jar . build/jar -a'
 
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'
