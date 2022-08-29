@@ -120,14 +120,26 @@ alias ex='exuno'
 alias vr='vrops'
 alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
-function searchproject() { glab api "groups/28764/search?scope=projects&search=$@" }
+function searchproject() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" }
 alias isproject='searchproject $(basename $(git config --get remote.origin.url) .git)'
 alias dp='cd $(fd -d1 -td ".*-dp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
 alias mp='cd $(fd -d1 -td ".*-mp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf)'
 alias describe='vrops dump-describe $(fd -e pak) > describe.xml'
 # TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
 alias check='./gradlew clean && exuno check'
+
 alias dpjar='fd -e  jar . build/jar -a'
+alias dp-project-paths='gojq -r ".[] | .path" $TVS_DPS'
+alias dp-project-ssh-urls='gojq -r ".[] | .ssh_url_to_repo" $TVS_DPS'
+alias dp-project-web-urls='gojq -r ".[] | .web_url" $TVS_DPS'
+alias mp-project-paths='gojq -r ".[] | .path" $TVS_MPS'
+alias mp-project-ssh-urls='gojq -r ".[] | .ssh_url_to_repo" $TVS_MPS'
+alias mp-project-web-urls='gojq -r ".[] | .web_url" $TVS_MPS'
+alias open-tvs-project='open $(gojq -r ".[] | .web_url" $TVS_PROJECTS | fzf)'
+
+alias clone-dp='git clone --recurse-submodules $(dp-project-ssh-urls | fzf)'
+alias clone-mp='git clone --recurse-submodules $(dm-project-ssh-urls | fzf)'
+alias clone-tvs='git clone --recurse-submodules $(gojq -r ".[] | .ssh_url_to_repo" $TVS_PROJECTS | fzf)'
 
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'

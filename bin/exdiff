@@ -4,7 +4,7 @@ COLLECTIONS_DIR=$HOME/collections
 REPO=`basename $(git config --get remote.origin.url) .git`
 
 
-OLD=`fd -tf "pb$" --base-directory "$COLLECTIONS_DIR/$REPO" | fzf --prompt="OLD protobuf > "`
-NEW=`fd -E $OLD -tf "pb$" --base-directory "$COLLECTIONS_DIR/$REPO" | fzf --prompt="NEW protobuf > "`
+OLD=`fd -tf "pb$" --base-directory "$COLLECTIONS_DIR/$REPO" | sort -rn | fzf --prompt="OLD protobuf > "`
+NEW=`fd -E $OLD -tf "pb$" --base-directory "$COLLECTIONS_DIR/$REPO" | sort -rn | fzf --prompt="NEW protobuf > "`
 
 exuno diff $COLLECTIONS_DIR/$REPO/$OLD $COLLECTIONS_DIR/$REPO/$NEW

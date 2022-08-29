@@ -1,0 +1,17 @@
+#!/bin/sh
+
+mkdir -p $TVS_PROJECT_DATA
+
+echo Creating $TVS_PROJECTS
+echo Fetching Gitlab projects for group $GITLAB_GROUP
+glab api --paginate groups/$GITLAB_GROUP/projects > $TVS_PROJECTS
+echo Merging paginated results
+sd -s '}][{' '},{' $TVS_PROJECTS
+
+echo Creating $TVS_ACTIVE_PROJECTS
+gojq "[.[] | select(.archived==false)]" $TVS_PROJECTS > $TVS_ACTIVE_PROJECTS
+echo Creating $TVS_DPS
+gojq '[ .[] | select(.path|test("-dp$")) ]' $TVS_ACTIVE_PROJECTS > $TVS_DPS
+echo Creating $TVS_MPS
+gojq '[ .[] | select(.path|test("-mp$")) ]' $TVS_ACTIVE_PROJECTS > $TVS_MPS
+

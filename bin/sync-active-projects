@@ -1,0 +1,20 @@
+#!/bin/sh
+
+mkdir -p $TVS_ACTIVE_PROJECTS_REPLICA
+cd $TVS_ACTIVE_PROJECTS_REPLICA
+
+LOCAL_PROJECTS=/tmp/local-projects
+REMOTE_PROJECTS=/tmp/remote-projects
+
+fd -td -d1 > $LOCAL_PROJECTS
+
+gojq -r ".[] | .path" $TVS_DPS > $REMOTE_PROJECTS
+gojq -r ".[] | .path" $TVS_MPS >> $REMOTE_PROJECTS
+
+echo Removing orphaned local projects
+zet diff $LOCAL_PROJECTS $REMOTE_PROJECTS | gxargs -i rm -rf {}
+echo Clone missing remote projects
+zet diff $REMOTE_PROJECTS $LOCAL_PROJECTS | gxargs -P16 -i git clone --recurse-submodules "git@$GITLAB_HOST:$GITLAB_GROUP_NAME/{}.git"
+echo Clean local projects
+fd -td -d1 -a | gxargs -P16 -i glean {}
+
