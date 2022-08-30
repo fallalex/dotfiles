@@ -169,12 +169,18 @@ function fzfcd() {
 # TODO: write something to guess web url from remote url
 
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias dp-jar='fd -tf -e jar -p build/jar -a'
-alias dp-jar-cp='dp-jar | sd "\n" "" | pbcopy'
+alias dp-jar='fd -tf -e jar -p build/jar'
+alias dp-jar-cp='dp-jar | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
 
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias mp-pak='fd -tf -e pak -a'
-alias mp-pak-cp='mp-pak | sd "\n" "" | pbcopy'
+alias mp-pak='fd -tf -e pak'
+alias mp-pak-cp='mp-pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+
+function mp-deploy() {
+    vropshost=$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)
+    pakfile=$(mp-pak | fzf -0 -1 | gxargs -r greadlink -f)
+    vrops deploy -H "$vropshost" -P "$pakfile" && vrops deploy-logs stream
+}
 
 function mp-describe() {
     for pak in $(mp-pak | fzf -m -0 -1); do
@@ -186,7 +192,7 @@ function mp-describe() {
 alias tvs-replica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias tvs-clone='gclonecd $(glabval $TVS_PROJECTS ssh_url_to_repo | fzf)'
 alias tvs-is-project='glabval $TVS_PROJECTS path | rg -q $(reponame)'
-alias tvs-open='glabval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -i open {}'
+alias tvs-open='glabval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
 function tvs-search() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
 # System
