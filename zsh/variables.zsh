@@ -23,7 +23,7 @@ export GITLAB_GROUP_NAME=cmbu-tvg
 
 export TVS_PROJECT_DATA="$HOME/tvs-project-data"
 export COLLECTIONS_DIR="$TVS_PROJECT_DATA/collections"
-export TVS_ACTIVE_PROJECTS_REPLICA="$HOME/repos/gitlab.eng.vwmware.com/active-projects-replica"
+export TVS_ACTIVE_PROJECTS_REPLICA="$HOME/repos/gitlab.eng.vmware.com/active-projects-replica"
 
 export TVS_PROJECTS="$TVS_PROJECT_DATA/tvs-projects.json"
 export TVS_ACTIVE_PROJECTS="$TVS_PROJECT_DATA/tvs-active-projects.json"

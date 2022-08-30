@@ -113,9 +113,12 @@ function todo() {rg 'TODO[:\s]+' -C 5}
 
 alias jq='gojq'
 
-alias reponame='basename $(git config --get remote.origin.url) .git'
-
 # Work
+alias vmftpd='lftp --norc -u downloadv,`den -np vmftp-downloadv` ftpsite.vmware.com'
+alias vmftpi='lftp --norc -u inboundv,`den -np vmftp-inboundv` ftpsite.vmware.com'
+alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
+alias fed='sshpass -p `den -np vm-federal` ssh fed'
+
 function gss() {
     if [ $# -eq 0 ]; then
         sshpass -p `den -np intranet-user` ssh gss
@@ -129,17 +132,7 @@ function update-remote() {
     cd -P .
 }
 
-alias ex='exuno'
-alias vr='vrops'
-alias fed='sshpass -p `den -np vm-federal` ssh fed'
-alias vmftpd='lftp --norc -u downloadv,`den -np vmftp-downloadv` ftpsite.vmware.com'
-alias vmftpi='lftp --norc -u inboundv,`den -np vmftp-inboundv` ftpsite.vmware.com'
-alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
-alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
-# TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
-alias check='./gradlew clean && exuno check'
-
-function glabval() {
+function glval() {
     if [ "$#" -eq 1 ] && [ -f "$1" ]; then
         gojq -r '.[] | keys[]' "$1" | sort -u
     elif [ "$#" -ne 2 ]; then
@@ -166,34 +159,44 @@ function fzfcd() {
     fi
 }
 
+alias proj='fzfcd "" "$HOME/repos/gitlab.eng.vmware.com"'
+alias glreplica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
+alias glclone='gclonecd $(glval $TVS_PROJECTS ssh_url_to_repo | fzf)'
+alias glproject='glval $TVS_PROJECTS path | rg -q $(reponame)'
+alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
+function glsearch() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
+
 # TODO: write something to guess web url from remote url
 
+# Data Providers
+# TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
+alias ex='exuno'
+alias check='./gradlew clean && exuno check'
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias dp-jar='fd -tf -e jar -p build/jar'
-alias dp-jar-cp='dp-jar | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+alias dpjar='fd -tf -e jar -p build/jar'
+alias dpjarcp='dpjar | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+alias dplog='dplog=$COLLECTIONS_DIR/$(reponame)/$(fd -tf -e log --base-directory "$COLLECTIONS_DIR/$(reponame)" | sort -rn | fzf -0 -1); if [ -f $dplog ]; then $EDITOR "$dplog"; fi'
 
+# Management Packs
+alias vr='vrops'
+alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias mp-pak='fd -tf -e pak'
-alias mp-pak-cp='mp-pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+alias pak='fd -tf -e pak'
+alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+alias deplog='vrops deploy-logs last "$@"'
 
-function mp-deploy() {
+function deploy() {
     vropshost=$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)
-    pakfile=$(mp-pak | fzf -0 -1 | gxargs -r greadlink -f)
-    vrops deploy -H "$vropshost" -P "$pakfile" && vrops deploy-logs stream
+    pakfile=$(pak | fzf -0 -1 | gxargs -r greadlink -f)
+    vrops deploy -H "$vropshost" -P "$pakfile"
 }
 
-function mp-describe() {
-    for pak in $(mp-pak | fzf -m -0 -1); do
+function describe() {
+    for pak in $(pak | fzf -m -0 -1); do
         # TODO: could save this to $TVS_PROJECT_DATA
         vrops dump-describe $pak > "describe-$(basename $pak .pak).xml"
     done
 }
-
-alias tvs-replica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
-alias tvs-clone='gclonecd $(glabval $TVS_PROJECTS ssh_url_to_repo | fzf)'
-alias tvs-is-project='glabval $TVS_PROJECTS path | rg -q $(reponame)'
-alias tvs-open='glabval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
-function tvs-search() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'
