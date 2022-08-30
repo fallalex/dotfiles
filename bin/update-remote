@@ -1,23 +1,15 @@
 #!/bin/sh
 
-tempfoo=`basename $0`
-TMPFILE=`mktemp -q /tmp/${tempfoo}.XXXXXX`
-if [ $? -ne 0 ]; then
-   echo "$0: Can't create temp file, exiting..."
-   exit 1
-fi
-echo $TMPFILE
-
-glab api "groups/28764/search?scope=projects&search=$@" > $TMPFILE
+glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH
 # TODO: check for valid output
 
-path=`gojq -r ".[].path" $TMPFILE | fzf`
+path=`gojq -r ".[].path" $TVS_PROJECT_SEARCH | fzf`
 # TODO: check fzf was finished
 
 echo Current remote urls for origin are:
 git remote get-url --all origin
 
-ssh_url_to_repo=`gojq -r ".[] | select(.path==\"${path}\").ssh_url_to_repo" $TMPFILE`
+ssh_url_to_repo=`gojq -r ".[] | select(.path==\"${path}\").ssh_url_to_repo" $TVS_PROJECT_SEARCH`
 echo Setting remote origin to $ssh_url_to_repo
 git remote set-url origin $ssh_url_to_repo
 
@@ -29,5 +21,3 @@ then
    mv $current_path $path
    cd $path
 fi
-
-rm $TMPFILE

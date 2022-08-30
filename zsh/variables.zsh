@@ -29,4 +29,5 @@ export TVS_PROJECTS="$TVS_PROJECT_DATA/tvs-projects.json"
 export TVS_ACTIVE_PROJECTS="$TVS_PROJECT_DATA/tvs-active-projects.json"
 export TVS_DPS="$TVS_PROJECT_DATA/tvs-dps.json"
 export TVS_MPS="$TVS_PROJECT_DATA/tvs-mps.json"
+export TVS_PROJECT_SEARCH="$TVS_PROJECT_DATA/tvs-search.json"
 
