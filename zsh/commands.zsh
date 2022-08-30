@@ -168,9 +168,11 @@ function fzfcd() {
 
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias dp-jar='fd -tf -e jar -p build/jar -a'
+alias dp-jar-cp='dp-jar | sd "\n" "" | pbcopy'
 
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias mp-pak='fd -tf -e pak -a'
+alias mp-pak-cp='mp-pak | sd "\n" "" | pbcopy'
 
 function mp-describe() {
     for pak in $(mp-pak | fzf -m -0 -1); do
