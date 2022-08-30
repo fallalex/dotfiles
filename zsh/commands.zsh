@@ -166,6 +166,8 @@ function fzfcd() {
     fi
 }
 
+# TODO: write something to guess web url from remote url
+
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias dp-jar='fd -tf -e jar -p build/jar -a'
 alias dp-jar-cp='dp-jar | sd "\n" "" | pbcopy'
