@@ -168,7 +168,7 @@ alias tvs-ssh='glabval $TVS_PROJECTS ssh_url_to_repo'
 alias tvs-web='glabval $TVS_PROJECTS web_url'
 alias tvs-clone='git clone --recurse-submodules $(gojq -r ".[] | .ssh_url_to_repo" $TVS_PROJECTS | fzf)'
 alias tvs-is-project='tvs-path | rg -q $(reponame)'
-alias tvs-open='open $(gojq -r ".[] | .web_url" $TVS_PROJECTS | fzf --query=$(reponame) -0 -1)'
+alias tvs-open='open $(gojq -r ".[] | .web_url" $TVS_PROJECTS | fzf --query=$(reponame))'
 function tvs-search() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
 # System
