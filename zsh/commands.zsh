@@ -168,15 +168,9 @@ function fzfcd() {
 
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias dp-jar='fd -tf -e jar -p build/jar -a'
-alias dp-path='glabval $TVS_DPS path'
-alias dp-ssh='glabval $TVS_DPS ssh_url_to_repo'
-alias dp-web='glabval $TVS_DPS web_url'
 
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias mp-pak='fd -tf -e pak -a'
-alias mp-path='glabval $TVS_MPS path'
-alias mp-ssh='glabval $TVS_MPS ssh_url_to_repo'
-alias mp-web='glabval $TVS_MPS web_url'
 
 function mp-describe() {
     for pak in $(mp-pak | fzf -m -0 -1); do
@@ -186,11 +180,8 @@ function mp-describe() {
 }
 
 alias tvs-replica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
-alias tvs-path='glabval $TVS_PROJECTS path'
-alias tvs-ssh='glabval $TVS_PROJECTS ssh_url_to_repo'
-alias tvs-web='glabval $TVS_PROJECTS web_url'
-alias tvs-clone='gclonecd $(tvs-ssh | fzf)'
-alias tvs-is-project='tvs-path | rg -q $(reponame)'
+alias tvs-clone='gclonecd $(glabval $TVS_PROJECTS ssh_url_to_repo | fzf)'
+alias tvs-is-project='glabval $TVS_PROJECTS path | rg -q $(reponame)'
 alias tvs-open='glabval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -i open {}'
 function tvs-search() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
