@@ -148,21 +148,35 @@ function glabval() {
         fi
     fi
 }
-alias dp='cd $(fd -d1 -td ".*-dp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf -0 -1)'
+
+function fzfcd() {
+    if [ "$#" -ne 2 ] || [ ! -d "$2" ]; then
+        echo Pass regex and base directory
+        exit 1
+    fi
+    result=$(fd -d1 -td "$1" --base-directory "$2" | fzf -0 -1)
+    fzfpath="$2/$result"
+    if [ -n "$result" ] && [ $? -eq 0 ] && [ -d "$fzfpath" ]; then
+        cd "$fzfpath"
+    fi
+}
+
+alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias dp-jar='fd -tf -e jar -p build/jar -a'
 alias dp-path='glabval $TVS_DPS path'
 alias dp-ssh='glabval $TVS_DPS ssh_url_to_repo'
 alias dp-web='glabval $TVS_DPS web_url'
-alias dp-clone='git clone --recurse-submodules $(dp-ssh | fzf -0 -1)'
+alias dp-clone='git clone --recurse-submodules $(dp-ssh | fzf)'
 
-alias mp='cd $(fd -d1 -td ".*-mp$" --base-directory "$HOME/repos/gitlab.eng.vmware.com" -a | fzf -0 -1)'
+alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias mp-pak='fd -tf -e pak -a'
 alias mp-path='glabval $TVS_MPS path'
 alias mp-ssh='glabval $TVS_MPS ssh_url_to_repo'
 alias mp-web='glabval $TVS_MPS web_url'
-alias mp-clone='git clone --recurse-submodules $(mp-ssh | fzf -0 -1)'
+alias mp-clone='git clone --recurse-submodules $(mp-ssh | fzf)'
 alias mp-describe='vrops dump-describe $(mp-pak | fzf -0 -1) > describe.xml'
 
+alias tvs-replica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias tvs-path='glabval $TVS_PROJECTS path'
 alias tvs-ssh='glabval $TVS_PROJECTS ssh_url_to_repo'
 alias tvs-web='glabval $TVS_PROJECTS web_url'
