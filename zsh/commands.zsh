@@ -83,9 +83,9 @@ alias cdr='cd -P .' #reload current directory
 # Dev
 alias g='git'
 compdef g=git
-function update-remote() {
-    $DOTS_DIR/bin/update-remote $@
-    cd -P .
+
+function gclonecd() {
+  git clone --recurse-submodules "$1" && cd "$(basename "$1" .git)"
 }
 
 alias py='python'
@@ -122,6 +122,11 @@ function gss() {
     else
         sshpass -p `den -np intranet-user` ssh gss-prd-csp-$1
     fi
+}
+
+function update-remote() {
+    $DOTS_DIR/bin/update-remote $@
+    cd -P .
 }
 
 alias ex='exuno'
@@ -166,21 +171,25 @@ alias dp-jar='fd -tf -e jar -p build/jar -a'
 alias dp-path='glabval $TVS_DPS path'
 alias dp-ssh='glabval $TVS_DPS ssh_url_to_repo'
 alias dp-web='glabval $TVS_DPS web_url'
-alias dp-clone='git clone --recurse-submodules $(dp-ssh | fzf)'
 
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
 alias mp-pak='fd -tf -e pak -a'
 alias mp-path='glabval $TVS_MPS path'
 alias mp-ssh='glabval $TVS_MPS ssh_url_to_repo'
 alias mp-web='glabval $TVS_MPS web_url'
-alias mp-clone='git clone --recurse-submodules $(mp-ssh | fzf)'
-alias mp-describe='vrops dump-describe $(mp-pak | fzf -0 -1) > describe.xml'
+
+function mp-describe() {
+    for pak in $(mp-pak | fzf -m -0 -1); do
+        # TODO: could save this to $TVS_PROJECT_DATA
+        vrops dump-describe $pak > "describe-$(basename $pak .pak).xml"
+    done
+}
 
 alias tvs-replica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias tvs-path='glabval $TVS_PROJECTS path'
 alias tvs-ssh='glabval $TVS_PROJECTS ssh_url_to_repo'
 alias tvs-web='glabval $TVS_PROJECTS web_url'
-alias tvs-clone='git clone --recurse-submodules $(glabval $TVS_PROJECTS ssh_url_to_repo | fzf)'
+alias tvs-clone='gclonecd $(tvs-ssh | fzf)'
 alias tvs-is-project='tvs-path | rg -q $(reponame)'
 alias tvs-open='glabval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -i open {}'
 function tvs-search() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
