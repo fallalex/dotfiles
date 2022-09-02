@@ -92,7 +92,7 @@ alias py='python'
 alias pv='pyenv'
 alias pvg='pyenv shell $(pyenv global)'
 alias pvl='pyenv shell $(pyenv local)'
-alias pyhist="cat ~/.ptpython/history | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
+alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'

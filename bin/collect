@@ -20,5 +20,10 @@ fi
 COLLECTION_DIR=$COLLECTIONS_DIR/$REPO/"$TIME"_"$GITDESCRIBE"_"$GITSTATUS$DESCRIPTION"
 echo Writing debug log and collection result to $COLLECTION_DIR
 mkdir -p "$COLLECTION_DIR"
-exuno -l debug collect -c torii -t protobuf "$2" > "$COLLECTION_DIR"/result.pb 2>"$COLLECTION_DIR"/debug.log
+
+if [[ $# -eq 2 ]]; then
+    exuno -l debug collect -c torii -t protobuf "$2" > "$COLLECTION_DIR"/result.pb 2>"$COLLECTION_DIR"/debug.log
+else
+    exuno -l debug collect -c torii -t protobuf > "$COLLECTION_DIR"/result.pb 2>"$COLLECTION_DIR"/debug.log
+fi
 
