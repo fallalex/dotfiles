@@ -166,6 +166,8 @@ alias glproject='glval $TVS_PROJECTS path | rg -q $(reponame)'
 alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
 function glsearch() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
+alias vropen='open https://$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)'
+
 # TODO: write something to guess web url from remote url
 
 # Data Providers
@@ -185,10 +187,13 @@ alias pak='fd -tf -e pak'
 alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
 alias deplog='vrops deploy-logs last "$@"'
 
+function vropsboxes() { rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" }
+alias vropen='vropsboxes | sort -r -n | fzf -m --query=$(reponame) | gxargs -r -i open https://{}'
+
 function deploy() {
-    vropshost=$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)
     pakfile=$(pak | fzf -0 -1 | gxargs -r greadlink -f)
-    vrops deploy -H "$vropshost" -P "$pakfile"
+    # TODO: exit if no pakfile
+    vropsboxes | sort -r -n | fzf -m  | gxargs -i vrops deploy -H {} -P "$pakfile" $@
 }
 
 function describe() {
