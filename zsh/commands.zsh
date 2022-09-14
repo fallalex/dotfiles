@@ -188,12 +188,12 @@ alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
 alias deplog='vrops deploy-logs last "$@"'
 
 function vropsboxes() { rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" }
-alias vropen='vropsboxes | sort -r -n | fzf -m --query=$(reponame) | gxargs -r -i open https://{}'
+alias vropen='vropsboxes | sort -u | fzf -m | gxargs -r -i open https://{}'
 
 function deploy() {
     pakfile=$(pak | fzf -0 -1 | gxargs -r greadlink -f)
     # TODO: exit if no pakfile
-    vropsboxes | sort -r -n | fzf -m  | gxargs -i vrops deploy -H {} -P "$pakfile" $@
+    vropsboxes | sort -u | fzf -m  | gxargs -i vrops deploy -H {} -P "$pakfile" $@
 }
 
 function describe() {
