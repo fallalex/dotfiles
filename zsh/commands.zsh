@@ -109,7 +109,10 @@ alias gr='./gradlew'
 alias depends='./gradlew dependencies > dependencies.txt'
 alias idea='open -na "IntelliJ IDEA.app" --args "$@"'
 # alias ppjson='python -m json.tool' # use 'jq .'
-function todo() {rg 'TODO[:\s]+' -C 5}
+function todo() {
+    fd -a todo | gxargs -i sh -c 'echo {}; bat -p {}'
+    rg 'TODO[:\s]+' -C 5
+}
 
 alias jq='gojq'
 
