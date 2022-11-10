@@ -13,6 +13,7 @@ compinit
 
 zshrc_files=(
     variables
+    work-variables
     path
     editor-pager
     prompt
@@ -22,6 +23,7 @@ zshrc_files=(
     fzf
     tmux
     commands
+    work-commands
 )
 zshrc_paths=($zshrc_dir'/'${^zshrc_files}'.zsh')
 unset zshrc_files

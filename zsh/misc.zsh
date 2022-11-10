@@ -9,7 +9,7 @@
 #     # ;;
 # esac
 
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd j zsh)"
 
 # https://github.com/jenv/jenv/issues/148
 eval "$(pyenv init --path)"
