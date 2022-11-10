@@ -51,9 +51,9 @@ alias ht="tail $HISTFILE"
 alias -- -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
-alias fd='fd -uu'
-alias la='fd -ad1' # list with absolute path, exa cant really do this 
+alias f='fd -uu'
 alias ls='exa -ga -I ".git|.DS_Store" --git --time-style iso -s modified --group-directories-first'
+alias la='exa --no-permissions --no-filesize --no-user --no-time -1da $PWD/.* $PWD/*'
 compdef ls=exa
 alias ll='ls -l'
 alias tree='ls --tree'
@@ -97,8 +97,14 @@ alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s 
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'
 alias jvl='jenv shell $(jenv local)'
-alias jvpaths='ll $HOME/.jenv/versions'
-alias jvpath='ll `jenv prefix`'
+
+function jvv() {
+    echo "Shell: $(jenv shell 2>/dev/null)"
+    echo "Local: $(jenv local 2>/dev/null)"
+    echo "Global: $(jenv global)"
+    exa --no-permissions --no-filesize --no-user --no-time -ld $(dirname $(jenv prefix))/*
+}
+
 alias jhomes='/usr/libexec/java_home -V'
 
 alias rv='rbenv'
