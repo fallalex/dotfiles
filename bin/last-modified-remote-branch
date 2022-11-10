@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Switch to the the last modifed remote branch
+# Consider fetching before running this
+
+path=$(pwd -P)
+remote=origin
+
+last_modified_remote_branch=$(git -C $path branch --remotes --sort=-committerdate --format='%(refname:lstrip=3)' | head -1)
+git -C $path switch --recurse-submodules --guess $last_modified_remote_branch

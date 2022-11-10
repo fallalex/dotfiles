@@ -42,21 +42,26 @@
 
   ssh = remote get-url origin
 
-  # Note: "git add --all" and "git commit --all" are different commit does not care about working dir and commit does not add files so is closer to update
   c = commit
+  wip = commit --message "WIP"
+  # Commit all modified/deleted files
   cu = commit --all
-  ca = !git add --all && git commit
   wu = commit --all --message "WIP"
+  # Commit all files
+  ca = !git add --all && git commit
   wa = !git add --all && git commit --message "WIP"
 
   b = branch
-  ba = !git --no-pager branch --all --sort=-committerdate --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  ba = branch --all --sort=-committerdate -vv
   bd = branch --delete --force
-  bs = switch --recurse-submodules -fC 
+  # Create/overwrite a branch 
+  bc = switch --recurse-submodules --discard-changes --force-create 
+  # Switch to existing branch
+  bs = switch --recurse-submodules --guess
 
   cloner = clone --recursive
 
-  f = fetch --recurse-submodules -Ppt
+  f = fetch --prune --prune-tags --tags --progress
 
 
 

@@ -177,7 +177,8 @@ font:
   #
   # Thin strokes are suitable for retina displays, but for non-retina screens
   # it is recommended to set `use_thin_strokes` to `false`.
-  use_thin_strokes: true
+  # https://github.com/alacritty/alacritty/issues/4616#issuecomment-1236413444
+  # use_thin_strokes: true
 
   # Use built-in font for box drawing characters.
   #
