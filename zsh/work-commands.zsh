@@ -51,7 +51,7 @@ alias dplog='dplog=$COLLECTIONS_DIR/$(reponame)/$(fd -tf -e log --base-directory
 alias vr='vrops'
 alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias pak='fd -tf -e pak'
+alias pak='fd -uu -tf -e pak'
 alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
 alias deplog='vrops deploy-logs last "$@"'
 
