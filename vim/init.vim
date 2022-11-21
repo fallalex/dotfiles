@@ -93,6 +93,7 @@ set expandtab
 set smarttab
 set number relativenumber
 set background=dark
+set nrformats+=alpha
 
 fun! TrimTail()
     let l:save = winsaveview()
