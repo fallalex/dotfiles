@@ -7,6 +7,9 @@ path+=("$DOTS_DIR/bin")
 path+=("$HOME/.cargo/bin")
 path+=("/usr/local/sbin")
 path+=("/usr/local/bin")
+path+=("/usr/local/opt/coreutils/libexec/gnubin")
+path+=("/usr/local/opt/findutils/libexec/gnubin")
+path+=("/usr/local/opt/gnu-tar/libexec/gnubin")
 path+=("/usr/bin")
 path+=("/bin")
 path+=("/usr/sbin")
@@ -32,6 +35,8 @@ while IFS=$'\n' read -r line; do
 done <<< $(/usr/local/bin/fd -t f --base-directory /etc/manpaths.d -x /bin/cat)
 export MANPATH
 
+export FPATH=""
 FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+FPATH=$(brew --prefix)/share/zsh/functions:$FPATH
 FPATH=$HOME/bin/completion:$FPATH
 export FPATH

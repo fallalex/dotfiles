@@ -2,11 +2,7 @@
 case "$OSTYPE" in
     darwin*)
         alias o='openapp'
-        alias xargs='gxargs'
-        alias readlink='greadlink'
-        alias realpath='grealpath'
         alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
-        alias echo='gecho'
         function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
         function openapp() {
             locate .app | rg -N ".*\.app$" | fzf | xargs -i open {}
@@ -45,6 +41,7 @@ alias pfpathl='print -l $fpath | xargs -i fd --base-directory {} -a -t f -t l'
 alias ss='rm -f $XDG_CONFIG_HOME/zsh/.zcompdump; exec zsh -l'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
+alias hh='fc -li 0' # print all shell hist
 alias ht="tail $HISTFILE"
 
 # Essentials
