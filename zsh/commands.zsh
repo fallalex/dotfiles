@@ -16,13 +16,7 @@ esac
 
 # Utilities
 #alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
-alias tw='timew'
-alias t='task'
-compdef t=task
-alias tt="taskwarrior-tui"
 # force this report to show dispite current context
-alias caps='task rc.context=none rc.verbose=nothing capture'
-alias cap='task rc.verbose=nothing cap --'
 alias otpass='pass otp.yaml | otpass.py'
 alias otp='otpass'
 alias journal="$EDITOR ~/vimwiki/journal/$(date '+%F').md"
