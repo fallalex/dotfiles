@@ -6,7 +6,7 @@ cd $TVS_ACTIVE_PROJECTS_REPLICA
 LOCAL_PROJECTS=/tmp/local-projects
 REMOTE_PROJECTS=/tmp/remote-projects
 
-fd -td -d1 > $LOCAL_PROJECTS
+fd -td -d1 -x basename > $LOCAL_PROJECTS
 
 gojq -r ".[] | .path" $TVS_DPS > $REMOTE_PROJECTS
 gojq -r ".[] | .path" $TVS_MPS >> $REMOTE_PROJECTS
