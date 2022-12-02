@@ -6,5 +6,5 @@
 current_path=$(pwd -P)
 remote=origin
 
-last_modified_remote_branch=$(git -C $current_path branch --remotes --sort=-committerdate --format='%(refname:lstrip=3)' | head -1)
+last_modified_remote_branch=$(git -C $current_path branch --remotes --sort=-committerdate --format='%(refname:lstrip=3)' | rg -v HEAD | head -1)
 git -C $current_path switch --recurse-submodules --guess $last_modified_remote_branch
