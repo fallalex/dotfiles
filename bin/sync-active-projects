@@ -8,8 +8,9 @@ REMOTE_PROJECTS=/tmp/remote-projects
 
 fd -td -d1 -x basename > $LOCAL_PROJECTS
 
-gojq -r ".[] | .path" $TVS_DPS > $REMOTE_PROJECTS
-gojq -r ".[] | .path" $TVS_MPS >> $REMOTE_PROJECTS
+# gojq -r ".[] | .path" $TVS_DPS > $REMOTE_PROJECTS
+# gojq -r ".[] | .path" $TVS_MPS >> $REMOTE_PROJECTS
+gojq -r ".[] | .path" $TVS_ACTIVE_PROJECTS | zet diff /dev/stdin $TVS_IGNORE_PROJECTS > $REMOTE_PROJECTS
 
 echo Removing orphaned local projects
 zet diff $LOCAL_PROJECTS $REMOTE_PROJECTS | gxargs -i rm -rf {}

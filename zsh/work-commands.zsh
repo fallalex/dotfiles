@@ -28,7 +28,7 @@ function glval() {
 
 
 alias proj='fzfcd "" "$HOME/repos/gitlab.eng.vmware.com"'
-alias glreplica='fzfcd ".*-[dm]p$" "$TVS_ACTIVE_PROJECTS_REPLICA"'
+alias glreplica='fzfcd "" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias glclone='gclonecd $(glval $TVS_PROJECTS ssh_url_to_repo | fzf)'
 alias glproject='glval $TVS_PROJECTS path | rg -q $(reponame)'
 alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
