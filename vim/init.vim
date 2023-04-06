@@ -61,9 +61,6 @@ nnoremap <silent> <leader>sy
              \    syntax enable <BAR>
              \ endif<CR>   
 
-" change how mutt mail is displayed in vim
-" autocmd BufNewFile,BufRead ~/.mutt/temp* set noautoindent filetype=mail wm=0 tw=78 nonumber digraph nolist nopaste
-
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 
 " open other files as zip
@@ -138,6 +135,7 @@ xnoremap <silent> <leader>rg       y:Rg <C-R>"<CR>
 nnoremap <silent> <leader>rg       :Rg <C-R><C-W><CR>
 nnoremap <silent> <leader>RG       :Rg <C-R><C-A><CR>
 nnoremap <silent> <leader>`        :Marks<CR>
+nnoremap Y y$
 
 " Rerun rg interactive
 function! RipgrepFzf(query, fullscreen)
@@ -203,7 +201,6 @@ Plug 'kana/vim-textobj-user'
 Plug 'vimwiki/vimwiki'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'sheerun/vim-polyglot'
 Plug 'lbrayner/vim-rzip'
 Plug 'morhetz/gruvbox'

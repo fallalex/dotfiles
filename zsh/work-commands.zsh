@@ -32,6 +32,7 @@ alias glreplica='fzfcd "" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias glclone='gclonecd $(glval $TVS_PROJECTS ssh_url_to_repo | fzf)'
 alias glproject='glval $TVS_PROJECTS path | rg -q $(reponame)'
 alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
+alias issues='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open "{}/-/issues"'
 function glsearch() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
 
 alias vropen='open https://$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)'
@@ -43,15 +44,15 @@ alias vropen='open https://$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh
 alias ex='exuno'
 alias check='./gradlew clean && exuno check'
 alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias dpjar='fd -tf -e jar -p build/jar'
-alias dpjarcp='dpjar | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
+alias dpjar='fd -ua -tf -e jar -p build/jar'
+alias dpjarcp='dpjar | sd "\n" "" | pbcopy'
 alias dplog='dplog=$COLLECTIONS_DIR/$(reponame)/$(fd -tf -e log --base-directory "$COLLECTIONS_DIR/$(reponame)" | sort -rn | fzf -0 -1); if [ -f $dplog ]; then $EDITOR "$dplog"; fi'
 
 # Management Packs
 alias vr='vrops'
 alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
 alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias pak='fd -uu -tf -e pak'
+alias pak='fd -u -tf -e pak'
 alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
 alias deplog='vrops deploy-logs last "$@"'
 
