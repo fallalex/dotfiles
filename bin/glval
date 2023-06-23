@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ "$#" -eq 1 ] && [ -f "$1" ]; then
+    gojq -r '.[] | keys[]' "$1" | sort -u
+elif [ "$#" -ne 2 ]; then
+    echo "Pass a path to a gitlab json file and a field."
+else
+    if [ ! -f "$1" ]; then
+        echo "$1" does not exist
+        echo "Pass a path to a gitlab json file and a field."
+    else
+        gojq -r ".[] | .$2" "$1"
+    fi
+fi
+

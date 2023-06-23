@@ -75,6 +75,7 @@ alias cdr='cd -P .' #reload current directory
 alias g='git'
 compdef g=git
 
+alias gopen='open "$(git-https)"'
 function gclonecd() {
   git clone --recurse-submodules "$1" && cd "$(basename "$1" .git)"
 }

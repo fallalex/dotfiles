@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+url="$(git remote get-url origin)"
+rg -q -F "https://" <(echo $url) && echo $url || sed 's/^git@\(.*\):\/*\(.*\).git/https:\/\/\1\/\2.git/' <(echo $url)

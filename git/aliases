@@ -40,7 +40,7 @@
   aa = add --all
   au = add --update
 
-  ssh = remote get-url origin
+  url = remote get-url origin
 
   c = commit
   wip = commit --message "WIP"

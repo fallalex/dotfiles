@@ -11,26 +11,10 @@ function gss() {
     fi
 }
 
-function glval() {
-    if [ "$#" -eq 1 ] && [ -f "$1" ]; then
-        gojq -r '.[] | keys[]' "$1" | sort -u
-    elif [ "$#" -ne 2 ]; then
-        echo "Pass a path to a gitlab json file and a field."
-    else
-        if [ ! -f "$1" ]; then
-            echo "$1" does not exist
-            echo "Pass a path to a gitlab json file and a field."
-        else
-            gojq -r ".[] | .$2" "$1"
-        fi
-    fi
-}
-
-
 alias proj='fzfcd "" "$HOME/repos/gitlab.eng.vmware.com"'
 alias glreplica='fzfcd "" "$TVS_ACTIVE_PROJECTS_REPLICA"'
 alias glclone='gclonecd $(glval $TVS_PROJECTS ssh_url_to_repo | fzf)'
-alias glproject='glval $TVS_PROJECTS path | rg -q $(reponame)'
+alias glproject='glval $TVS_PROJECTS path | rg -q "^$(reponame)\$"'
 alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
 alias issues='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open "{}/-/issues"'
 function glsearch() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}

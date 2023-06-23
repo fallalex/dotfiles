@@ -63,8 +63,7 @@ nnoremap <silent> <leader>sy
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 
-" open other files as zip
-autocmd BufReadCmd *.pak,*.jar call zip#Browse(expand("<amatch>"))
+let g:rzipPlugin_extra_ext = '*.pak'
 
 let g:vimwiki_global_ext = 0
 let wiki_1 = {}
@@ -183,8 +182,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'roxma/vim-tmux-clipboard'
 Plug 'edkolev/tmuxline.vim'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
@@ -194,17 +191,13 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'tpope/vim-fugitive'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'Yggdroot/indentLine'
-Plug 'kana/vim-textobj-entire'
-Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-user'
+Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'vimwiki/vimwiki'
-Plug 'powerman/vim-plugin-AnsiEsc'
+" Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 Plug 'lbrayner/vim-rzip'
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/vim-peekaboo'
 Plug 'junegunn/vim-easy-align'
 call plug#end()
 
