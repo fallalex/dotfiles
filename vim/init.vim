@@ -14,7 +14,7 @@ autocmd filetype help nnoremap <buffer><cr> <c-]>
 autocmd filetype help nnoremap <buffer><bs> <c-T>
 autocmd filetype help nnoremap <buffer>q :q<CR>
 autocmd filetype help set nonumber
-noremap <leader>th :tab help 
+noremap <leader>th :tab help
 
 " Quick edit/source init.vim
 noremap <silent> <leader>ie :tabe $MYVIMRC<CR>
@@ -57,9 +57,9 @@ nnoremap <leader>ss :set spell!<CR>
 nnoremap <silent> <leader>sy
              \ : if exists("syntax_on") <BAR>
              \    syntax off <BAR>
-             \ else <BAR>  
+             \ else <BAR>
              \    syntax enable <BAR>
-             \ endif<CR>   
+             \ endif<CR>
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufReadPost *.justfile set syntax=just
