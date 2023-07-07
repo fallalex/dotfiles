@@ -62,6 +62,7 @@ nnoremap <silent> <leader>sy
              \ endif<CR>   
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
+autocmd BufReadPost *.justfile set syntax=just
 
 let g:rzipPlugin_extra_ext = '*.pak'
 

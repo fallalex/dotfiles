@@ -13,9 +13,6 @@ $git_state\
 $git_metrics\
 $git_status\
 $hg_branch\
-$java\
-$python\
-$ruby\
 $env_var\
 $custom\
 $sudo\
@@ -23,6 +20,10 @@ $cmd_duration\
 $line_break\
 $status\
 $character"""
+
+# $java\
+# $python\
+# $ruby\
 
 [java]
 symbol = "J"
