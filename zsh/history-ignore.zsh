@@ -23,6 +23,8 @@ history_ignore=(
     'reset'
     'zoxide'
     'zoxide *'
+    'clear'
+    'clear *'
 )
 export HISTORY_IGNORE="(${(j.|.)history_ignore})"
 
