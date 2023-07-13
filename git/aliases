@@ -14,7 +14,7 @@
   last = log --format=medium -3 HEAD
   lo = log --oneline
   loo = lo --graph --all
-  lg = log --pretty=format:'%Cred%h %Cgreen%>(12,trunc)%cr %Cblue%<(9,trunc)%an%C(yellow)%d%Creset %s'
+  lg = log --pretty=tformat:'%C(yellow)%h %C(green)%>(12,trunc)%cr %C(blue)%<(9,trunc)%an%C(auto)%d%C(reset) %s'
   lgg = lg --graph --all
 
   st = status -sb --ahead-behind --renames
