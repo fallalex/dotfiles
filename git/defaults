@@ -6,6 +6,9 @@
   name = Alex Fall
   email = alex@fallalex.com
 
+[pager]
+  difftool = true
+
 [filter "lfs"]
   process = git-lfs filter-process
   required = true
@@ -15,12 +18,15 @@
 [merge]
   conflictstyle = diff3
 
+[log]
+  date = relative
+  abbrevCommit = true
+
 [pull]
   rebase = false
   #ff = only
 
 [push]
-  default = tracking
   default = current
 
 [interactive]
@@ -32,3 +38,11 @@
 
 [diff]
   colorMoved = default
+  tool = difftastic
+
+[difftool]
+  prompt = false
+
+[difftool "difftastic"]
+  #cmd = difft --display inline "$LOCAL" "$REMOTE"
+  cmd = difft --display side-by-side-show-both "$LOCAL" "$REMOTE"
