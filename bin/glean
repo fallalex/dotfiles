@@ -18,7 +18,8 @@ git -C $path rev-parse --is-inside-work-tree > /dev/null 2>&1 || { echo "$path i
 
 echo Cleaning repo at $(git -C $path rev-parse --show-toplevel)
 
-remote=origin
+# Not sure what this will do with multiple remote
+remote=$(git remote show)
 
 # Update origin/HEAD to match remote
 git -C $path remote set-head $remote -a

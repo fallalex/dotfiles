@@ -13,7 +13,7 @@
   lp = log -p
   last = log --format=medium -3 HEAD
   lo = log --oneline
-  lot = lo --graph --all
+  loo = lo --graph --all
   lg = log --pretty=format:'%Cred%h %Cgreen%>(12,trunc)%cr %Cblue%<(9,trunc)%an%C(yellow)%d%Creset %s'
   lgg = lg --graph --all
 
