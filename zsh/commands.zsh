@@ -39,6 +39,7 @@ alias hh='fc -li 0' # print all shell hist
 alias ht="tail $HISTFILE"
 
 # Essentials
+alias dots='cd $DOTS_DIR'
 alias -- -='cd -'
 alias ~='cd ~'
 alias ..='cd ../'
