@@ -42,6 +42,7 @@ alias deplog='vrops deploy-logs last "$@"'
 
 function vropsboxes() { rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -u }
 alias vropen='vropsboxes | fzf -m | gxargs -r -i open https://{}'
+alias vrssh='ssh $(vropsboxes | fzf)'
 
 function deploy() {
     pakfile=$(pak | fzf -0 -1 | gxargs -r greadlink -f)
