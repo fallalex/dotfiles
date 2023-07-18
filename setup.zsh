@@ -23,6 +23,7 @@ link git/gitconfig $XDG_CONFIG_HOME/git/config
 link vim/init.vim $XDG_CONFIG_HOME/nvim/init.vim
 link alacritty.yml $XDG_CONFIG_HOME/alacritty/alacritty.yml
 link starship.toml $XDG_CONFIG_HOME/starship.toml
+link cargo.toml $HOME/.cargo/config.toml
 
 mkdir -p $VIM_PLUG_VIM
 curl -sL https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim > $VIM_PLUG_VIM/plug.vim

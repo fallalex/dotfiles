@@ -83,6 +83,10 @@ function gclonecd() {
   git clone --recurse-submodules "$1" && cd "$(basename "$1" .git)"
 }
 
+alias c='cargo'
+# rustup completions zsh cargo > ~/bin/completion/_cargo
+compdef c=cargo
+
 alias py='python'
 alias pv='pyenv'
 alias pvg='pyenv shell $(pyenv global)'
