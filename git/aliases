@@ -4,6 +4,7 @@
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
   url = remote get-url origin
+  short = rev-parse --short HEAD
 
   sup = submodule update --init
   f = fetch --prune --prune-tags --tags --progress
