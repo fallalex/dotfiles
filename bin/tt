@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# https://unix.stackexchange.com/questions/486510/figuring-out-the-remaining-seconds-left-until-a-certain-time-with-bash
+# https://stackoverflow.com/questions/22450302/the-d-option-format-of-the-bash-command-date
+# https://www.gnu.org/software/coreutils/manual/html_node/Date-input-formats.html#Date-input-formats
+
+# TODO: accept args to pass for mac-notify
+# TODO: update system preference to keep notification on screen
+
+gdate -d "$@"
+seconds=$(($(gdate -d "$@" '+%s') - $( gdate +%s )))
+read -p "Press enter to wait $seconds seconds"
+cmd="sleep $seconds && /Users/afall/dotfiles/bin/mac-notify 'Hey you its time' 'Time is up!' default"
+eval "${cmd}" &>/dev/null & disown;
