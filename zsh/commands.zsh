@@ -21,6 +21,7 @@ alias otpass='pass otp.yaml | otpass.py'
 alias otp='otpass'
 alias journal="$EDITOR ~/vimwiki/journal/$(date '+%F').md"
 alias wiki="$EDITOR -c VimwikiIndex"
+alias mychive='cd $MYCHIVE'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
