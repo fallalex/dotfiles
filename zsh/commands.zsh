@@ -141,6 +141,7 @@ function fzfcd() {
 }
 
 alias ao='aoc-wrapper'
+alias rp='rust-parallel'
 
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'
