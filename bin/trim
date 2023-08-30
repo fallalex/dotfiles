@@ -1,0 +1,20 @@
+#!/usr/bin/env perl
+
+# Read from STDIN or a file passed as an argument.
+# If both are provided only the file will be read.
+# Trim leading and trailing horizontal whitespace from everyline.
+# Remove all newlines from the ned of the file.
+
+# TODO should make this into a rust cli app
+
+use strict;
+use warnings;
+
+my $n = 0;
+while (<>) {
+    if (s/^\h+|\h+$//g) {
+        print "\n" x $n, $_; $n = 0
+    } else {
+        $n++
+    }
+}

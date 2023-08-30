@@ -70,7 +70,6 @@ function swap() {
     /bin/mv $TMPFILE "$2"
 }
 function mk() { mkdir -p "$1" && cd "$1"; }
-function trim() { awk '{$1=$1};1' }
 alias cdr='cd -P .' #reload current directory
 alias tmspeed='sudo sysctl debug.lowpri_throttle_enabled=$((1 - $(sysctl -n debug.lowpri_throttle_enabled)))'
 
