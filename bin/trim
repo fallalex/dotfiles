@@ -12,9 +12,11 @@ use warnings;
 
 my $n = 0;
 while (<>) {
-    if (s/^\h+|\h+$//g) {
-        print "\n" x $n, $_; $n = 0
+    if (/./) {
+        s/^\h+|\h+$//g;
+        print "\n" x $n, $_;
+        $n = 0;
     } else {
-        $n++
+        $n++;
     }
 }
