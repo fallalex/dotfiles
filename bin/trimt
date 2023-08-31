@@ -1,0 +1,34 @@
+#!/usr/bin/env perl
+
+# Read from STDIN or a file passed as an argument.
+# If both are provided only the file will be read.
+# Trim trailing horizontal whitespace from everyline.
+# Remove all newlines from the end of the file.
+
+# TODO should make this into a rust cli app
+
+use strict;
+use warnings;
+use File::Temp qw(tempfile);
+use Fcntl qw(SEEK_SET);
+
+my $fh = tempfile();
+
+my $n = 0;
+while (<>) {
+    s/\h+$//g;
+    if (/./) {
+        print $fh "\n" x $n, $_;
+        $n = 0;
+    } else {
+        $n++;
+    }
+}
+$fh->flush;
+seek $fh, 0, SEEK_SET;
+
+while (<$fh>) {
+    chomp if eof;
+    print $_;
+}
+close $fh;

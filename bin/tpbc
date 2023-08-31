@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ -p /dev/stdin ]; then
+    $DOTS_DIR/bin/trim /dev/stdin | pbcopy
+elif [ $# -gt 0 ]; then
+    for argument in "$@"; do
+        if [ ! -f "$argument" ]; then
+            printf 'Not a file: %s\n' "$argument" >&2
+            exit 1
+        fi
+    done
+    $DOTS_DIR/bin/trim "$@" | pbcopy
+else
+        echo "No input given!"
+        exit 1
+fi
+
