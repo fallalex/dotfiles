@@ -52,3 +52,6 @@
 [difftool "difftastic"]
   #cmd = difft --display inline "$LOCAL" "$REMOTE"
   cmd = difft --display side-by-side-show-both "$LOCAL" "$REMOTE"
+
+[init]
+    defaultBranch = main
