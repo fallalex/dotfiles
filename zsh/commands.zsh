@@ -97,6 +97,7 @@ alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s 
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'
 alias jvl='jenv shell $(jenv local)'
+alias fern='/Users/afall/.jenv/versions/17.0/bin/java -jar /Users/afall/repos/github.com/fernflower/build/libs/fernflower.jar'
 
 function jvv() {
     echo "Shell: $(jenv shell 2>/dev/null)"

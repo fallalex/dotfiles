@@ -47,3 +47,5 @@
   # Switch to existing branch
   bs = switch --recurse-submodules --guess
 
+  email = config --get --show-origin user.email
+

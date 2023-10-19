@@ -1,0 +1,35 @@
+#!/bin/sh
+
+if [[ $# -ne 1 ]]; then
+    echo Expects a version
+    exit 1
+fi
+
+git -C "$(pwd -P)" rev-parse --is-inside-work-tree > /dev/null 2>&1 || { echo "Not in a git repo working tree"; exit 1; }
+
+version="$1"
+tag=v"$version"
+message="Release version $version"
+# Not sure what this will do with multiple remote
+remote=$(git remote show)
+branch=$(basename $(git symbolic-ref "refs/remotes/$remote/HEAD"))
+
+# Get tracked remote and branch
+refspec=$(git rev-parse --abbrev-ref --symbolic-full-name @{u})
+
+if [ "$refspec" != "$remote/$branch" ]; then
+    echo "Aborting. Tracking $refspec when $remote/$branch was expected"
+    exit 1
+fi
+
+git diff --cached 
+git status -sb
+
+echo
+echo "Will commit the above changes to \"remotes/$remote/$branch\""
+echo "Will create tag \"$tag\" with message \"$message\""
+read -p "Confirm the above. Press enter to continue"
+
+git commit --message "$message"
+git tag --annotate --message  "$message" "$tag"
+git push --atomic "$remote" "$branch" "$tag"
