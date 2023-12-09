@@ -15,6 +15,11 @@
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
 
+[commit]
+  template = ~/dotfiles/git/commit-template
+  cleanup = scissors
+  verbose = true
+
 [merge]
   conflictstyle = diff3
 
@@ -47,3 +52,6 @@
 [difftool "difftastic"]
   #cmd = difft --display inline "$LOCAL" "$REMOTE"
   cmd = difft --display side-by-side-show-both "$LOCAL" "$REMOTE"
+
+[init]
+    defaultBranch = main

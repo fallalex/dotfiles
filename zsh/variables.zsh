@@ -15,5 +15,7 @@ export PTPYTHON_CONFIG_HOME="$XDG_CONFIG_HOME/ptpython/"
 export PTPYTHON_HISTORY="$XDG_STATE_HOME/python/ptpython-history"
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/python-startup.py"
 
+export MYCHIVE="/Users/afall/Library/CloudStorage/GoogleDrive-alex@fallalex.com/My Drive/para/archive"
+
 export LESSHISTFILE=/dev/null
 

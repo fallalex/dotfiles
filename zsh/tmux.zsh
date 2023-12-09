@@ -1,7 +1,7 @@
 # Auto attach to or start a session
 # https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/tmux/tmux.plugin.zsh
 
-export TMUX_AUTO_ATTACH=true
+export TMUX_AUTO_ATTACH="${TMUX_AUTO_ATTACH:-true}"
 
 function preexec_tmux() {
     if [[ -z "$TMUX" ]]; then

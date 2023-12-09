@@ -21,6 +21,7 @@ alias otpass='pass otp.yaml | otpass.py'
 alias otp='otpass'
 alias journal="$EDITOR ~/vimwiki/journal/$(date '+%F').md"
 alias wiki="$EDITOR -c VimwikiIndex"
+alias mychive='cd $MYCHIVE'
 alias labvpn='sshuttle --dns -r relay 10.0.10.0/24'
 alias wr='curl -s wttr.in | ghead -n -2'
 alias rad='curl -s "https://radar.weather.gov/Conus/Loop/NatLoop.gif" > radar.gif; mpv --loop-file=inf --fs radar.gif'
@@ -69,8 +70,8 @@ function swap() {
     /bin/mv $TMPFILE "$2"
 }
 function mk() { mkdir -p "$1" && cd "$1"; }
-function trim() { awk '{$1=$1};1' }
 alias cdr='cd -P .' #reload current directory
+alias tmspeed='sudo sysctl debug.lowpri_throttle_enabled=$((1 - $(sysctl -n debug.lowpri_throttle_enabled)))'
 
 # Dev
 alias g='git'
@@ -96,6 +97,7 @@ alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s 
 alias jv='jenv'
 alias jvg='jenv shell $(jenv global)'
 alias jvl='jenv shell $(jenv local)'
+alias fern='/Users/afall/.jenv/versions/17.0/bin/java -jar /Users/afall/repos/github.com/fernflower/build/libs/fernflower.jar'
 
 function jvv() {
     echo "Shell: $(jenv shell 2>/dev/null)"
@@ -137,6 +139,9 @@ function fzfcd() {
         cd "$fzfpath"
     fi
 }
+
+alias ao='aoc-wrapper'
+alias rp='rust-parallel'
 
 # System
 alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'

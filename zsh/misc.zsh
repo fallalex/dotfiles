@@ -21,16 +21,17 @@ eval "$(jenv init --no-rehash -)"
 (pyenv rehash & rbenv rehash & jenv rehash &) 2> /dev/null
 
 # SSH agent
-SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.sock
-SSH_AGENT_PID=$(pgrep -U $UID ssh-agent)
+# https://gist.github.com/vancluever/de1c3985c8f9e2a3c4bdc42a057e075e
+SSH_AUTH_SOCK="$HOME/.ssh/ssh-agent.sock"
+SSH_AGENT_CMD="ssh-agent -a $SSH_AUTH_SOCK"
+SSH_AGENT_PID=$(pgrep -U $UID -f "$SSH_AGENT_CMD")
 if [[ ! -n "$SSH_AGENT_PID" || ! -S "$SSH_AUTH_SOCK" ]]; then
-    pkill ssh-agent
+    pkill -U $UID ssh-agent
     rm -f $SSH_AUTH_SOCK
-    eval `ssh-agent -a $SSH_AUTH_SOCK` > /dev/null
-else
-    export SSH_AGENT_PID
-    export SSH_AUTH_SOCK
+    eval $SSH_AGENT_CMD &> /dev/null
 fi
+export SSH_AGENT_PID
+export SSH_AUTH_SOCK
 
 # GPG agent - load key into cache if needed
 # https://demu.red/blog/2016/06/how-to-check-if-your-gpg-key-is-in-cache/

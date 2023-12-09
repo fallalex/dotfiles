@@ -4,6 +4,7 @@
   root = rev-parse --show-toplevel
   rela = rev-parse --show-prefix
   url = remote get-url origin
+  short = rev-parse --short HEAD
 
   sup = submodule update --init
   f = fetch --prune --prune-tags --tags --progress
@@ -45,4 +46,6 @@
   bc = switch --recurse-submodules --discard-changes --force-create
   # Switch to existing branch
   bs = switch --recurse-submodules --guess
+
+  email = config --get --show-origin user.email
 
