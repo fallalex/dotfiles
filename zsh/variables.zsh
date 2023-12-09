@@ -7,7 +7,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 export VIM_PLUG_VIM="$XDG_DATA_HOME/nvim/site/autoload"
-export FZF_ROOT="$XDG_DATA_HOME/fzf"
+export FZF_ROOT="$(dirname $(dirname $(readlink -f $(where fzf))))"
 export RBENV_ROOT="$XDG_DATA_HOME/rbenv"
 export PYENV_ROOT="$XDG_DATA_HOME/pyenv"
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1

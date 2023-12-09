@@ -14,7 +14,6 @@ path+=("/usr/bin")
 path+=("/bin")
 path+=("/usr/sbin")
 path+=("/sbin")
-path+=("$FZF_ROOT/bin")
 path+=("$XDG_DATA_HOME/pyenv/shims")
 
 while IFS=$'\n' read -r line; do
