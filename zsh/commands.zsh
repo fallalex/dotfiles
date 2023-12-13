@@ -1,18 +1,11 @@
 
-case "$OSTYPE" in
-    darwin*)
-        alias o='openapp'
-        alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
-        function spotlight { mdfind "kMDItemDisplayName == '$@'wc"; }
-        function openapp() {
-            locate .app | rg -N ".*\.app$" | fzf | xargs -i open {}
-        }
-    ;;
-    # linux*)
-    # ;;
-    # dragonfly*|freebsd*|netbsd*|openbsd*)
-    # ;;
-esac
+alias o='openapp'
+alias dnsflush='sudo dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
+function spotlight { mdfind "kMDItemDisplayName == '$@'c"; }
+alias apps='spotlight "*.app"'
+function openapp() {
+    apps | fzf --delimiter / --with-nth -1 | gxargs -i open {}
+}
 
 # Utilities
 #alias led='ledger --init-file ~/ledger/ledgerrc -f ~/ledger/ledger'
@@ -32,7 +25,7 @@ alias rclone='rclone -P --password-command "den -pn rclone"'
 alias ppath='print -l $path'
 alias px='whence -pm "*"'
 alias pfpath='print -l $fpath'
-alias pfpathl='print -l $fpath | xargs -i fd --base-directory {} -a -t f -t l'
+alias pfpathl='print -l $fpath | gxargs -i fd --base-directory {} -a -t f -t l'
 alias ss='rm -f $XDG_CONFIG_HOME/zsh/.zcompdump; exec zsh -l'
 alias hr='fc -RI' # read hist from file
 alias hl='fc -li -20' # local shell hist
@@ -59,8 +52,6 @@ alias sshp='ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias ssh-cp-id-p='ssh-copy-id -o PreferredAuthentications=password -o PubkeyAuthentication=no'
 alias u='aunpack'
 alias info='info --vi-keys'
-alias cat=bat
-compdef cat=bat
 alias wget="wget --hsts-file /dev/null" # disable history
 # TODO: make a function to handle .bak files
 function swap() {
