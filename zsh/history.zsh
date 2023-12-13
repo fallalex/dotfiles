@@ -45,3 +45,5 @@ function zshaddhistory() {
     return 0
 }
 
+eval "$(atuin init zsh --disable-up-arrow)"
+

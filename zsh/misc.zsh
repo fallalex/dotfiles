@@ -35,4 +35,4 @@ export SSH_AUTH_SOCK
 
 # GPG agent - load key into cache if needed
 # https://demu.red/blog/2016/06/how-to-check-if-your-gpg-key-is-in-cache/
-$(gpg-connect-agent 'keyinfo --list' /bye | rg -F " 1 " -c >/dev/null) || pass otp.yaml 2>&1 > /dev/null
+#$(gpg-connect-agent 'keyinfo --list' /bye | rg -F " 1 " -c >/dev/null) || pass otp.yaml 2>&1 > /dev/null

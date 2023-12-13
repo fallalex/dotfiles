@@ -1,4 +1,4 @@
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=$(which nvim)
 export PAGER="/usr/local/bin/less"
 export MANPAGER="$EDITOR +Man!"
 export MANWIDTH=999

@@ -42,7 +42,7 @@ fun! s:EightyLine()
     if !exists('w:eightyline')
         let w:eightyline = 1
         :set colorcolumn=80
-        :highlight ColorColumn ctermbg=red
+        :highlight ColorColumn ctermbg=grey
     else
         unl w:eightyline
         :set colorcolumn=80

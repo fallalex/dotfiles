@@ -7,6 +7,7 @@ path+=("$DOTS_DIR/bin")
 path+=("$HOME/.cargo/bin")
 path+=("/usr/local/sbin")
 path+=("/usr/local/bin")
+path+=("/opt/homebrew/bin")
 path+=("/usr/local/opt/coreutils/libexec/gnubin")
 path+=("/usr/local/opt/findutils/libexec/gnubin")
 path+=("/usr/local/opt/gnu-tar/libexec/gnubin")
@@ -18,7 +19,7 @@ path+=("$XDG_DATA_HOME/pyenv/shims")
 
 while IFS=$'\n' read -r line; do
     path+=($line)
-done <<< $(/usr/local/bin/fd -t f --base-directory /etc/paths.d -x /bin/cat)
+done <<< $(fd -t f --base-directory /etc/paths.d -x /bin/cat)
 
 export PATH
 
@@ -27,11 +28,11 @@ typeset -U MANPATH
 
 while IFS=$'\n' read -r line; do
     manpath+=($line)
-done <<< $(/bin/cat /etc/manpaths)
+done <<< $(cat /etc/manpaths)
 
 while IFS=$'\n' read -r line; do
     manpath+=($line)
-done <<< $(/usr/local/bin/fd -t f --base-directory /etc/manpaths.d -x /bin/cat)
+done <<< $(fd -t f --base-directory /etc/manpaths.d -x /bin/cat)
 export MANPATH
 
 export FPATH=""
