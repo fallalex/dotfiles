@@ -16,21 +16,12 @@ $hg_branch\
 $env_var\
 $custom\
 $sudo\
+$python\
 $cmd_duration\
 $line_break\
 $status\
 $character"""
 
 # $java\
-# $python\
 # $ruby\
 
-[java]
-symbol = "J"
-format = "| [$symbol ($version)]($style) "
-[python]
-symbol = "P"
-format = "| [$symbol $pyenv_prefix($version) ($virtualenv)]($style) "
-[ruby]
-symbol = "R"
-format = "| [$symbol ($version)]($style) "
