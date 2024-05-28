@@ -1,37 +1,37 @@
 # .bash_profile used for remote systems
 # setup/managed by Alex Fall
 
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
 # PATH=$PATH:/usr/local/sbin
 
 ## HISTORY Setup
-export HISTCONTROL=ignorespace:erasedups # duplicate entries avoided
+export HISTCONTROL=ignorespace:erasedups
 export HISTSIZE=5000
 export HISTFILESIZE=
 export HISTFILE=~/.bash_eternal_history
-export HISTTIMEFORMAT='%F %T '           # add datetime to history
-export HISTCONTROL=ignoreboth
-HISTIGNORE='ls *:ll *:lg *:lt *:l. *:history *'
-shopt -s histappend                      # append to history, don't overwrite it
-PROMPT_COMMAND="history -a; settitle; setprompt"
+export HISTTIMEFORMAT='%F %T '
+shopt -s histappend
+export PROMPT_COMMAND="history -a"
 
 # export CLICOLOR=1
 # export LSCOLORS=GxFxCxDxBxegedabagaced
 export PS1='\[`[ $? = 0 ] && X=2 || X=1; tput setaf $X`\]\D{%F %T}\[`tput sgr0`\] \u@\h:$PWD\n> '
 
 ## User Editor
+set -o vi
 if command -v vim &> /dev/null; then
     EDITOR=`command -v vim`
 elif command -v vi &> /dev/null; then
     EDITOR=`command -v vi`
 fi
 
-set -o vi
-
 # general
 alias dt='date "+%F %T"'
 alias dat='date "+%Y%m%d"'
 alias c='clear'
-# you can pass -- as an argument, and all subsequent arguments are treated as operands and not options, even if they begin with a dash
 alias -- -='cd -'
 alias ~="cd ~"
 alias ..='cd ../'
@@ -39,11 +39,7 @@ alias ls='ls -h --time-style=long-iso --color=auto'
 alias ll='ls -Fl'
 alias lg='ll --group-directories-first'
 alias lt='ll -tr --time-style=full-iso'
-alias l.='ll -d .*'
 alias files='find -f $(pwd)'
 alias echopath='echo -e ${PATH//:/\\n}'
 alias loadhist='history -c; history -r'
 alias px='compgen -A function -abck'
-
-touch ~/.bash_local_profile
-source ~/.bash_local_profile

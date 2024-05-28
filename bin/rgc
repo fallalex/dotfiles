@@ -1,0 +1,5 @@
+# https://github.com/BurntSushi/ripgrep/issues/1352
+# This lets you see 50 characters of context for a search if the line length wraps to fill the screen
+Q="$1"
+shift
+rg --pretty --colors match:none -o ".{0,50}$Q.{0,50}" "$@" | rg --passthru "$Q"
