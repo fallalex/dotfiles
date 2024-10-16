@@ -31,6 +31,7 @@ set hidden
 set autoread
 set noswapfile
 set writebackup
+set listchars=tab:→\ ,eol:↲,nbsp:␣,trail:~,extends:⟩,precedes:⟨,space:•
 
 " Make VIM remember position in file after reopen
 if has("autocmd")
@@ -60,6 +61,7 @@ nnoremap <silent> <leader>sy
              \ else <BAR>
              \    syntax enable <BAR>
              \ endif<CR>
+nnoremap <leader>sw :set list!<CR>
 
 autocmd BufEnter,BufRead,BufNewFile *.md set filetype=markdown
 autocmd BufReadPost *.justfile set syntax=just
