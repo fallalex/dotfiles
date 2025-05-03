@@ -7,7 +7,7 @@ endif
 autocmd vimenter * ++nested colorscheme gruvbox
 
 " change from the default '\'
-let mapleader = ","
+"let mapleader = " "
 
 " more usable help
 autocmd filetype help nnoremap <buffer><cr> <c-]>
