@@ -144,3 +144,4 @@ function interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipco
 function localip() { ipconfig getifaddr $(route -n get default | awk '/interface:/ {print $2}'); }
 alias wan='ssh router /home/fallalex/toggle-wan'
 
+alias ollamals='ollama list | sed "1d" | sort -V | hck -f1'
