@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "Current Gemini session: $(jq -r .active ~/.gemini/google_accounts.json)"
+# Lists all saved gemini-cli sessions.
+echo "Available Gemini sessions:"
+
+# Find all files starting with oauth_creds.json., then strip the prefix to show only the session name.
+sessions=$(ls -1 ~/.gemini/oauth_creds.json.* 2>/dev/null | sed 's|.*/oauth_creds.json.||')
+if [ -z "$sessions" ]; then
+  echo "  No saved sessions found."
+else
+  echo "$sessions" | while read -r session; do
+    echo "  - $session"
+  done
+fi

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Saves the current gemini-cli session with a given name (postfix).
+if [ -z "$1" ]; then
+  echo "Error: No session name provided."
+  echo "Usage: gemini-save <name>"
+  exit
+fi
+echo "Saving current session as '$1'..."
+cp ~/.gemini/oauth_creds.json ~/.gemini/oauth_creds.json.$1
+cp ~/.gemini/google_accounts.json ~/.gemini/google_accounts.json.$1
+echo "Successfully saved session '$1'."

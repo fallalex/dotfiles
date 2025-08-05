@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Remove files of the active gemini-cli session.
+echo "Clearing active session..."
+rm ~/.gemini/oauth_creds.json
+rm ~/.gemini/google_accounts.json
+echo "Successfully clear active session."

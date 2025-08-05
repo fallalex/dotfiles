@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# Switches to a saved gemini-cli session by its name.
+if [ -z "$1" ]; then
+  echo "Error: No session name provided."
+  echo "Usage: gemini-switch <name>"
+  gemini-list
+  exit
+fi
+
+creds_file=~/.gemini/oauth_creds.json.$1
+accounts_file=~/.gemini/google_accounts.json.$1
+
+if [ ! -f "$creds_file" ] || [ ! -f "$accounts_file" ]; then
+  echo "Error: Session '$name' not found."
+  gemini-list
+  exit
+fi
+
+echo "Switching to session '$1'..."
+cp "$creds_file" ~/.gemini/oauth_creds.json
+cp "$accounts_file" ~/.gemini/google_accounts.json
+echo "Successfully switched to session '$1'."
