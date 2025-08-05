@@ -22,7 +22,7 @@ link tmux/tmux.conf $XDG_CONFIG_HOME/tmux/tmux.conf
 link git/gitconfig $XDG_CONFIG_HOME/git/config
 link vim/init.vim $XDG_CONFIG_HOME/nvim/vimrc.vim
 link vim/init.lua $XDG_CONFIG_HOME/nvim/init.lua
-link alacritty.yml $XDG_CONFIG_HOME/alacritty/alacritty.yml
+link alacritty.toml $XDG_CONFIG_HOME/alacritty/alacritty.toml
 link starship.toml $XDG_CONFIG_HOME/starship.toml
 link cargo.toml $HOME/.cargo/config.toml
 

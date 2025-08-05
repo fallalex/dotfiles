@@ -1,0 +1,107 @@
+#!/bin/bash
+
+# @description Processes a QuickTime video (.mov) into a compressed MP4.
+#
+# This function converts a .mov file into a smaller MP4 file suitable for
+# sharing or web use. It removes the audio track, reduces the framerate,
+# scales the video dimensions, and uses the efficient libx264 codec for
+# encoding.
+#
+# @arg $1 string The desired name for the output MP4 file (without the .mp4 extension).
+# @arg $2 string (Optional) The path to the input .mov file.
+#              If this argument is not provided, the function will automatically find
+#              and use the most recent .mov file from the '$HOME/Pictures/' directory.
+#
+# @example
+#   # Process the newest .mov in ~/Pictures and save as my-processed-video.mp4 in ~
+#   process-recording "my-processed-video"
+#
+# @example
+#   # Process a specific file and save as another-video.mp4 in ~
+#   process-recording "another-video" "/path/to/my/recording.mov"
+#
+# @stdout Logs progress, chosen files, and ffmpeg output.
+# @stderr Prints error messages.
+# @return Returns 1 on error (e.g., file not found, missing arguments), 0 on success.
+
+process-recording() {
+    # --- 1. Argument Validation and Variable Assignment ---
+    
+    # Check if the required output filename was provided.
+    if [[ -z "$1" ]]; then
+        echo "Error: Output filename is a required argument." >&2
+        echo "Usage: process-recording <output_filename> [input_recording.mov]" >&2
+        return 1
+    fi
+
+    # Use local variables to prevent polluting the global shell environment.
+    local output_filename="$1"
+    local input_file="$2" # Will be empty if the second argument isn't provided.
+    local output_path="$HOME/${output_filename}.mp4"
+
+    # --- 2. Determine Input File ---
+
+    # If an input file was not passed as an argument, find the latest one.
+    if [[ -z "$input_file" ]]; then
+        echo "Input file not specified. Searching for the latest recording in ~/Pictures/..."
+
+        # This command robustly finds the most recent .mov file, even with spaces in names.
+        # -printf '%T@ %p\n': Prints modification time and path.
+        # sort -nr: Sorts numerically in reverse (newest first).
+        # head -n1: Takes the first line from the sorted list.
+        # cut: Extracts just the path.
+        input_file=$(gfind "$HOME/Pictures" -maxdepth 1 -type f -name "*.mov" -printf '%T@ %p\n' 2>/dev/null | sort -nr | head -n1 | cut -d' ' -f2-)
+
+        # Check if the find command actually found a file.
+        if [[ -z "$input_file" ]]; then
+            echo "Error: No input file provided and no .mov files were found in '$HOME/Pictures/'." >&2
+            return 1
+        fi
+        
+        echo "Found latest recording: $input_file"
+    fi
+
+    # --- 3. Input File Validation ---
+
+    # Verify that the final input file path points to an actual file.
+    if [[ ! -f "$input_file" ]]; then
+        echo "Error: The specified input file '$input_file' does not exist or is not a regular file." >&2
+        return 1
+    fi
+
+    # Verify that the input file has a .mov extension.
+    if [[ ! "$input_file" =~ \.mov$ ]]; then
+        echo "Error: The input file must have a .mov extension. Found: '$input_file'" >&2
+        return 1
+    fi
+
+    # --- 4. Execute FFmpeg Command ---
+
+    echo "---------------------------------"
+    echo "Input:  $input_file"
+    echo "Output: $output_path"
+    echo "---------------------------------"
+
+    # Execute the conversion.
+    # The command is broken onto multiple lines with backslashes for readability.
+    ffmpeg \
+        -y \
+        -i "$input_file" \
+        -an \
+        -r 15 \
+        -vf "scale=854:-2" \
+        -c:v libx264 \
+        -crf 28 \
+        -preset slower \
+        "$output_path"
+
+    # Check ffmpeg's exit code to determine success.
+    if [[ $? -eq 0 ]]; then
+        echo "Successfully processed video. Output saved to '$output_path'."
+    else
+        echo "Error: ffmpeg command failed." >&2
+        return 1
+    fi
+}
+
+process-recording "$@"

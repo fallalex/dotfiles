@@ -40,3 +40,5 @@ FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 FPATH=$(brew --prefix)/share/zsh/functions:$FPATH
 FPATH=$HOME/bin/completion:$FPATH
 export FPATH
+
+eval "$(/opt/homebrew/bin/brew shellenv)"

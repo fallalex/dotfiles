@@ -14,8 +14,8 @@ eval "$(zoxide init --cmd j zsh)"
 # https://github.com/jenv/jenv/issues/148
 eval "$(pyenv init --no-rehash -)"
 eval "$(pyenv virtualenv-init -)"
-eval "$(rbenv init --no-rehash -)"
-eval "$(jenv init --no-rehash -)"
+# eval "$(rbenv init --no-rehash -)"
+# eval "$(jenv init --no-rehash -)"
 
 (pyenv rehash & rbenv rehash & jenv rehash &) 2> /dev/null
 
