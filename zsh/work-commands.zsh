@@ -1,62 +1,3 @@
-alias vmftpd='lftp --norc -u downloadv,`den -np vmftp-downloadv` ftpsite.vmware.com'
-alias vmftpi='lftp --norc -u inboundv,`den -np vmftp-inboundv` ftpsite.vmware.com'
-alias vropscli='$HOME/.pyenv/versions/vropscli/bin/python3 $HOME/repos/github.com/vropscli/vropscli.py --user admin --password `den -pn vrops-box` --host '
-alias fed='sshpass -p `den -np vm-federal` ssh fed'
-
-function gss() {
-    if [ $# -eq 0 ]; then
-        sshpass -p `den -np intranet-user` ssh gss
-    else
-        sshpass -p `den -np intranet-user` ssh gss-prd-csp-$1
-    fi
-}
-
-alias proj='fzfcd "" "$HOME/repos/gitlab.eng.vmware.com"'
-alias glreplica='fzfcd "" "$TVS_ACTIVE_PROJECTS_REPLICA"'
-alias glclone='gclonecd $(glval $TVS_PROJECTS ssh_url_to_repo | fzf)'
-alias glproject='glval $TVS_PROJECTS path | rg -q "^$(reponame)\$"'
-alias glopen='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open {}'
-alias issues='glval $TVS_PROJECTS web_url | fzf -m --query=$(reponame) | gxargs -r -i open "{}/-/issues"'
-function glsearch() { glab api "groups/$GITLAB_GROUP/search?scope=projects&search=$@" > $TVS_PROJECT_SEARCH}
-
-alias vropen='open https://$(rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -r -u | fzf)'
-
-# TODO: write something to guess web url from remote url
-
-# Data Providers
-# TODO: make this a subcommand https://stackoverflow.com/a/34748847/3843174
-alias ex='exuno'
-alias check='./gradlew clean && exuno check'
-alias dp='fzfcd ".*-dp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias dpjar='fd -ua -tf -e jar -p build/jar'
-alias dpjarcp='dpjar | sd "\n" "" | pbcopy'
-alias dplog='dplog=$COLLECTIONS_DIR/$(reponame)/$(fd -tf -e log --base-directory "$COLLECTIONS_DIR/$(reponame)" | sort -rn | fzf -0 -1); if [ -f $dplog ]; then $EDITOR "$dplog"; fi'
-
-# Management Packs
-alias vr='vrops'
-alias nondis='buildlib=$(fd -uupt d "/build/.*\.eudp/lib"); fd -p -t f -t l "non.*distributable.*/.*\.jar" -x cp {} $buildlib'
-alias mp='fzfcd ".*-mp$" "$HOME/repos/gitlab.eng.vmware.com"'
-alias pak='fd -u -tf -e pak'
-alias pakcp='pak | fzf -0 -1 | gxargs -r greadlink -f | sd "\n" "" | pbcopy'
-alias deplog='vrops deploy-logs last "$@"'
-
-function vropsboxes() { rg "(^vr\d+.*\.vmware\.com) " -Nor '$1' "$HOME/.ssh/known_hosts" | sort -u }
-alias vropen='vropsboxes | fzf -m | gxargs -r -i open https://{}'
-alias vrssh='ssh $(vropsboxes | fzf)'
-
-function deploy() {
-    pakfile=$(pak | fzf -0 -1 | gxargs -r greadlink -f)
-    # TODO: exit if no pakfile
-    vropsboxes | fzf -m  | gxargs -i vrops deploy -H {} -P "$pakfile" $@
-}
-
-function describe() {
-    for pak in $(pak | fzf -m -0 -1); do
-        # TODO: could save this to $TVS_PROJECT_DATA
-        vrops dump-describe $pak > "describe-$(basename $pak .pak).xml"
-    done
-}
-
 function bp-build() {
     local original_dir=$PWD
     # TODO make a work var for the repo path
@@ -99,32 +40,32 @@ function bdot-installer() {
 }
 
 function ramdisk-create() {
-# TODO: check if exists
-# create and mount tmpfs
-# make 1000MB exfat ram disk from 512 bytes sectors
-MYDEV=$(sudo hdiutil attach -nomount ram://$((1000*1000000/512)) | awk '{$1=$1};1')
-sudo diskutil erasevolume HFS+ "RAMDISK" $MYDEV
-sudo diskutil enableOwnership $MYDEV
-MYMOUNT=$(df | grep $MYDEV | grep -o '/Volumes/.*$')
-sudo chown -R $USER:$(id -g) "$MYMOUNT"
-sudo chmod -R 777 "$MYMOUNT"
-
-echo
-echo $MYMOUNT
-echo $MYDEV
+    # TODO: check if exists
+    # create and mount tmpfs
+    # make 1000MB exfat ram disk from 512 bytes sectors
+    MYDEV=$(sudo hdiutil attach -nomount ram://$((1000*1000000/512)) | awk '{$1=$1};1')
+    sudo diskutil erasevolume HFS+ "RAMDISK" $MYDEV
+    sudo diskutil enableOwnership $MYDEV
+    MYMOUNT=$(df | grep $MYDEV | grep -o '/Volumes/.*$')
+    sudo chown -R $USER:$(id -g) "$MYMOUNT"
+    sudo chmod -R 777 "$MYMOUNT"
+    
+    echo
+    echo $MYMOUNT
+    echo $MYDEV
 }
     
 
 funciton ramdisk-destroy() {
-MYDEV=$(df | grep '/Volumes/RAMDISK$' | grep -o '^/dev/disk\d')
-
-if diskutil info $MYDEV | grep -q "RAMDISK"; then
-    echo "$MYDEV is named RAMDISK, proceeding"
-else
-    echo "$MYDEV is not a RAMDISK"
-    exit 1
-fi
-
-diskutil unmountDisk force $MYDEV
-diskutil eject $MYDEV
+    MYDEV=$(df | grep '/Volumes/RAMDISK$' | grep -o '^/dev/disk\d')
+    
+    if diskutil info $MYDEV | grep -q "RAMDISK"; then
+        echo "$MYDEV is named RAMDISK, proceeding"
+    else
+        echo "$MYDEV is not a RAMDISK"
+        exit 1
+    fi
+    
+    diskutil unmountDisk force $MYDEV
+    diskutil eject $MYDEV
 }
