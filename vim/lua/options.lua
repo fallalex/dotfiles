@@ -62,4 +62,72 @@ vim.opt.cursorline = true
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
+vim.opt.hlsearch = true
+vim.opt.spell = false
+
+vim.opt.swapfile = false
+vim.opt.writebackup = true
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undo"
+vim.opt.undofile = true
+
+vim.opt.listchars = {
+  tab = "→ ",
+  eol = "↲",
+  nbsp = "␣",
+  trail = "~",
+  extends = "⟩",
+  precedes = "⟨",
+  space = "•",
+}
+
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.relativenumber = true
+vim.opt.background = "dark"
+vim.opt.nrformats:append("alpha")
+
+vim.g.rzipPlugin_extra_ext = "*.pak"
+vim.g.vimwiki_global_ext = 0
+
+local wiki_1 = {}
+wiki_1.path = "~/vimwiki/"
+wiki_1.automatic_nested_syntaxes = 1
+wiki_1.ext = ".wik"
+wiki_1.diary_rel_path = "journal/"
+wiki_1.diary_index = "journal"
+wiki_1.diary_header = "Journal"
+wiki_1.diary_sort = "desc"
+vim.g.vimwiki_list = { wiki_1 }
+
+vim.g.go_def_mode = "gopls"
+vim.g.go_info_mode = "gopls"
+vim.g.go_code_completion_enabled = 1
+
+if os.getenv("TMUX") then
+  vim.g.fzf_layout = { tmux = "-p90%,60%" }
+else
+  vim.g.fzf_layout = { window = { width = 0.9, height = 0.6 } }
+end
+
+vim.g.airline_theme = "gruvbox"
+vim.g.airline_gruvbox_bg = "dark"
+vim.g.VimuxUseNearest = 0
+vim.g.task_default_prompt = { "due", "scheduled", "tag", "description" }
+vim.g.indent_guides_enable_on_vim_startup = 1
+
+vim.g.tmuxline_powerline_separators = 0
+vim.g.tmuxline_preset = {
+  a = "#{=6:session_name}",
+  b = "#P:#{=6:pane_current_command}",
+  c = " ",
+  win = "#I:#{=6:window_name}",
+  cwin = "#I:#{=6:window_name}#F",
+  x = "%b-%a",
+  y = "%m-%d",
+  z = "%H:%M",
+}
+
 -- vim: ts=2 sts=2 sw=2 et

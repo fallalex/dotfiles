@@ -9,12 +9,12 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- for people to discover. Otherwise, you normally need to press <C-><C-n>, which
 -- is not what someone will guess without a bit more experience.
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+-- or just use <C-><C-n> to exit terminal mode
+vim.keymap.set('t', '<Esc><Esc>', '<C-><C-n>', { desc = 'Exit terminal mode' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -44,5 +44,29 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     vim.highlight.on_yank()
   end,
 })
+
+vim.keymap.set("n", "<leader>th", ":tab help<CR>")
+vim.keymap.set("n", "<leader>ie", ":tabe $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>is", ":source $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>sh", function() EightyLine() end)
+vim.keymap.set("n", "<leader>ss", ":set spell!<CR>")
+vim.keymap.set("n", "<leader>sy", function()
+  if vim.fn.exists("syntax_on") == 1 then
+    vim.cmd("syntax off")
+  else
+    vim.cmd("syntax enable")
+  end
+end)
+vim.keymap.set("n", "<leader>sw", ":set list!<CR>")
+vim.keymap.set("n", "<leader>ee", ":call TrimTail()<CR>")
+vim.keymap.set("n", "<leader>et", ":retab<CR>")
+vim.keymap.set("n", "<leader>vl", ":set number! <bar> set relativenumber!<CR>")
+vim.keymap.set("n", "<leader>vw", ":set wrap!<CR>")
+vim.keymap.set("n", "Q", ":q!<CR>")
+vim.keymap.set("n", "<leader>rm", ":call delete(expand('%')) <bar> bdelete! <bar> q!<CR>")
+vim.keymap.set("n", "<leader>l", ":Lines<CR>")
+vim.keymap.set("n", "<leader>`", ":Marks<CR>")
+vim.keymap.set("n", "Y", "y$")
+vim.keymap.set("x", "gr", "p", { desc = "Replace with register" })
 
 -- vim: ts=2 sts=2 sw=2 et
