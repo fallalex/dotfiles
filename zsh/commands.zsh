@@ -62,7 +62,6 @@ function swap() {
 }
 function mk() { mkdir -p "$1" && cd "$1"; }
 alias cdr='cd -P .' #reload current directory
-alias tmspeed='sudo sysctl debug.lowpri_throttle_enabled=$((1 - $(sysctl -n debug.lowpri_throttle_enabled)))'
 
 # Dev
 alias g='git'
@@ -81,32 +80,8 @@ alias c='cargo'
 compdef c=cargo
 
 alias py='python'
-alias pv='pyenv'
-alias pvg='pyenv shell $(pyenv global)'
-alias pvl='pyenv shell $(pyenv local)'
 alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 
-alias jv='jenv'
-alias jvg='jenv shell $(jenv global)'
-alias jvl='jenv shell $(jenv local)'
-alias fern='/Users/afall/.jenv/versions/17.0/bin/java -jar /Users/afall/repos/github.com/fernflower/build/libs/fernflower.jar'
-
-function jvv() {
-    echo "Shell: $(jenv shell 2>/dev/null)"
-    echo "Local: $(jenv local 2>/dev/null)"
-    echo "Global: $(jenv global)"
-    exa --no-permissions --no-filesize --no-user --no-time -ld $(dirname $(jenv prefix))/*
-}
-
-alias jhomes='/usr/libexec/java_home -V'
-
-alias rv='rbenv'
-alias rvg='rbenv shell $(rbenv global)'
-alias rvl='rbenv shell $(rbenv local)'
-
-alias gr='./gradlew'
-alias depends='./gradlew dependencies > dependencies.txt'
-alias idea='open -na "IntelliJ IDEA.app" --args "$@"'
 # alias ppjson='python -m json.tool' # use 'jq .'
 function todo() {
     fd -a todo | gxargs -i sh -c 'echo {}; bat -p {}'
@@ -136,12 +111,7 @@ alias ao='aoc-wrapper'
 alias rp='rust-parallel'
 
 # System
-alias zzn='sudo pmset -a sleep 0; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 0; sudo pmset -a disablesleep 1;'
-alias zzy='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 1; sudo pmset -a tcpkeepalive 1; sudo pmset -a hibernatemode 3; sudo pmset -a disablesleep 0;'
-alias zzz='sudo pmset -a sleep 11; sudo pmset -a ttyskeepawake 0; sudo pmset -a tcpkeepalive 0; sudo pmset -a hibernatemode 25; sudo pmset -a disablesleep 0;'
-alias night='sudo pmset sleepnow'
 function interfaceips() { ifconfig -lu | tr -s ' ' \\n | /usr/bin/xargs -L1 ipconfig getifaddr; }
 function localip() { ipconfig getifaddr $(route -n get default | awk '/interface:/ {print $2}'); }
-alias wan='ssh router /home/fallalex/toggle-wan'
 
 alias ollamals='ollama list | sed "1d" | sort -V | hck -f1'

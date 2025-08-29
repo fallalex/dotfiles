@@ -10,14 +10,8 @@
 # esac
 
 eval "$(zoxide init --cmd j zsh)"
-
-# https://github.com/jenv/jenv/issues/148
-eval "$(pyenv init --no-rehash -)"
-eval "$(pyenv virtualenv-init -)"
-# eval "$(rbenv init --no-rehash -)"
-# eval "$(jenv init --no-rehash -)"
-
-(pyenv rehash & rbenv rehash & jenv rehash &) 2> /dev/null
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
 # SSH agent
 # https://gist.github.com/vancluever/de1c3985c8f9e2a3c4bdc42a057e075e

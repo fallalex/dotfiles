@@ -15,7 +15,7 @@ path+=("/usr/bin")
 path+=("/bin")
 path+=("/usr/sbin")
 path+=("/sbin")
-path+=("$XDG_DATA_HOME/pyenv/shims")
+path+=("/Users/fallalex/.local/bin")
 
 while IFS=$'\n' read -r line; do
     path+=($line)

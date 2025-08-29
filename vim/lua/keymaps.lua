@@ -59,7 +59,7 @@ vim.keymap.set("n", "<leader>zy", function()
 		vim.cmd("syntax enable")
 	end
 end)
-vim.keymap.set("n", "<leader>sw", ":set list!<CR>")
+vim.keymap.set("n", "<leader>vs", ":set list!<CR>")
 vim.keymap.set("n", "<leader>ee", ":call TrimTail()<CR>")
 vim.keymap.set("n", "<leader>et", ":retab<CR>")
 vim.keymap.set("n", "<leader>vl", ":set number! <bar> set relativenumber!<CR>")
