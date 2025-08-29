@@ -79,6 +79,9 @@ alias c='cargo'
 # rustup completions zsh cargo > ~/bin/completion/_cargo
 compdef c=cargo
 
+alias k='kubectl'
+compdef k=kubectl
+
 alias py='python'
 alias pyhist="cat "$PTPYTHON_HISTORY" | sed 's/^\+//' | sed 's/^\#.*//' | tr -s '\n'"
 
