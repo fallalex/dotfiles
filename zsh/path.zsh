@@ -16,6 +16,9 @@ path+=("/bin")
 path+=("/usr/sbin")
 path+=("/sbin")
 path+=("/Users/fallalex/.local/bin")
+path+=("/Applications/Visual Studio Code.app/Contents/Resources/app/bin")
+path+=("${GOPATH}/bin")
+path+=("/Applications/VMware Fusion.app/Contents/Library")
 
 while IFS=$'\n' read -r line; do
     path+=($line)

@@ -29,6 +29,40 @@ function bpopln() {
     rg "/v(\d+\.\d+\.\d+)/(.*)$" -NoIr 'http://storage.googleapis.com/bindplane-op-releases/bindplane/$1/$2'
 }
 
+function bpopen() {
+    # Define local variables to avoid affecting your shell environment
+    local selected_file
+    local clean_path
+    local base_url
+    local final_url
+
+    # 1. Find a markdown file and let the user select one with fzf
+    # The result is stored in the 'selected_file' variable.
+    selected_file=$(fd -e md | fzf --preview 'CLICOLOR_FORCE=1 COLORTERM=truecolor glow --style=dark {}')
+
+    # 2. If no file was selected (e.g., user pressed Esc), exit the function
+    if [[ -z "$selected_file" ]]; then
+        echo "No file selected."
+        return 1
+    fi
+
+    # 3. Clean the file path to create the part that comes after the domain
+    clean_path=$(echo "$selected_file" | sed -e 's|^docs/||' -e 's|/README.md$||' -e 's|\.md$||')
+
+    # 4. Construct the complete URL
+    base_url="https://docs.bindplane.com"
+    final_url="${base_url}/${clean_path}"
+
+    # 5. Copy the URL to the clipboard (without a newline)
+    gecho -n "$final_url" | pbcopy
+
+    # 6. Open the URL in the default browser
+    open "$final_url"
+
+    # 7. Print the URL to the terminal as a confirmation
+    echo "Copied and opened: ${final_url}"
+}
+
 alias bdot-status='sudo launchctl print system/com.observiq.collector'
 alias bdot-start='sudo launchctl load /Library/LaunchDaemons/com.observiq.collector.plist'
 alias bdot-stop='sudo launchctl unload /Library/LaunchDaemons/com.observiq.collector.plist'

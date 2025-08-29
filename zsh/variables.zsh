@@ -16,3 +16,4 @@ export MYCHIVE="/Users/afall/Library/CloudStorage/GoogleDrive-alex@fallalex.com/
 
 export LESSHISTFILE=/dev/null
 
+export GOPATH=~/go
